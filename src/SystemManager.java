@@ -3,11 +3,8 @@ import Services.Service;
 import Services.ServiceType;
 import Students.Student;
 import Students.StudentType;
-import dataStructures.FilterIterator;
-import dataStructures.Iterator;
-import dataStructures.TwoWayIterator;
-
-import java.io.IOException;
+import dataStructures_1stPhase.Iterator;
+import dataStructures_1stPhase.TwoWayIterator;
 
 /**
  * Main interface for the 'Home Away From Home' system.

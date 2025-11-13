@@ -1,0 +1,261 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam packageStyle rectangle
+hide empty members
+
+package "dataStructures (Fase 2)" {
+    interface Iterator<E>
+    interface TwoWayIterator<E> extends Iterator
+    interface List<E>
+    interface TwoWayList<E> extends List
+    interface SortedList<E>
+    interface Map<K,V>
+    interface SortedMap<K,V> extends Map
+    interface Comparator<E>
+
+}
+
+package "Main" {
+    class Main {
+        + static main(String[] args)
+    }
+}
+
+package "HomeAway" {
+    interface SystemManager {
+        + createArea(String, long, long, long, long)
+        + loadArea(String)
+        + saveArea()
+        + addService(ServiceType, String, long, long, int, int)
+        + addStudent(StudentType, String, String, String)
+        + removeStudent(String)
+        + goToLocation(String, String)
+        + moveStudentHome(String, String)
+        + addReviewToService(String, int, String)
+        + listStudents(String): Iterator<Student>
+        + listServices(): Iterator<Service>
+        + listUsersInService(String, String): TwoWayIterator<Student>
+        + getRankedServices(): Iterator<Service>
+        + listServicesWithTag(String): Iterator<Service>
+        + getRankedServicesByTypeAndStars(ServiceType, int, String): Iterator<Service>
+        + findRelevantServiceForStudent(String, ServiceType): Service
+        + ...
+    }
+
+    class SystemManagerImpl implements SystemManager {
+        - currentArea: Area
+    }
+
+    interface Area {
+        + getName(): String
+        + addService(Service)
+        + getService(String): Service
+        + addStudent(Student)
+        + getStudent(String): Student
+        + removeStudent(String)
+        + listAllStudents(): Iterator<Student>
+        + listStudentsByCountry(String): Iterator<Student>
+        + getServices(): Iterator<Service>
+        + getRankedServices(): Iterator<Service>
+        + updateRankingByStars(Service)
+    }
+
+    class AreaImpl implements Area {
+        - name: String
+        - topLat: long
+        - leftLong: long
+        - bottomLat: long
+        - rightLong: long
+        - services: ServicesCollectionImpl
+        - students: StudentsCollectionImpl
+    }
+
+    Main ..> SystemManager : uses
+    SystemManagerImpl "1" *--> "0..1" Area : manages >
+    AreaImpl "1" *--> "1" ServicesCollectionImpl : holds
+    AreaImpl "1" *--> "1" StudentsCollectionImpl : holds
+}
+
+package "Students" {
+    interface StudentCollection {
+        + addStudent(Student)
+        + removeStudent(String)
+        + findByName(String): Student
+        + listAllStudents(): Iterator<Student>
+        + listStudentsByCountry(String): Iterator<Student>
+    }
+
+    class StudentsCollectionImpl implements StudentCollection {
+        - studentsByName: SortedMap<String, Student>
+        - studentsByInsertion: TwoWayList<Student>
+        - countryIndex: Map<String, List<Student>>
+    }
+
+    interface Student {
+        + getName(): String
+        + getCountry(): String
+        + getHome(): Lodging
+        + getCurrent(): Service
+        + getType(): StudentType
+        + goToLocation(Service)
+        + moveHome(Lodging)
+        + getVisitedIterator(): Iterator<Service>
+        + findMostRelevant(Iterator<Service>): Service
+    }
+
+    abstract class StudentAbs implements Student {
+        # name: String
+        # country: String
+        # home: Lodging
+        # current: Service
+        # visitedServices: TwoWayList<Service>
+    }
+
+    interface Bookish extends Student
+    interface Outgoing extends Student
+    interface Thrifty extends Student
+
+    class BookishImpl extends StudentAbs implements Bookish
+    class OutgoingImpl extends StudentAbs implements Outgoing
+    class ThriftyImpl extends StudentAbs implements Thrifty {
+        - cheapestEating: Eating
+        - cheapestLodging: Lodging
+    }
+
+    enum StudentType {
+        BOOKISH
+        OUTGOING
+        THRIFTY
+    }
+
+    class StudentNameComparator implements Comparator<Student> {
+        + compare(Student s1, Student s2): int
+    }
+
+    StudentsCollectionImpl ..> StudentNameComparator : uses
+    StudentsCollectionImpl ..> "dataStructures.SortedMap"
+    StudentsCollectionImpl ..> "dataStructures.TwoWayList"
+    StudentsCollectionImpl ..> "dataStructures.Map"
+    StudentsCollectionImpl ..> "dataStructures.List"
+
+    StudentAbs ..> "dataStructures.TwoWayList"
+    StudentAbs ..> StudentType
+    StudentCollection "1" *--> "*" Student : aggregates
+}
+
+package "Services" {
+    interface ServiceCollection {
+        + add(Service)
+        + findByName(String): Service
+        + updateRankingByStars(Service)
+        + listServices(): Iterator<Service>
+        + getServicesByStars(): Iterator<Service>
+    }
+
+    class ServicesCollectionImpl implements ServiceCollection {
+        - servicesMap: Map<String, Service>
+        - servicesByInsertion: TwoWayList<Service>
+        - rankingByStars: SortedList<Service>
+        - tagIndex: Map<String, List<Service>>
+    }
+
+    interface Service {
+        + getName(): String
+        + getLat(): long
+        + getLon(): long
+        + getPrice(): int
+        + getAvgStar(): int
+        + getType(): ServiceType
+        + addReview(int, String)
+        + hasEvaluationWithTag(String): boolean
+    }
+
+    abstract class ServiceAbs implements Service {
+        # name: String
+        # lat: long
+        # lon: long
+        # price: int
+        # avgStar: double
+        # type: ServiceType
+        # evaluations: TwoWayList<Evaluation>
+    }
+
+    interface Eating extends Service {
+        + hasCapacity(): boolean
+        + addOccupant(Student)
+        + removeOccupant(Student)
+        + getOccupantsIterator(): TwoWayIterator<Student>
+    }
+    interface Lodging extends Service {
+        + isFull(): boolean
+        + addOccupant(Student)
+        + removeOccupant(Student)
+        + getOccupantsIterator(): TwoWayIterator<Student>
+    }
+    interface Leisure extends Service {
+        + checkDiscountedPrice(): int
+    }
+
+    class EatingImpl extends ServiceAbs implements Eating {
+        - seats: int
+        - occupants: TwoWayList<Student>
+    }
+    class LodgingImpl extends ServiceAbs implements Lodging {
+        - rooms: int
+        - occupiedRooms: int
+        - occupants: TwoWayList<Student>
+    }
+    class LeisureImpl extends ServiceAbs implements Leisure {
+        - discount: int
+    }
+
+    enum ServiceType {
+        EATING
+        LODGING
+        LEISURE
+    }
+
+    interface Evaluation {
+        + getStars(): int
+        + getDescription(): String
+        + containsTag(String): boolean
+    }
+
+    class EvaluationImpl implements Evaluation {
+        - stars: int
+        - description: String
+    }
+
+    class ByStarsComparator implements Comparator<Service> {
+        + compare(Service s1, Service s2): int
+    }
+
+    ServicesCollectionImpl ..> ByStarsComparator : uses
+    ServicesCollectionImpl ..> "dataStructures.Map"
+    ServicesCollectionImpl ..> "dataStructures.TwoWayList"
+    ServicesCollectionImpl ..> "dataStructures.SortedList"
+    ServicesCollectionImpl ..> "dataStructures.List"
+
+    ServiceAbs ..> "dataStructures.TwoWayList"
+    ServiceAbs ..> ServiceType
+    EatingImpl ..> "dataStructures.TwoWayList"
+    LodgingImpl ..> "dataStructures.TwoWayList"
+
+    ServiceCollection "1" *--> "*" Service : aggregates
+    ServiceAbs "1" *--> "*" Evaluation : aggregates
+}
+
+
+HomeAway.SystemManager ..> Services.ServiceType
+HomeAway.SystemManager ..> Students.StudentType
+HomeAway.SystemManager ..> Services.Service
+HomeAway.SystemManager ..> Students.Student
+
+Services.EatingImpl "1" *--> "*" Students.Student : occupants
+Services.LodgingImpl "1" *--> "*" Students.Student : occupants
+Students.StudentAbs "1" *--> "1" Services.Lodging : home
+Students.StudentAbs "1" *--> "1" Services.Service : current
+Students.StudentAbs "1" *--> "*" Services.Service : visited
+
+@enduml

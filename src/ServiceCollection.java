@@ -1,7 +1,6 @@
 import Services.Service;
-import dataStructures.DoublyLinkedList;
-import dataStructures.Iterator;
-import dataStructures.SortedDoublyLinkedList;
+import dataStructures_1stPhase.DoublyLinkedList;
+import dataStructures_1stPhase.Iterator;
 
 /**
  * Interface for a collection that manages all {@link Service} objects.

@@ -1,10 +1,9 @@
 package Services;
 
 import Students.Student;
-import dataStructures.DoublyLinkedList;
-import dataStructures.Iterator;
-import dataStructures.TwoWayIterator;
-import dataStructures.TwoWayList;
+import dataStructures_1stPhase.DoublyLinkedList;
+import dataStructures_1stPhase.TwoWayIterator;
+import dataStructures_1stPhase.TwoWayList;
 
 import java.io.Serializable;
 

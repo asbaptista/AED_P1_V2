@@ -3,11 +3,10 @@ import Services.*;
 import Services.ServiceType;
 import Students.Student;
 import Students.*;
-import dataStructures.*;
+import dataStructures_1stPhase.*;
 
 import java.io.File;
 import java.io.*;
-import java.util.Scanner;
 
 import static Students.StudentType.THRIFTY;
 

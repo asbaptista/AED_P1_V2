@@ -1,8 +1,5 @@
-import Exceptions.NoStudentsFromTheCountryException;
-import Exceptions.NoStudentsYetException;
-import Services.Service;
 import Students.Student;
-import dataStructures.Iterator;
+import dataStructures_1stPhase.Iterator;
 
 /**
  * Interface for a collection that manages all {@link Student} objects.

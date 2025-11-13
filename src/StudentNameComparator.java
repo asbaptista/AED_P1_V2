@@ -1,5 +1,5 @@
 import Students.Student;
-import dataStructures.Comparator;
+import dataStructures_1stPhase.Comparator;
 
 import java.io.Serializable;
 
