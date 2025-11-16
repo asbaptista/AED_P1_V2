@@ -1,6 +1,6 @@
 package Services;
 
-import dataStructures_1stPhase.*;
+import dataStructures.*;
 
 import java.io.Serializable;
 

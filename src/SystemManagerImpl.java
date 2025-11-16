@@ -3,7 +3,7 @@ import Services.*;
 import Services.ServiceType;
 import Students.Student;
 import Students.*;
-import dataStructures_1stPhase.*;
+import dataStructures.*;
 
 import java.io.File;
 import java.io.*;

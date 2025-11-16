@@ -4,7 +4,7 @@ import Services.*;
 
 import Students.*;
 
-import dataStructures_1stPhase.*;
+import dataStructures.*;
 
 
 /**

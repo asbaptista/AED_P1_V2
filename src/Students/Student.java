@@ -2,7 +2,7 @@ package Students;
 
 import Services.Lodging;
 import Services.Service;
-import dataStructures_1stPhase.Iterator;
+import dataStructures.Iterator;
 
 /**
  * Interface defining the contract for all Student types in the system.

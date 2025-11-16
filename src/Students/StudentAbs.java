@@ -1,9 +1,9 @@
 package Students;
 
 import Services.*;
-import dataStructures_1stPhase.DoublyLinkedList;
-import dataStructures_1stPhase.Iterator;
-import dataStructures_1stPhase.TwoWayList;
+import dataStructures.DoublyLinkedList;
+import dataStructures.Iterator;
+import dataStructures.TwoWayList;
 
 import java.io.*;
 // import java.util.Objects; // This import is unused

@@ -1,7 +1,7 @@
 package Services;
 
 import Students.Student;
-import dataStructures_1stPhase.TwoWayIterator;
+import dataStructures.TwoWayIterator;
 
 /**
  * Interface defining the specific contract for Eating services.

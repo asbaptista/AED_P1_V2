@@ -1,5 +1,5 @@
 import Students.Student;
-import dataStructures_1stPhase.Iterator;
+import dataStructures.Iterator;
 
 /**
  * Interface for a collection that manages all {@link Student} objects.

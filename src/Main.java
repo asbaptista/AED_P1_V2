@@ -4,7 +4,7 @@ import Services.*;
 import Services.ServiceType;
 import Students.Student;
 import Students.StudentType;
-import dataStructures_1stPhase.*;
+import dataStructures.*;
 
 /**
  * Main entry point for the "Home Away From Home" application.

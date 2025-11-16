@@ -1,7 +1,7 @@
 package Services;
 
 import Students.Student;
-import dataStructures_1stPhase.*;
+import dataStructures.*;
 
 import java.io.Serializable;
 

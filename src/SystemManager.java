@@ -3,8 +3,8 @@ import Services.Service;
 import Services.ServiceType;
 import Students.Student;
 import Students.StudentType;
-import dataStructures_1stPhase.Iterator;
-import dataStructures_1stPhase.TwoWayIterator;
+import dataStructures.Iterator;
+import dataStructures.TwoWayIterator;
 
 /**
  * Main interface for the 'Home Away From Home' system.

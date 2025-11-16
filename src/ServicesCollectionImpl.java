@@ -1,6 +1,6 @@
 import Services.ByStarsComparator;
 import Services.Service;
-import dataStructures_1stPhase.*;
+import dataStructures.*;
 
 import java.io.*;
 

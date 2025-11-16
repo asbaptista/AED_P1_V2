@@ -1,6 +1,6 @@
 package Services;
 
-import dataStructures_1stPhase.Comparator;
+import dataStructures.Comparator;
 import java.io.Serializable;
 
 /**
