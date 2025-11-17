@@ -23,7 +23,7 @@ public interface Map<K,V> extends Serializable {
                 Entry<K,V> other = (Entry<K,V>) obj;
                 return (this.key.equals(other.key) && this.value.equals(other.value));
             }
-           //TODO: Left as an exercise.// por rever;
+            //TODO: Left as an exercise.// por rever;
             return false;
 
         }
@@ -32,13 +32,13 @@ public interface Map<K,V> extends Serializable {
      * Returns true iff the dictionary contains no entries.
      * @return true if dictionary is empty
      */
-    boolean isEmpty( );                                           
+    boolean isEmpty( );
 
     /**
      * Returns the number of entries in the dictionary.
      * @return number of elements in the dictionary
      */
-    int size( );                                                  
+    int size( );
 
     /**
      * If there is an entry in the dictionary whose key is the specified key,
@@ -68,7 +68,7 @@ public interface Map<K,V> extends Serializable {
      * @return previous value associated with key, 
      * or null if the dictionary does not an entry with that key
      */
-    V remove( K key );                                
+    V remove( K key );
 
     /**
      * Returns an iterator of the entries in the dictionary.

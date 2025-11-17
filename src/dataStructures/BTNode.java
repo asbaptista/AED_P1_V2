@@ -131,18 +131,11 @@ class BTNode<E> implements Node<E> {
      */
 
     public int getHeight() {
-        if (isLeaf()) {
-            return 0;
-        }
-        BTNode left= (BTNode<E>)getLeftChild();
-        BTNode right= (BTNode<E>)getRightChild();
-        if (left==null)
-            return 1+right.getHeight();
-        if (right == null)
-            return 1+left.getHeight();
-        return 1 + Math.max(left.getHeight(),right.getHeight());
-        //TODO: Left as an exercise.//done
+        int leftHeight = (leftChild != null) ? ((BTNode<E>) leftChild).getHeight() : -1;
+        int rightHeight = (rightChild != null) ? ((BTNode<E>) rightChild).getHeight() : -1;
+        return 1 + Math.max(leftHeight, rightHeight);
     }
+
 
     /**
      *
@@ -157,7 +150,7 @@ class BTNode<E> implements Node<E> {
         //TODO: Left as an exercise.//done
     }
 
-   /**
+    /**
      *
      * @return
      */
@@ -167,8 +160,8 @@ class BTNode<E> implements Node<E> {
             node = (BTNode<E>) node.getRightChild();
         }
         return node;
-         //TODO: Left as an exercise.//done
+        //TODO: Left as an exercise.//done
     }
 
-   //new methods: Left as an exercise.
+    //new methods: Left as an exercise.
 }

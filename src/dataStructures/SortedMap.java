@@ -1,6 +1,6 @@
 package dataStructures;
 
-import dataStructures.exceptions.*;
+import dataStructures.exceptions.EmptyMapException;
 
 /**
  * Ordered Dictionary interface
