@@ -75,7 +75,7 @@ public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V
 
 
     private AVLNode<Entry<K,V>> removeNode(BTNode<Entry<K,V>> nodeToRemove) {
-        AVLNode<Entry<K,V>> nodeToRemoveAVL = (AVLNode<Entry<K,V>>) nodeToRemove;
+        //AVLNode<Entry<K,V>> nodeToRemoveAVL = (AVLNode<Entry<K,V>>) nodeToRemove;
 
         if (nodeToRemove.isLeaf()){  //caso1
             AVLNode<Entry<K,V>> parent = (AVLNode<Entry<K,V>>) nodeToRemove.getParent();

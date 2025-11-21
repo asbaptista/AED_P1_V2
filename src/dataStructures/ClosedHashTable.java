@@ -49,7 +49,17 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> {
      * @return the index of the table, where is the entry with the specified key, or null
      */
     int searchLinearProving(K key) {
-        //TODO: Left as an exercise.      
+        for (int i = 0; i < table.length; i++) {
+            int index = hash(key, i);
+            Entry<K,V> entry = table[index];
+            if (entry == null) {
+                return NOT_FOUND; // Key not found
+            }
+            if (entry != REMOVED_CELL && entry.key().equals(key)) {
+                return index; // Key found
+            }
+        }
+        //TODO: Left as an exercise.//done
         return NOT_FOUND; 
     }
 
@@ -64,7 +74,11 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> {
      */
     @Override
     public V get(K key) {
-        //TODO: Left as an exercise.
+        int index = searchLinearProving(key);
+        if (index != NOT_FOUND) {
+            return table[index].value();
+        }
+        //TODO: Left as an exercise.//done
         
         return null;
     }
@@ -83,11 +97,51 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> {
     public V put(K key, V value) {
         if (isFull())
             rehash();
-        //TODO: Left as an exercise.
+
+        int index = searchLinearProving(key);
+        if (index != NOT_FOUND) {
+            V oldValue = table[index].value();
+            table[index] = new Entry<>(key, value);
+            return oldValue;
+        }
+        int insertionIdx = -1;
+        for (int i = 0; i < table.length; i++) {
+            int idx = hash(key, i);
+            if (table[idx] == REMOVED_CELL) {
+                if (insertionIdx == -1) {
+                    insertionIdx = idx;
+                }
+            } else if (table[idx] == null) {
+                if (insertionIdx == -1) {
+                    insertionIdx = idx;
+                }
+                break;
+            }
+        }
+
+        table[insertionIdx] = new Entry<>(key, value);
+        currentSize++;
+        //TODO: Left as an exercise.//done
         return null;
     }
 
      private void rehash(){
+         Entry<K,V>[] oldTable = table;
+         int newCapacity = HashTable.nextPrime(table.length * 2);
+         table = (Entry<K,V>[]) new Entry[newCapacity]; // cast talvez nao necessario
+         currentSize = 0;
+         maxSize = (int)(newCapacity * MAX_LOAD_FACTOR);
+
+         for (int i = 0; i < table.length; i++) {
+             table[i] = null;
+         }
+         for (Entry<K,V> entry : oldTable) {
+             if (entry != null && entry != REMOVED_CELL) {
+                 put(entry.key(), entry.value());
+             }
+         }
+
+
  //TODO: Left as an exercise.
      }
 
@@ -103,9 +157,19 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> {
      */
     @Override
     public V remove(K key) {
-        //TODO: Left as an exercise.
+        int index = searchLinearProving(key);
+
+        if (index == NOT_FOUND) {
+            return null;
+        }
+        V oldValue = table[index].value();
+        table[index] = (Entry<K,V>) REMOVED_CELL;
+        currentSize--;
+
+        return oldValue;
+
+        //TODO: Left as an exercise.//done
         
-        return null;
     }
 
     /**
@@ -115,9 +179,9 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> {
      */
     @Override
     public Iterator<Entry<K, V>> iterator() {
-         //TODO: Left as an exercise.
-        
-        return null;
+        return new FilterIterator<>(new ArrayIterator<>(table,table.length-1), m ->  m!=null && m!= REMOVED_CELL);
+         //TODO: Left as an exercise.//done
+
     }
 
 }
