@@ -1,4 +1,5 @@
 import Services.Service;
+import Services.ServiceType;
 import dataStructures.DoublyLinkedList;
 import dataStructures.Iterator;
 
@@ -30,10 +31,11 @@ public interface ServiceCollection {
      *
      * @param service The service whose ranking needs to be updated.
      */
-    void updateRankingByStars(Service service);
 
 
     // --- Querying & Searching ---
+
+    void updateRankingByStars(Service service, int oldStars);
 
     /**
      * Finds and returns a service by its name.
@@ -88,4 +90,5 @@ public interface ServiceCollection {
      */
     DoublyLinkedList<Service> getServicesByInsertion();
 
+    Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars);
 }

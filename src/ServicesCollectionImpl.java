@@ -1,5 +1,6 @@
 import Services.ByStarsComparator;
 import Services.Service;
+import Services.ServiceType;
 import dataStructures.*;
 
 import java.io.*;
@@ -24,17 +25,26 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      * Standard serial version UID for serialization.
      */
     private static final long serialVersionUID = 1L;
-
+//deve ter que se por isto tudo private
     /**
      * List of services, maintained in their original insertion order.
      */
-    TwoWayList<Service> services;
+    List<Service> servicesByInsertion;
+
+    Map<String, Service> servicesByName;
+
 
     /**
      * List of services, automatically sorted by average star rating (descending)
      * using the {@link ByStarsComparator}.
      */
     SortedList<Service> rankingByStars;
+
+    Map<ServiceType, Map<Integer, List<Service>>> servicesByTypeAndStars;
+
+
+
+
 
     // --- Constructor ---
 
@@ -43,8 +53,10 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      * Initializes the insertion-order list and the sorted star-ranking list.
      */
     public ServicesCollectionImpl() {
-        services = new DoublyLinkedList<>();
-        rankingByStars = new SortedDoublyLinkedList<>(new ByStarsComparator());
+        this.servicesByInsertion = new DoublyLinkedList<>();
+        this.servicesByName = new ClosedHashTable<>(); // em principio closed
+        this.rankingByStars = new SortedDoublyLinkedList<>(new ByStarsComparator());
+        this.servicesByTypeAndStars = new SepChainHashTable<>();
     }
 
     // --- State Modifiers ---
@@ -59,7 +71,8 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public void add(Service service) {
-        services.addLast(service);
+        servicesByInsertion.addLast(service);
+        servicesByName.put(service.getName().toLowerCase(),service);
         rankingByStars.add(service);
     }
 
@@ -75,10 +88,45 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      * @param service The service whose star rating has been updated.
      */
     @Override
-    public void updateRankingByStars(Service service) {
+    public void updateRankingByStars(Service service, int oldStars) {
         rankingByStars.remove(service);
         rankingByStars.add(service);
+        ServiceType type = service.getType();
+        Map<Integer, List<Service>> starsMap = servicesByTypeAndStars.get(type);
+        if(starsMap != null){
+            List<Service> oldList = starsMap.get(oldStars);
+            if(oldList != null) {
+                int index = oldList.indexOf(service);
+                if (index != -1) {
+                    oldList.remove(index);
+                }
+            }
+        }
+        addServiceToTypeStarsMap(service);
+
+
+
     }
+
+    private void addServiceToTypeStarsMap(Service service) {
+        ServiceType type = service.getType();
+        int stars = service.getAvgStar();
+
+        Map<Integer, List<Service>> starsMap = servicesByTypeAndStars.get(type);
+        if (starsMap == null) {
+            starsMap = new SepChainHashTable<>();
+            servicesByTypeAndStars.put(type, starsMap);
+        }
+
+        List<Service> list = starsMap.get(stars);
+        if (list == null) {
+            list = new DoublyLinkedList<>();
+            starsMap.put(stars, list);
+        }
+        list.addLast(service);
+    }
+
+
 
     // --- Querying & Searching ---
 
@@ -92,14 +140,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public Service findByName(String name) {
-        Iterator<Service> it = services.iterator();
-        while (it.hasNext()) {
-            Service service = it.next();
-            if (service.getName().equalsIgnoreCase(name)) {
-                return service;
-            }
-        }
-        return null;
+        return servicesByName.get(name.toLowerCase()); // confirmar os lowerCase, aqui e em cima
     }
 
     /**
@@ -120,7 +161,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public int size() {
-        return services.size();
+        return servicesByInsertion.size();
     }
 
     // --- Iterators & Retrieval ---
@@ -133,7 +174,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public Iterator<Service> listServices() {
-        return services.iterator();
+        return servicesByInsertion.iterator();
     }
 
     /**
@@ -154,8 +195,24 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public DoublyLinkedList<Service> getServicesByInsertion() {
-        return (DoublyLinkedList<Service>) services;
+        return (DoublyLinkedList<Service>) servicesByInsertion;
     }
+    @Override
+    public Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars) {
+        Map<Integer, List<Service>> starsMap = servicesByTypeAndStars.get(type);
+        if (starsMap != null) {
+            List<Service> list = starsMap.get(stars);
+            if (list != null) {
+                return list.iterator();
+            }
+        }
+        return new DoublyLinkedList<Service>().iterator(); // Iterador vazio
+    }
+
+
+
+
+
 
     // --- Serialization Methods ---
 
@@ -171,9 +228,9 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
-        oos.writeInt(services.size());
+        oos.writeInt(servicesByInsertion.size());
 
-        Iterator<Service> it = services.iterator();
+        Iterator<Service> it = servicesByInsertion.iterator();
 
         while (it.hasNext()) {
             oos.writeObject(it.next());
@@ -197,8 +254,10 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         ois.defaultReadObject();
 
         // Initialize transient fields
-        this.services = new DoublyLinkedList<>();
+        this.servicesByInsertion = new DoublyLinkedList<>();
+        this.servicesByName = new ClosedHashTable<>();
         this.rankingByStars = new SortedDoublyLinkedList<>(new ByStarsComparator());
+
 
         // Read services and rebuild both lists by calling add()
         int size = ois.readInt();
