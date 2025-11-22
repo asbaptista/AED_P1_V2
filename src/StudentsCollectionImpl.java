@@ -29,12 +29,12 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     /**
      * List of students, automatically sorted alphabetically by name.
      */
-    SortedList<Student> studentsByName;
+    SortedMap<String, Student> studentsByName;
 
     /**
      * List of students, maintained in their original insertion order.
      */
-    TwoWayList<Student> studentsByInsertion;
+    Map<String, List<Student>> studentsByCountry;
 
     // --- Constructor ---
 
@@ -44,8 +44,8 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
      * providing the {@link StudentNameComparator} to the latter.
      */
     public StudentsCollectionImpl() {
-        this.studentsByName = new SortedDoublyLinkedList<>(new StudentNameComparator());
-        this.studentsByInsertion = new DoublyLinkedList<>();
+        this.studentsByName = new AVLSortedMap<>();
+        this.studentsByCountry = new SepChainHashTable<>();
     }
 
     // --- State Modifiers ---
@@ -60,8 +60,17 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
      */
     @Override
     public void addStudent(Student student) {
-        studentsByInsertion.addLast(student);
-        studentsByName.add(student);
+        studentsByName.put(student.getName().toLowerCase(), student); // dps confirmar o toLoweCase;
+
+        String country = student.getCountry().toLowerCase(); // dps confirmar o toLoweCase;
+        List<Student> countryList = studentsByCountry.get(country);
+
+        if (countryList == null) {
+            countryList = new DoublyLinkedList<>();
+            studentsByCountry.put(country, countryList);
+        }
+        countryList.addLast(student);
+
     }
 
     /**
@@ -75,14 +84,24 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
      */
     @Override
     public void removeStudent(String name) {
-        Student student = findByName(name);
+        String lowerName = name.toLowerCase(); // por enquanto fica assim , dps confirmar
+
+        Student student = studentsByName.remove(lowerName);
+
         if (student != null) {
-            // This is an O(N) removal for a DoublyLinkedList
-            int index = studentsByInsertion.indexOf(student);
-            studentsByInsertion.remove(index);
-            // This is also an O(N) removal for a SortedDoublyLinkedList
-            studentsByName.remove(student);
+            String country = student.getCountry().toLowerCase();
+            List<Student> countryList = studentsByCountry.get(country);
+            if (countryList != null) {
+                int index = countryList.indexOf(student);
+                countryList.remove(index);
+
+                if (countryList.isEmpty()) {
+                    studentsByCountry.remove(country);
+                }
+            }
+
         }
+
     }
 
     // --- Querying & Searching ---
@@ -97,15 +116,7 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
      */
     @Override
     public Student findByName(String name) {
-        // This is an O(N) search on the (sorted) doubly linked list
-        Iterator<Student> it = studentsByName.iterator();
-        while (it.hasNext()) {
-            Student student = it.next();
-            if (student.getName().equalsIgnoreCase(name)) {
-                return student;
-            }
-        }
-        return null;
+        return studentsByName.get(name.toLowerCase());
     }
 
     // --- Iterators & Retrieval ---
@@ -118,7 +129,7 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
      */
     @Override
     public Iterator<Student> listAllStudents() {
-        return studentsByName.iterator();
+        return studentsByName.values();
     }
 
     /**
@@ -132,27 +143,14 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
      */
     @Override
     public Iterator<Student> listStudentsByCountry(String country) {
-        return new FilterIterator<>(studentsByInsertion.iterator(),
-                student -> student.getCountry().equalsIgnoreCase(country));
+        List<Student> list = studentsByCountry.get(country.toLowerCase());
+        if (list != null) {
+            return list.iterator();
+        }
+        return new DoublyLinkedList<Student>().iterator(); // empty iterator
+
     }
 
-    /**
-     * Gets an iterator over students in their original insertion order.
-     *
-     * @return An {@link Iterator} of {@link Student}s.
-     */
-    public Iterator<Student> getStudentsByInsertion() {
-        return studentsByInsertion.iterator();
-    }
-
-    /**
-     * Gets an iterator over students sorted alphabetically by name.
-     *
-     * @return A sorted {@link Iterator} of {@link Student}s.
-     */
-    public Iterator<Student> getStudentsByName() {
-        return studentsByName.iterator();
-    }
 
     // --- Serialization Methods ---
 
@@ -168,9 +166,9 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
      */
     private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
-        oos.writeInt(studentsByInsertion.size());
+        oos.writeInt(studentsByName.size());
 
-        Iterator<Student> it = studentsByInsertion.iterator();
+        Iterator<Student> it = studentsByName.values();
         while (it.hasNext()) {
             oos.writeObject(it.next());
         }
@@ -194,11 +192,9 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
 
-        // Initialize transient fields
-        this.studentsByName = new SortedDoublyLinkedList<>(new StudentNameComparator());
-        this.studentsByInsertion = new DoublyLinkedList<>();
+        this.studentsByName = new AVLSortedMap<>();
+        this.studentsByCountry = new SepChainHashTable<>();
 
-        // Read students and rebuild both lists by calling addStudent()
         int size = ois.readInt();
         for (int i = 0; i < size; i++) {
             Student student = (Student) ois.readObject();

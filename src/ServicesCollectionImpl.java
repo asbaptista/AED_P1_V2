@@ -29,18 +29,20 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     /**
      * List of services, maintained in their original insertion order.
      */
-    List<Service> servicesByInsertion;
+    private List<Service> servicesByInsertion;
 
-    Map<String, Service> servicesByName;
+    private Map<String, Service> servicesByName;
 
 
     /**
      * List of services, automatically sorted by average star rating (descending)
      * using the {@link ByStarsComparator}.
      */
-    SortedList<Service> rankingByStars;
+    private SortedList<Service> rankingByStars;
 
-    Map<ServiceType, Map<Integer, List<Service>>> servicesByTypeAndStars;
+    private Map<ServiceType, Map<Integer, List<Service>>> servicesByTypeAndStars;
+
+    private Map<String, Map<String, Service>> tagMap;
 
 
 
@@ -57,6 +59,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         this.servicesByName = new ClosedHashTable<>(); // em principio closed
         this.rankingByStars = new SortedDoublyLinkedList<>(new ByStarsComparator());
         this.servicesByTypeAndStars = new SepChainHashTable<>();
+        this.tagMap = new SepChainHashTable<>();
     }
 
     // --- State Modifiers ---
@@ -74,6 +77,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         servicesByInsertion.addLast(service);
         servicesByName.put(service.getName().toLowerCase(),service);
         rankingByStars.add(service);
+        addServiceToTypeStarsMap(service);
     }
 
     /**
@@ -209,11 +213,6 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         return new DoublyLinkedList<Service>().iterator(); // Iterador vazio
     }
 
-
-
-
-
-
     // --- Serialization Methods ---
 
     /**
@@ -257,6 +256,8 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         this.servicesByInsertion = new DoublyLinkedList<>();
         this.servicesByName = new ClosedHashTable<>();
         this.rankingByStars = new SortedDoublyLinkedList<>(new ByStarsComparator());
+        this.servicesByTypeAndStars = new SepChainHashTable<>();
+        this.tagMap = new SepChainHashTable<>();
 
 
         // Read services and rebuild both lists by calling add()
