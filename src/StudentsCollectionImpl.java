@@ -166,24 +166,36 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
      */
     private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
-        oos.writeInt(studentsByName.size());
 
+        // Serialize studentsByName
+        oos.writeInt(studentsByName.size());
         Iterator<Student> it = studentsByName.values();
         while (it.hasNext()) {
             oos.writeObject(it.next());
+        }
+
+        // Serialize studentsByCountry
+        oos.writeInt(studentsByCountry.size());
+        Iterator<String> countryIt = studentsByCountry.keys();
+        while (countryIt.hasNext()) {
+            String country = countryIt.next();
+            oos.writeObject(country);
+            List<Student> countryList = studentsByCountry.get(country);
+            oos.writeInt(countryList.size());
+            Iterator<Student> studentIt = countryList.iterator();
+            while (studentIt.hasNext()) {
+                oos.writeObject(studentIt.next());
+            }
         }
     }
 
     /**
      * Custom deserialization method.
      * <p>
-     * Reads the services in their original insertion order and re-adds
-     * them using the {@link #addStudent(Student)} method.
-     * This single call correctly rebuilds *both* the `studentsByInsertion` list
-     * and the `studentsByName` sorted list, ensuring the system state is consistent.
+     * Reads both studentsByName and studentsByCountry structures
+     * to restore the exact state, maintaining both alphabetical order
+     * and insertion order per country.
      *
-     _
-     _
      * @param ois The ObjectInputStream to read from.
      * @throws IOException            If an I/O error occurs.
      * @throws ClassNotFoundException If the class of a serialized object cannot be found.
@@ -195,10 +207,24 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
         this.studentsByName = new AVLSortedMap<>();
         this.studentsByCountry = new SepChainHashTable<>();
 
-        int size = ois.readInt();
-        for (int i = 0; i < size; i++) {
+        // Deserialize studentsByName
+        int nameSize = ois.readInt();
+        for (int i = 0; i < nameSize; i++) {
             Student student = (Student) ois.readObject();
-            this.addStudent(student);
+            this.studentsByName.put(student.getName().toLowerCase(), student);
+        }
+
+        // Deserialize studentsByCountry
+        int countryMapSize = ois.readInt();
+        for (int i = 0; i < countryMapSize; i++) {
+            String country = (String) ois.readObject();
+            int countryListSize = ois.readInt();
+            List<Student> countryList = new DoublyLinkedList<>();
+            for (int j = 0; j < countryListSize; j++) {
+                Student student = (Student) ois.readObject();
+                countryList.addLast(student);
+            }
+            this.studentsByCountry.put(country, countryList);
         }
     }
 }
