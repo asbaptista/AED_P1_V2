@@ -212,10 +212,11 @@ public class AreaImpl implements Area, Serializable {
      * so its position in the ranked list can be updated.
      *
      * @param service The service whose ranking needs to be updated.
+     * @param oldStars The previous star rating before the update.
      */
     @Override
-    public void updateRankingByStars(Service service) {
-        services.updateRankingByStars(service);
+    public void updateRankingByStars(Service service, int oldStars) {
+        services.updateRankingByStars(service, oldStars);
     }
 
     // --- Student Management ---

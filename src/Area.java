@@ -108,8 +108,9 @@ public interface Area {
      * This should be called after a service's star rating changes.
      *
      * @param service The service whose ranking needs to be updated.
+     * @param oldStars The previous star rating before the update.
      */
-    void updateRankingByStars(Service service);
+    void updateRankingByStars(Service service, int oldStars);
 
     /**
      * Gets the total number of services registered in the area.

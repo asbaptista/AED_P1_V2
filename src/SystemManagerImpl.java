@@ -181,11 +181,11 @@ public class SystemManagerImpl implements SystemManager {
         }
 
         // Check if the star rating changes to trigger a ranking update
-        float oldAvgStar = service.getAvgStar();
+        int oldAvgStar = service.getAvgStar();
         service.addReview(rating, comment);
-        float newAvgStar = service.getAvgStar();
+        int newAvgStar = service.getAvgStar();
         if (newAvgStar != oldAvgStar) {
-            currentArea.updateRankingByStars(service);
+            currentArea.updateRankingByStars(service, oldAvgStar);
         }
     }
 
