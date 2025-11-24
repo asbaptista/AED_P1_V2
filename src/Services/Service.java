@@ -74,6 +74,14 @@ public interface Service {
      */
     Services.ServiceType getType();
 
+    /**
+     * Gets an iterator over all evaluations for this service.
+     * Used for tag re-indexing during deserialization.
+     *
+     * @return An iterator over all evaluations.
+     */
+    dataStructures.Iterator<Evaluation> getEvaluations();
+
 
     // --- State Updaters ---
 

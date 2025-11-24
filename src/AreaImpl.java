@@ -1,4 +1,5 @@
 import Services.Service;
+import Services.ServiceType;
 import Students.Student;
 import dataStructures.*;
 
@@ -197,6 +198,17 @@ public class AreaImpl implements Area, Serializable {
     }
 
     /**
+     * Gets the internal service collection for direct access.
+     * Used for advanced operations like tag indexing.
+     *
+     * @return The {@link ServiceCollection} instance.
+     */
+    @Override
+    public ServiceCollection getServicesCollection() {
+        return services;
+    }
+
+    /**
      * Gets an iterator over all services, sorted by their
      * average star rating in descending order.
      *
@@ -217,6 +229,19 @@ public class AreaImpl implements Area, Serializable {
     @Override
     public void updateRankingByStars(Service service, int oldStars) {
         services.updateRankingByStars(service, oldStars);
+    }
+
+    /**
+     * Gets an iterator over services of a specific type with a specific star rating.
+     * Delegates to the services collection's optimized index.
+     *
+     * @param type The service type to filter by.
+     * @param stars The star rating to filter by.
+     * @return An {@link Iterator} of {@link Service}s matching the criteria.
+     */
+    @Override
+    public Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars) {
+        return services.getServicesByTypeAndStars(type, stars);
     }
 
     // --- Student Management ---

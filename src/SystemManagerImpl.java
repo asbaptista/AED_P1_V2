@@ -23,20 +23,10 @@ public class SystemManagerImpl implements SystemManager {
     // --- Fields ---
 
     /**
-     * A counter for the number of areas managed (not currently used).
-     */
-    int areaCount;
-
-    /**
      * The currently active {@link Area} being managed by the system.
      * All operations are performed on this area.
      */
     Area currentArea;
-
-    /**
-     * A list to store the names of all known areas (not currently used).
-     */
-    List<String> areasNames;
 
     // --- Constructor ---
 
@@ -45,9 +35,7 @@ public class SystemManagerImpl implements SystemManager {
      * Initializes the system with no area loaded.
      */
     public SystemManagerImpl() {
-        this.areaCount = 0;
         this.currentArea = null;
-        this.areasNames = new ListInArray<>(100);
     }
 
     // --- Area Lifecycle Management ---
@@ -117,14 +105,11 @@ public class SystemManagerImpl implements SystemManager {
      */
     @Override
     public boolean equalBounds(long topLat, long leftLong, long bottomLat, long rightLong) {
-        if (currentArea == null) {
-            return false;
-        } else {
-            return currentArea.getTopLat() == topLat &&
-                    currentArea.getLeftLong() == leftLong &&
-                    currentArea.getBottomLat() == bottomLat &&
-                    currentArea.getRightLong() == rightLong;
-        }
+        return currentArea != null &&
+                currentArea.getTopLat() == topLat &&
+                currentArea.getLeftLong() == leftLong &&
+                currentArea.getBottomLat() == bottomLat &&
+                currentArea.getRightLong() == rightLong;
     }
 
     // --- Service Management ---
@@ -164,6 +149,9 @@ public class SystemManagerImpl implements SystemManager {
         }
         Service service = createService(name, lat, lon, price, type, value);
         currentArea.addService(service);
+
+        // Index tags from the initial "Initial rating" comment
+        indexTagsFromComment("Initial rating", service);
     }
 
     /**
@@ -186,6 +174,31 @@ public class SystemManagerImpl implements SystemManager {
         int newAvgStar = service.getAvgStar();
         if (newAvgStar != oldAvgStar) {
             currentArea.updateRankingByStars(service, oldAvgStar);
+        }
+
+        // Index tags from the comment into the tagMap
+        indexTagsFromComment(comment, service);
+    }
+
+    /**
+     * Extracts and indexes all tags (words) from a comment into the tag map.
+     * This allows efficient O(1) lookup of services by tag.
+     *
+     * @param comment The comment text to extract tags from.
+     * @param service The service to associate with the tags.
+     */
+    private void indexTagsFromComment(String comment, Service service) {
+        if (comment == null || comment.trim().isEmpty()) {
+            return;
+        }
+
+        // Split comment by whitespace and index each word as a tag
+        String[] words = comment.split("\\s+");
+        for (String word : words) {
+            String cleanedWord = word.trim();
+            if (!cleanedWord.isEmpty()) {
+                currentArea.getServicesCollection().addTagToService(cleanedWord, service);
+            }
         }
     }
 
@@ -423,16 +436,18 @@ public class SystemManagerImpl implements SystemManager {
     /**
      * {@inheritDoc}
      */
+    /**
+     * {@inheritDoc}
+     * Optimized implementation using the tagMap for O(1) lookup instead of O(n*m) iteration.
+     */
     @Override
     public Iterator<Service> listServicesWithTag(String tag) {
-        return new FilterIterator<>(currentArea.getServices(), s -> s.hasEvaluationWithTag(tag));
+        return currentArea.getServicesCollection().getServicesByTag(tag);
     }
 
     /**
      * {@inheritDoc}
-     * Note: This implementation iterates all services from the insertion-order list
-     * (`currentArea.getServices()`). Its tie-breaking order for distance
-     * is therefore by insertion, not by ranking-update time.
+     * Optimized implementation using the servicesByTypeAndStars index for O(1) lookup.
      */
     @Override
     public Iterator<Service> getRankedServicesByTypeAndStars(ServiceType type, int stars, String studentName)
@@ -450,24 +465,21 @@ public class SystemManagerImpl implements SystemManager {
             throw new InvalidServiceTypeException();
         }
 
-        // First pass: check if any of this type exist
+        // Check if any services of this type exist (single pass)
         FilterIterator<Service> filteredByType = new FilterIterator<>(currentArea.getServices(), s -> s.getType() == type);
         if (!filteredByType.hasNext()) {
             throw new NoServicesOfThisTypeException();
         }
 
-        // Second pass: check if any match the star rating
-        FilterIterator<Service> filteredByTypeStars = new FilterIterator<>(currentArea.getServices(), s -> s.getType() == type && s.getAvgStar() == stars);
+        // Use the optimized index to get services by type and stars directly (O(1) lookup)
+        Iterator<Service> filteredByTypeStars = currentArea.getServicesByTypeAndStars(type, stars);
         if (!filteredByTypeStars.hasNext()) {
             throw new NoTypeServicesWithStarsException();
         }
 
-        // Third pass: find the closest
-        List<Service> closestServices = new ListInArray<>(420);
+        // Find the closest services
+        List<Service> closestServices = new DoublyLinkedList<>();
         long minDistance = Long.MAX_VALUE;
-
-        // Reset iterator for the third pass
-        filteredByTypeStars.rewind();
 
         while (filteredByTypeStars.hasNext()) {
             Service service = filteredByTypeStars.next();
@@ -478,17 +490,17 @@ public class SystemManagerImpl implements SystemManager {
                     service.getLongitude());
 
             if (currentDistance < minDistance) {
-                // Encontrou um mais próximo — limpa a lista e guarda apenas este
-                closestServices = new ListInArray<>(420);
+                // Found a closer one — clear the list and keep only this one
+                closestServices = new DoublyLinkedList<>();
                 closestServices.addLast(service);
                 minDistance = currentDistance;
             } else if (currentDistance == minDistance) {
-                // Outro serviço à mesma distância — adiciona também
+                // Another service at the same distance — add it too
                 closestServices.addLast(service);
             }
         }
 
-        // Retorna um iterador apenas com os serviços mais próximos
+        // Return an iterator with only the closest services
         return closestServices.iterator();
     }
 
@@ -697,7 +709,7 @@ public class SystemManagerImpl implements SystemManager {
      * @param name The original area name.
      * @return The formatted file name (e.g., "lisbon_area.ser").
      */
-    private String getAreaFileName(String name) {
+    private static String getAreaFileName(String name) {
         return name.toLowerCase().replace(" ", "_") + ".ser";
     }
 

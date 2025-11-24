@@ -113,11 +113,29 @@ public interface Area {
     void updateRankingByStars(Service service, int oldStars);
 
     /**
+     * Gets an iterator over services of a specific type with a specific star rating.
+     * This is an optimized query using indexed data structures.
+     *
+     * @param type The service type to filter by.
+     * @param stars The star rating to filter by.
+     * @return An {@link Iterator} of {@link Service}s matching the criteria.
+     */
+    Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars);
+
+    /**
      * Gets the total number of services registered in the area.
      *
      * @return The count of services.
      */
     int getNumberOfServices();
+
+    /**
+     * Gets the internal service collection for direct access.
+     * Used for advanced operations like tag indexing.
+     *
+     * @return The {@link ServiceCollection} instance.
+     */
+    ServiceCollection getServicesCollection();
 
 
     // --- Student Management ---

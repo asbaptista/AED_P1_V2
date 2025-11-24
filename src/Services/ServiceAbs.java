@@ -63,7 +63,7 @@ public class ServiceAbs implements Service, Serializable {
     /**
      * A list of all {@link Evaluation} objects submitted for this service.
      */
-    TwoWayList<Evaluation> evaluations;
+    private TwoWayList<Evaluation> evaluations;
 
     /**
      * A list for storing indexed tags (for future use).
@@ -192,6 +192,11 @@ public class ServiceAbs implements Service, Serializable {
     @Override
     public Services.ServiceType getType() {
         return type;
+    }
+
+    @Override
+    public Iterator<Evaluation> getEvaluations() {
+        return evaluations.iterator();
     }
 
     // --- State Updaters ---
