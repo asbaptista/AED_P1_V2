@@ -157,9 +157,9 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     /**
      * Custom serialization method.
      * <p>
-     * Saves the total size and then each student from the `studentsByInsertion`
-     * (insertion-order) list. The `studentsByName` list is **not** saved,
-     * as it will be rebuilt during deserialization.
+     * Saves the students once and preserves the insertion order per country
+     * by storing the country-to-student-names mapping. This avoids duplicating
+     * student objects during serialization.
      *
      * @param oos The ObjectOutputStream to write to.
      * @throws IOException If an I/O error occurs.
@@ -167,14 +167,14 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
 
-        // Serialize studentsByName
+        // Serialize students (only once)
         oos.writeInt(studentsByName.size());
         Iterator<Student> it = studentsByName.values();
         while (it.hasNext()) {
             oos.writeObject(it.next());
         }
 
-        // Serialize studentsByCountry
+        // Serialize the country-to-student-names mapping (preserves insertion order per country)
         oos.writeInt(studentsByCountry.size());
         Iterator<String> countryIt = studentsByCountry.keys();
         while (countryIt.hasNext()) {
@@ -184,7 +184,8 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
             oos.writeInt(countryList.size());
             Iterator<Student> studentIt = countryList.iterator();
             while (studentIt.hasNext()) {
-                oos.writeObject(studentIt.next());
+                // Write only the student name (key) to preserve insertion order
+                oos.writeObject(studentIt.next().getName().toLowerCase());
             }
         }
     }
@@ -192,9 +193,8 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     /**
      * Custom deserialization method.
      * <p>
-     * Reads both studentsByName and studentsByCountry structures
-     * to restore the exact state, maintaining both alphabetical order
-     * and insertion order per country.
+     * Reads students once into studentsByName, then reconstructs studentsByCountry
+     * using references to the same student objects (avoiding duplicates).
      *
      * @param ois The ObjectInputStream to read from.
      * @throws IOException            If an I/O error occurs.
@@ -207,22 +207,28 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
         this.studentsByName = new AVLSortedMap<>();
         this.studentsByCountry = new SepChainHashTable<>();
 
-        // Deserialize studentsByName
+        // Deserialize students into studentsByName
         int nameSize = ois.readInt();
         for (int i = 0; i < nameSize; i++) {
             Student student = (Student) ois.readObject();
             this.studentsByName.put(student.getName().toLowerCase(), student);
         }
 
-        // Deserialize studentsByCountry
+        // Reconstruct studentsByCountry using references to the same student objects
         int countryMapSize = ois.readInt();
         for (int i = 0; i < countryMapSize; i++) {
             String country = (String) ois.readObject();
             int countryListSize = ois.readInt();
             List<Student> countryList = new DoublyLinkedList<>();
             for (int j = 0; j < countryListSize; j++) {
-                Student student = (Student) ois.readObject();
-                countryList.addLast(student);
+                String studentName = (String) ois.readObject();
+                // Get the actual student object from studentsByName (shared reference)
+                // The student should always exist since we serialized both structures together
+                Student student = this.studentsByName.get(studentName);
+                if (student != null) {
+                    countryList.addLast(student);
+                }
+                // Note: student being null would indicate corrupted serialization data
             }
             this.studentsByCountry.put(country, countryList);
         }
