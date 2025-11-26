@@ -157,9 +157,8 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     /**
      * Custom serialization method.
      * <p>
-     * Saves the total size and then each student from the `studentsByInsertion`
-     * (insertion-order) list. The `studentsByName` list is **not** saved,
-     * as it will be rebuilt during deserialization.
+     * Serializes students in insertion order (by iterating through country lists).
+     * During deserialization, we simply call addStudent() to rebuild all structures.
      *
      * @param oos The ObjectOutputStream to write to.
      * @throws IOException If an I/O error occurs.
@@ -167,34 +166,31 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
 
-        // Serialize studentsByName
-        oos.writeInt(studentsByName.size());
-        Iterator<Student> it = studentsByName.values();
-        while (it.hasNext()) {
-            oos.writeObject(it.next());
-        }
-
-        // Serialize studentsByCountry
-        oos.writeInt(studentsByCountry.size());
+        // Collect all students in insertion order (from country lists)
+        List<Student> allStudents = new DoublyLinkedList<>();
         Iterator<String> countryIt = studentsByCountry.keys();
         while (countryIt.hasNext()) {
             String country = countryIt.next();
-            oos.writeObject(country);
             List<Student> countryList = studentsByCountry.get(country);
-            oos.writeInt(countryList.size());
             Iterator<Student> studentIt = countryList.iterator();
             while (studentIt.hasNext()) {
-                oos.writeObject(studentIt.next());
+                allStudents.addLast(studentIt.next());
             }
+        }
+
+        // Write the total count and each student
+        oos.writeInt(allStudents.size());
+        Iterator<Student> it = allStudents.iterator();
+        while (it.hasNext()) {
+            oos.writeObject(it.next());
         }
     }
 
     /**
      * Custom deserialization method.
      * <p>
-     * Reads both studentsByName and studentsByCountry structures
-     * to restore the exact state, maintaining both alphabetical order
-     * and insertion order per country.
+     * Reads students and uses addStudent() to rebuild all internal structures.
+     * This is simpler and guarantees consistency.
      *
      * @param ois The ObjectInputStream to read from.
      * @throws IOException            If an I/O error occurs.
@@ -204,27 +200,15 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
 
+        // Initialize empty structures
         this.studentsByName = new AVLSortedMap<>();
         this.studentsByCountry = new SepChainHashTable<>();
 
-        // Deserialize studentsByName
-        int nameSize = ois.readInt();
-        for (int i = 0; i < nameSize; i++) {
+        // Read students and use addStudent() to rebuild everything
+        int size = ois.readInt();
+        for (int i = 0; i < size; i++) {
             Student student = (Student) ois.readObject();
-            this.studentsByName.put(student.getName().toLowerCase(), student);
-        }
-
-        // Deserialize studentsByCountry
-        int countryMapSize = ois.readInt();
-        for (int i = 0; i < countryMapSize; i++) {
-            String country = (String) ois.readObject();
-            int countryListSize = ois.readInt();
-            List<Student> countryList = new DoublyLinkedList<>();
-            for (int j = 0; j < countryListSize; j++) {
-                Student student = (Student) ois.readObject();
-                countryList.addLast(student);
-            }
-            this.studentsByCountry.put(country, countryList);
+            this.addStudent(student);
         }
     }
 }

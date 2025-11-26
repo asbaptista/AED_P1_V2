@@ -1,0 +1,9 @@
+# Compiled class files
+out/
+
+# Serialized data files
+data/
+
+# IDE files
+*.iml
+.idea/
