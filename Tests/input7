@@ -1,0 +1,16 @@
+load COSTa da CAPArica
+users > Residencial Mar e Sol Expensive
+users < Residencial Mar e Sol Expensive
+users > only One room
+users < Residencial Mar e Sol
+users > Solar dos Zagallos Hotel
+users > Crowne PlAZa Caparica Event
+users > NOVA FCT Canteen Expensive
+users > NOVA FCT Canteen
+move marY LaU
+solar dos zagallos hotel
+users < solar dos zagallos hotel
+users > nova FCT Canteen
+users t eating restaurant
+users > unknow service
+exit

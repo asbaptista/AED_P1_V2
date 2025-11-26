@@ -1,0 +1,1000 @@
+bounds - Defines the new geographic bounding rectangle
+save - Saves the current geographic bounding rectangle to a text file
+load - Load a geographic bounding rectangle from a text file
+service - Adds a new service to the current geographic bounding rectangle. The service may be eating, lodging or leisure
+services - Displays the list of services in current geographic bounding rectangle, in order of registration
+student - Adds a student to the current geographic bounding rectangle
+students - Lists all the students or those of a given country in the current geographic bounding rectangle, in alphabetical order of the student's name
+leave - Removes a student from the the current geographic bounding rectangle
+go - Changes the location of a student to a leisure service, or eating service
+move - Changes the home of a student
+users - List all students who are in a given service (eating or lodging)
+star - Evaluates a service
+where - Locates a student
+visited - Lists locations visited by one student
+ranking - Lists services ordered by star
+ranked - Lists the service(s) of the indicated type with the given score that are closer to the student location
+tag - Lists all services that have at least one review whose description contains the specified word
+find - Finds the most relevant service of a certain type, for a specific student
+help - Shows the available commands
+exit - Terminates the execution of the program
+Costa do sol created.
+Nelly does not exist!
+No services yet!
+No students from Portugal!
+eating NOVA FCT Canteen added.
+lodging NOVA FCT added.
+NOVA FCT Canteen: eating (38659640000, -9204380000).
+NOVA FCT: lodging (38659640000, -9204380000).
+No students yet!
+lodging Nova fct canteen does not exist!
+Nelly does not exist!
+leisure Egas Moniz Event added.
+eating Egas Moniz Canteen added.
+eating Crowne Plaza Caparica Restaurant added.
+lodging Praia da Riviera Camping added.
+lodging Almada Hostel added.
+eating Residencial Mar e Sol Bar added.
+leisure Top Left added.
+leisure Bottom Right added.
+leisure Top Right added.
+NOVA FCT Canteen: eating (38659640000, -9204380000).
+NOVA FCT: lodging (38659640000, -9204380000).
+Egas Moniz Event: leisure (38668600000, -9194010000).
+Egas Moniz Canteen: eating (38668600000, -9194010000).
+Crowne Plaza Caparica Restaurant: eating (38647706000, -9224750000).
+Praia da Riviera Camping: lodging (38620840000, -9216170000).
+Almada Hostel: lodging (38671020000, -9161000000).
+Residencial Mar e Sol Bar: eating (38643880000, -9233590000).
+Top Left: leisure (38679330000, -9257810000).
+Bottom Right: leisure (38522965000, -9104674000).
+Top Right: leisure (38679330000, -9104674000).
+eating Praia da Riviera Restaurant added.
+eating Museu de Almada Bar added.
+eating Solar dos Zagallos Bar added.
+leisure Praia da Riviera Party added.
+leisure Almada Hostel Conference added.
+leisure Solar dos Zagallos Event added.
+lodging Solar dos Zagallos Hotel added.
+leisure NOVA FCT Event added.
+eating Top Left Bar added.
+lodging Crowne Plaza Caparica Hotel added.
+eating Bottom Right Bar added.
+eating Top Right Bar added.
+eating Bottom Left Bar added.
+NOVA FCT Canteen: eating (38659640000, -9204380000).
+NOVA FCT: lodging (38659640000, -9204380000).
+Egas Moniz Event: leisure (38668600000, -9194010000).
+Egas Moniz Canteen: eating (38668600000, -9194010000).
+Crowne Plaza Caparica Restaurant: eating (38647706000, -9224750000).
+Praia da Riviera Camping: lodging (38620840000, -9216170000).
+Almada Hostel: lodging (38671020000, -9161000000).
+Residencial Mar e Sol Bar: eating (38643880000, -9233590000).
+Top Left: leisure (38679330000, -9257810000).
+Bottom Right: leisure (38522965000, -9104674000).
+Top Right: leisure (38679330000, -9104674000).
+Praia da Riviera Restaurant: eating (38620840000, -9216170000).
+Museu de Almada Bar: eating (38671020000, -9161000000).
+Solar dos Zagallos Bar: eating (38653010000, -9189930000).
+Praia da Riviera Party: leisure (38620840000, -9216170000).
+Almada Hostel Conference: leisure (38671020000, -9161000000).
+Solar dos Zagallos Event: leisure (38653010000, -9189930000).
+Solar dos Zagallos Hotel: lodging (38653010000, -9189930000).
+NOVA FCT Event: leisure (38659640000, -9204380000).
+Top Left Bar: eating (38679330000, -9257810000).
+Crowne Plaza Caparica Hotel: lodging (38647706000, -9224750000).
+Bottom Right Bar: eating (38522965000, -9104674000).
+Top Right Bar: eating (38679330000, -9104674000).
+Bottom Left Bar: eating (38522965000, -9257810000).
+lodging Egas Moniz added.
+lodging Residencial Mar e Sol added.
+leisure Crowne Plaza Caparica Event added.
+leisure Residencial Mar e Sol Event added.
+leisure Bottom Left added.
+NOVA FCT Canteen: eating (38659640000, -9204380000).
+NOVA FCT: lodging (38659640000, -9204380000).
+Egas Moniz Event: leisure (38668600000, -9194010000).
+Egas Moniz Canteen: eating (38668600000, -9194010000).
+Crowne Plaza Caparica Restaurant: eating (38647706000, -9224750000).
+Praia da Riviera Camping: lodging (38620840000, -9216170000).
+Almada Hostel: lodging (38671020000, -9161000000).
+Residencial Mar e Sol Bar: eating (38643880000, -9233590000).
+Top Left: leisure (38679330000, -9257810000).
+Bottom Right: leisure (38522965000, -9104674000).
+Top Right: leisure (38679330000, -9104674000).
+Praia da Riviera Restaurant: eating (38620840000, -9216170000).
+Museu de Almada Bar: eating (38671020000, -9161000000).
+Solar dos Zagallos Bar: eating (38653010000, -9189930000).
+Praia da Riviera Party: leisure (38620840000, -9216170000).
+Almada Hostel Conference: leisure (38671020000, -9161000000).
+Solar dos Zagallos Event: leisure (38653010000, -9189930000).
+Solar dos Zagallos Hotel: lodging (38653010000, -9189930000).
+NOVA FCT Event: leisure (38659640000, -9204380000).
+Top Left Bar: eating (38679330000, -9257810000).
+Crowne Plaza Caparica Hotel: lodging (38647706000, -9224750000).
+Bottom Right Bar: eating (38522965000, -9104674000).
+Top Right Bar: eating (38679330000, -9104674000).
+Bottom Left Bar: eating (38522965000, -9257810000).
+Egas Moniz: lodging (38668600000, -9194010000).
+Residencial Mar e Sol: lodging (38643880000, -9233590000).
+Crowne Plaza Caparica Event: leisure (38647706000, -9224750000).
+Residencial Mar e Sol Event: leisure (38643880000, -9233590000).
+Bottom Left: leisure (38522965000, -9257810000).
+Almada Hostel already exists!
+Almada Hostel already exists!
+NOVA FCT Canteen already exists!
+Bottom Left already exists!
+Invalid service type!
+leisure Leisure Event added.
+Invalid location!
+Invalid menu price!
+Invalid room price!
+eating Eating Restaurant added.
+Invalid discount price!
+Invalid capacity!
+Invalid capacity!
+Invalid location!
+NOVA FCT Canteen: eating (38659640000, -9204380000).
+NOVA FCT: lodging (38659640000, -9204380000).
+Egas Moniz Event: leisure (38668600000, -9194010000).
+Egas Moniz Canteen: eating (38668600000, -9194010000).
+Crowne Plaza Caparica Restaurant: eating (38647706000, -9224750000).
+Praia da Riviera Camping: lodging (38620840000, -9216170000).
+Almada Hostel: lodging (38671020000, -9161000000).
+Residencial Mar e Sol Bar: eating (38643880000, -9233590000).
+Top Left: leisure (38679330000, -9257810000).
+Bottom Right: leisure (38522965000, -9104674000).
+Top Right: leisure (38679330000, -9104674000).
+Praia da Riviera Restaurant: eating (38620840000, -9216170000).
+Museu de Almada Bar: eating (38671020000, -9161000000).
+Solar dos Zagallos Bar: eating (38653010000, -9189930000).
+Praia da Riviera Party: leisure (38620840000, -9216170000).
+Almada Hostel Conference: leisure (38671020000, -9161000000).
+Solar dos Zagallos Event: leisure (38653010000, -9189930000).
+Solar dos Zagallos Hotel: lodging (38653010000, -9189930000).
+NOVA FCT Event: leisure (38659640000, -9204380000).
+Top Left Bar: eating (38679330000, -9257810000).
+Crowne Plaza Caparica Hotel: lodging (38647706000, -9224750000).
+Bottom Right Bar: eating (38522965000, -9104674000).
+Top Right Bar: eating (38679330000, -9104674000).
+Bottom Left Bar: eating (38522965000, -9257810000).
+Egas Moniz: lodging (38668600000, -9194010000).
+Residencial Mar e Sol: lodging (38643880000, -9233590000).
+Crowne Plaza Caparica Event: leisure (38647706000, -9224750000).
+Residencial Mar e Sol Event: leisure (38643880000, -9233590000).
+Bottom Left: leisure (38522965000, -9257810000).
+Leisure Event: leisure (38671020000, -9161000000).
+Eating Restaurant: eating (38671020000, -9161000000).
+Invalid bounds.
+eating Eating bar added.
+NOVA FCT Canteen: eating (38659640000, -9204380000).
+NOVA FCT: lodging (38659640000, -9204380000).
+Egas Moniz Event: leisure (38668600000, -9194010000).
+Egas Moniz Canteen: eating (38668600000, -9194010000).
+Crowne Plaza Caparica Restaurant: eating (38647706000, -9224750000).
+Praia da Riviera Camping: lodging (38620840000, -9216170000).
+Almada Hostel: lodging (38671020000, -9161000000).
+Residencial Mar e Sol Bar: eating (38643880000, -9233590000).
+Top Left: leisure (38679330000, -9257810000).
+Bottom Right: leisure (38522965000, -9104674000).
+Top Right: leisure (38679330000, -9104674000).
+Praia da Riviera Restaurant: eating (38620840000, -9216170000).
+Museu de Almada Bar: eating (38671020000, -9161000000).
+Solar dos Zagallos Bar: eating (38653010000, -9189930000).
+Praia da Riviera Party: leisure (38620840000, -9216170000).
+Almada Hostel Conference: leisure (38671020000, -9161000000).
+Solar dos Zagallos Event: leisure (38653010000, -9189930000).
+Solar dos Zagallos Hotel: lodging (38653010000, -9189930000).
+NOVA FCT Event: leisure (38659640000, -9204380000).
+Top Left Bar: eating (38679330000, -9257810000).
+Crowne Plaza Caparica Hotel: lodging (38647706000, -9224750000).
+Bottom Right Bar: eating (38522965000, -9104674000).
+Top Right Bar: eating (38679330000, -9104674000).
+Bottom Left Bar: eating (38522965000, -9257810000).
+Egas Moniz: lodging (38668600000, -9194010000).
+Residencial Mar e Sol: lodging (38643880000, -9233590000).
+Crowne Plaza Caparica Event: leisure (38647706000, -9224750000).
+Residencial Mar e Sol Event: leisure (38643880000, -9233590000).
+Bottom Left: leisure (38522965000, -9257810000).
+Leisure Event: leisure (38671020000, -9161000000).
+Eating Restaurant: eating (38671020000, -9161000000).
+Eating bar: eating (38671020000, -9161000000).
+Invalid bounds.
+Invalid bounds.
+Invalid bounds.
+Bounds already exists. Please load it!
+NOVA FCT Canteen: eating (38659640000, -9204380000).
+NOVA FCT: lodging (38659640000, -9204380000).
+Egas Moniz Event: leisure (38668600000, -9194010000).
+Egas Moniz Canteen: eating (38668600000, -9194010000).
+Crowne Plaza Caparica Restaurant: eating (38647706000, -9224750000).
+Praia da Riviera Camping: lodging (38620840000, -9216170000).
+Almada Hostel: lodging (38671020000, -9161000000).
+Residencial Mar e Sol Bar: eating (38643880000, -9233590000).
+Top Left: leisure (38679330000, -9257810000).
+Bottom Right: leisure (38522965000, -9104674000).
+Top Right: leisure (38679330000, -9104674000).
+Praia da Riviera Restaurant: eating (38620840000, -9216170000).
+Museu de Almada Bar: eating (38671020000, -9161000000).
+Solar dos Zagallos Bar: eating (38653010000, -9189930000).
+Praia da Riviera Party: leisure (38620840000, -9216170000).
+Almada Hostel Conference: leisure (38671020000, -9161000000).
+Solar dos Zagallos Event: leisure (38653010000, -9189930000).
+Solar dos Zagallos Hotel: lodging (38653010000, -9189930000).
+NOVA FCT Event: leisure (38659640000, -9204380000).
+Top Left Bar: eating (38679330000, -9257810000).
+Crowne Plaza Caparica Hotel: lodging (38647706000, -9224750000).
+Bottom Right Bar: eating (38522965000, -9104674000).
+Top Right Bar: eating (38679330000, -9104674000).
+Bottom Left Bar: eating (38522965000, -9257810000).
+Egas Moniz: lodging (38668600000, -9194010000).
+Residencial Mar e Sol: lodging (38643880000, -9233590000).
+Crowne Plaza Caparica Event: leisure (38647706000, -9224750000).
+Residencial Mar e Sol Event: leisure (38643880000, -9233590000).
+Bottom Left: leisure (38522965000, -9257810000).
+Leisure Event: leisure (38671020000, -9161000000).
+Eating Restaurant: eating (38671020000, -9161000000).
+Eating bar: eating (38671020000, -9161000000).
+Costa do sol saved.
+No students yet!
+Neil Perry added.
+Neil Perry is at NOVA FCT lodging (38659640000, -9204380000).
+Neil Lau added.
+John Lau added.
+Mary Perry added.
+Mary Perry is at Solar dos Zagallos Hotel lodging (38653010000, -9189930000).
+Mary Lau added.
+John Lau is at Praia da Riviera Camping lodging (38620840000, -9216170000).
+Neil Lau is at Praia da Riviera Camping lodging (38620840000, -9216170000).
+John Lau: bookish at Praia da Riviera Camping.
+Mary Lau: outgoing at NOVA FCT.
+Mary Perry: thrifty at Solar dos Zagallos Hotel.
+Neil Lau: bookish at Praia da Riviera Camping.
+Neil Perry: bookish at NOVA FCT.
+Neil Lau: bookish at Praia da Riviera Camping.
+Mary Perry: thrifty at Solar dos Zagallos Hotel.
+Mary Lau: outgoing at NOVA FCT.
+Neil Perry: bookish at NOVA FCT.
+John Lau: bookish at Praia da Riviera Camping.
+John Lau: bookish at Praia da Riviera Camping.
+Mary Lau: outgoing at NOVA FCT.
+Mary Perry: thrifty at Solar dos Zagallos Hotel.
+Neil Lau: bookish at Praia da Riviera Camping.
+Neil Perry: bookish at NOVA FCT.
+Costa do sol saved.
+John Lau: bookish at Praia da Riviera Camping.
+Mary Lau: outgoing at NOVA FCT.
+Mary Perry: thrifty at Solar dos Zagallos Hotel.
+Neil Lau: bookish at Praia da Riviera Camping.
+Neil Perry: bookish at NOVA FCT.
+Neil Lau is at Praia da Riviera Camping lodging (38620840000, -9216170000).
+Costa do sol saved.
+Invalid student type!
+lodging UNknown does not exist!
+lodging Only One room added.
+Maria added.
+lodging Only One room is full!
+Mary Lau: outgoing at NOVA FCT.
+Maria: outgoing at Only One room.
+Maria already exists!
+John Lau already exists!
+Mary Lau: outgoing at NOVA FCT.
+Maria: outgoing at Only One room.
+Costa do sol saved.
+No students from France!
+Neil Lau is now at Eating Restaurant.
+Mary Perry is now at Egas Moniz Event.
+Neil Perry is now at NOVA FCT Event.
+eating NOVA FCT Canteen Expensive added.
+eating NOVA FCT Canteen Equal added.
+Neil Lau Two added.
+eating Egas Moniz Canteen Thrifty added.
+lodging Egas Moniz expensive added.
+lodging Egas Moniz Thrifty added.
+eating Egas Moniz Canteen Expensive added.
+Eva P added.
+Jose Thrifty added.
+Residencial Mar e Sol is not a valid service!
+Neil Perry is now at Egas Moniz Canteen Expensive.
+Unknown Unknow city!
+Mary Perry is now at Egas Moniz Canteen Expensive.
+John Lau is now at Egas Moniz Canteen Expensive.
+eating Egas Moniz Canteen Expensive is full!
+Already there!
+Neil Perry is now at Almada Hostel Conference.
+Jose Thrifty is now at Almada Hostel Conference.
+John Lau is now at Almada Hostel Conference.
+Mary Perry is now at Almada Hostel Conference.
+Maria Thrifty does not exist!
+Eva P is now at Almada Hostel Conference.
+Jose Thrifty is now at Praia da Riviera Party.
+Jose Thrifty is now at NOVA FCT Canteen.
+Jose Thrifty is now at NOVA FCT Canteen Expensive. Jose Thrifty is distracted!
+Jose Thrifty is now at NOVA FCT Canteen Equal.
+Unknown NOVA FCT Canteen Thrifty!
+lodging Egas Moniz Equal added.
+Maria Thrifty added.
+Maria Thrifty is now at Praia da Riviera Party.
+Maria Thrifty is now at NOVA FCT Canteen.
+Maria Thrifty is now at NOVA FCT Canteen Expensive. Maria Thrifty is distracted!
+Maria Thrifty is now at NOVA FCT Canteen Equal.
+Already there!
+lodging Residencial Mar e Sol Expensive added.
+Residencial Mar e Sol Expensive is not a valid service!
+Jose Thrifty is now at Crowne Plaza Caparica Event.
+Eva P: bookish at Almada Hostel Conference.
+John Lau: bookish at Almada Hostel Conference.
+Jose Thrifty: thrifty at Crowne Plaza Caparica Event.
+Maria: outgoing at Only One room.
+Maria Thrifty: thrifty at NOVA FCT Canteen Equal.
+Mary Lau: outgoing at NOVA FCT.
+Mary Perry: thrifty at Almada Hostel Conference.
+Neil Lau: bookish at Eating Restaurant.
+Neil Lau Two: bookish at Praia da Riviera Camping.
+Neil Perry: bookish at Almada Hostel Conference.
+Maria is now at Crowne Plaza Caparica Event.
+Jose Thrifty is now at Egas Moniz Event.
+Neil Perry is now at Praia da Riviera Restaurant.
+Jose Thrifty is now at Praia da Riviera Party.
+Jose Thrifty is now at Almada Hostel Conference.
+Jose Thrifty is now at Solar dos Zagallos Event.
+Eva P is now at Praia da Riviera Party.
+Eva P is now at Solar dos Zagallos Event.
+Eva P is now at Praia da Riviera Party.
+John Lau One does not exist!
+Eva P: bookish at Praia da Riviera Party.
+John Lau: bookish at Almada Hostel Conference.
+Jose Thrifty: thrifty at Solar dos Zagallos Event.
+Maria: outgoing at Crowne Plaza Caparica Event.
+Maria Thrifty: thrifty at NOVA FCT Canteen Equal.
+Mary Lau: outgoing at NOVA FCT.
+Mary Perry: thrifty at Almada Hostel Conference.
+Neil Lau: bookish at Eating Restaurant.
+Neil Lau Two: bookish at Praia da Riviera Camping.
+Neil Perry: bookish at Praia da Riviera Restaurant.
+NOVA FCT Canteen: eating (38659640000, -9204380000).
+NOVA FCT: lodging (38659640000, -9204380000).
+Egas Moniz Event: leisure (38668600000, -9194010000).
+Egas Moniz Canteen: eating (38668600000, -9194010000).
+Crowne Plaza Caparica Restaurant: eating (38647706000, -9224750000).
+Praia da Riviera Camping: lodging (38620840000, -9216170000).
+Almada Hostel: lodging (38671020000, -9161000000).
+Residencial Mar e Sol Bar: eating (38643880000, -9233590000).
+Top Left: leisure (38679330000, -9257810000).
+Bottom Right: leisure (38522965000, -9104674000).
+Top Right: leisure (38679330000, -9104674000).
+Praia da Riviera Restaurant: eating (38620840000, -9216170000).
+Museu de Almada Bar: eating (38671020000, -9161000000).
+Solar dos Zagallos Bar: eating (38653010000, -9189930000).
+Praia da Riviera Party: leisure (38620840000, -9216170000).
+Almada Hostel Conference: leisure (38671020000, -9161000000).
+Solar dos Zagallos Event: leisure (38653010000, -9189930000).
+Solar dos Zagallos Hotel: lodging (38653010000, -9189930000).
+NOVA FCT Event: leisure (38659640000, -9204380000).
+Top Left Bar: eating (38679330000, -9257810000).
+Crowne Plaza Caparica Hotel: lodging (38647706000, -9224750000).
+Bottom Right Bar: eating (38522965000, -9104674000).
+Top Right Bar: eating (38679330000, -9104674000).
+Bottom Left Bar: eating (38522965000, -9257810000).
+Egas Moniz: lodging (38668600000, -9194010000).
+Residencial Mar e Sol: lodging (38643880000, -9233590000).
+Crowne Plaza Caparica Event: leisure (38647706000, -9224750000).
+Residencial Mar e Sol Event: leisure (38643880000, -9233590000).
+Bottom Left: leisure (38522965000, -9257810000).
+Leisure Event: leisure (38671020000, -9161000000).
+Eating Restaurant: eating (38671020000, -9161000000).
+Eating bar: eating (38671020000, -9161000000).
+Only One room: lodging (38643880000, -9233590000).
+NOVA FCT Canteen Expensive: eating (38659640000, -9204380000).
+NOVA FCT Canteen Equal: eating (38659640000, -9204380000).
+Egas Moniz Canteen Thrifty: eating (38668600000, -9194010000).
+Egas Moniz expensive: lodging (38668600000, -9194010000).
+Egas Moniz Thrifty: lodging (38668600000, -9194010000).
+Egas Moniz Canteen Expensive: eating (38668600000, -9194010000).
+Egas Moniz Equal: lodging (38668600000, -9194010000).
+Residencial Mar e Sol Expensive: lodging (38643880000, -9233590000).
+Neil Perry is at Praia da Riviera Restaurant eating (38620840000, -9216170000).
+John Lau One does not exist!
+John Lau One does not exist!
+lodging Residencial Mar e Sol is now Neil Perry's home. Neil Perry is at home.
+lodging Residencial Mar e Sol is now Eva P's home. Eva P is at home.
+Eva P is at Residencial Mar e Sol lodging (38643880000, -9233590000).
+lodging Residencial Mar e Sol is now Mary Perry's home. Mary Perry is at home.
+Mary Perry is at Residencial Mar e Sol lodging (38643880000, -9233590000).
+Jose Thrifty is at Solar dos Zagallos Event leisure (38653010000, -9189930000).
+lodging Egas Moniz is now Jose Thrifty's home. Jose Thrifty is at home.
+lodging Egas Moniz Thrifty is now Jose Thrifty's home. Jose Thrifty is at home.
+lodging Almada Hostel is now John Lau's home. John Lau is at home.
+lodging Solar dos Zagallos Hotel is now Neil Perry's home. Neil Perry is at home.
+Move is not acceptable for Jose Thrifty!
+Jose Thrifty is at Egas Moniz Thrifty lodging (38668600000, -9194010000).
+Move is not acceptable for Jose Thrifty!
+Move is not acceptable for Jose Thrifty!
+That is Jose Thrifty's home!
+Move is not acceptable for Maria Thrifty!
+Maria Thrifty is at NOVA FCT Canteen Equal eating (38659640000, -9204380000).
+lodging Costa da Caparica does not exist!
+lodging Only One room is full!
+lodging Residencial Mar e Sol Expensive is now Mary Lau's home. Mary Lau is at home.
+Move is not acceptable for Maria Thrifty!
+lodging Residencial Mar e Sol Expensive is now Maria's home. Maria is at home.
+lodging Residencial Mar e Sol Expensive is now Eva P's home. Eva P is at home.
+That is Eva P's home!
+Maria Lau does not exist!
+That is Mary Lau's home!
+lodging Residencial Mar e Sol Expensive is full!
+Neil Lau is at Eating Restaurant eating (38671020000, -9161000000).
+Mary Lau: outgoing
+Maria: outgoing
+Eva P: bookish
+Eva P: bookish
+Maria: outgoing
+Mary Lau: outgoing
+No students on Only One room!
+Mary Perry: thrifty
+Neil Perry: bookish
+Crowne Plaza Caparica Event does not control student entry and exit!
+No students on NOVA FCT Canteen Expensive!
+No students on NOVA FCT Canteen!
+lodging Solar dos Zagallos Hotel is now Mary Lau's home. Mary Lau is at home.
+Mary Lau: outgoing
+Neil Perry: bookish
+No students on NOVA FCT Canteen!
+This order does not exists!
+unknow service does not exist!
+Mary Perry is at Residencial Mar e Sol lodging (38643880000, -9233590000).
+Mary Perry is thrifty!
+Neil Lau is at Eating Restaurant eating (38671020000, -9161000000).
+Neil Lau has not visited any locations!
+Neil Lau Two is at Praia da Riviera Camping lodging (38620840000, -9216170000).
+Neil Lau Two has not visited any locations!
+Eva P is at Residencial Mar e Sol Expensive lodging (38643880000, -9233590000).
+Almada Hostel Conference
+Praia da Riviera Party
+Solar dos Zagallos Event
+John Lau is at Almada Hostel lodging (38671020000, -9161000000).
+Almada Hostel Conference
+Jose Thrifty is at Egas Moniz Thrifty lodging (38668600000, -9194010000).
+Jose Thrifty is thrifty!
+Maria V does not exist!
+Maria is at Residencial Mar e Sol Expensive lodging (38643880000, -9233590000).
+Only One room
+Crowne Plaza Caparica Event
+Residencial Mar e Sol Expensive
+Maria Thrifty is thrifty!
+Mary Lau is at Solar dos Zagallos Hotel lodging (38653010000, -9189930000).
+NOVA FCT
+Residencial Mar e Sol Expensive
+Solar dos Zagallos Hotel
+Neil Perry is at Solar dos Zagallos Hotel lodging (38653010000, -9189930000).
+NOVA FCT Event
+Almada Hostel Conference
+unknown student does not exist!
+Neil Perry is now at Eating Restaurant.
+NOVA FCT Event
+Almada Hostel Conference
+Mary Lau is now at Eating Restaurant.
+NOVA FCT
+Residencial Mar e Sol Expensive
+Solar dos Zagallos Hotel
+Eating Restaurant
+Services sorted in descending order
+NOVA FCT Canteen: 4
+NOVA FCT: 4
+Egas Moniz Event: 4
+Egas Moniz Canteen: 4
+Crowne Plaza Caparica Restaurant: 4
+Praia da Riviera Camping: 4
+Almada Hostel: 4
+Residencial Mar e Sol Bar: 4
+Top Left: 4
+Bottom Right: 4
+Top Right: 4
+Praia da Riviera Restaurant: 4
+Museu de Almada Bar: 4
+Solar dos Zagallos Bar: 4
+Praia da Riviera Party: 4
+Almada Hostel Conference: 4
+Solar dos Zagallos Event: 4
+Solar dos Zagallos Hotel: 4
+NOVA FCT Event: 4
+Top Left Bar: 4
+Crowne Plaza Caparica Hotel: 4
+Bottom Right Bar: 4
+Top Right Bar: 4
+Bottom Left Bar: 4
+Egas Moniz: 4
+Residencial Mar e Sol: 4
+Crowne Plaza Caparica Event: 4
+Residencial Mar e Sol Event: 4
+Bottom Left: 4
+Leisure Event: 4
+Eating Restaurant: 4
+Eating bar: 4
+Only One room: 4
+NOVA FCT Canteen Expensive: 4
+NOVA FCT Canteen Equal: 4
+Egas Moniz Canteen Thrifty: 4
+Egas Moniz expensive: 4
+Egas Moniz Thrifty: 4
+Egas Moniz Canteen Expensive: 4
+Egas Moniz Equal: 4
+Residencial Mar e Sol Expensive: 4
+Nova does not exist!
+Invalid evaluation!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Services sorted in descending order
+Praia da Riviera Camping: 5
+NOVA FCT Canteen: 4
+NOVA FCT: 4
+Egas Moniz Event: 4
+Egas Moniz Canteen: 4
+Crowne Plaza Caparica Restaurant: 4
+Residencial Mar e Sol Bar: 4
+Top Left: 4
+Bottom Right: 4
+Top Right: 4
+Praia da Riviera Restaurant: 4
+Museu de Almada Bar: 4
+Solar dos Zagallos Bar: 4
+Praia da Riviera Party: 4
+Almada Hostel Conference: 4
+Solar dos Zagallos Event: 4
+Solar dos Zagallos Hotel: 4
+NOVA FCT Event: 4
+Top Left Bar: 4
+Crowne Plaza Caparica Hotel: 4
+Bottom Right Bar: 4
+Top Right Bar: 4
+Bottom Left Bar: 4
+Egas Moniz: 4
+Residencial Mar e Sol: 4
+Crowne Plaza Caparica Event: 4
+Residencial Mar e Sol Event: 4
+Bottom Left: 4
+Leisure Event: 4
+Eating Restaurant: 4
+Eating bar: 4
+Only One room: 4
+NOVA FCT Canteen Expensive: 4
+NOVA FCT Canteen Equal: 4
+Egas Moniz Canteen Thrifty: 4
+Egas Moniz expensive: 4
+Egas Moniz Thrifty: 4
+Egas Moniz Canteen Expensive: 4
+Egas Moniz Equal: 4
+Residencial Mar e Sol Expensive: 4
+Almada Hostel: 3
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Services sorted in descending order
+Praia da Riviera Camping: 5
+NOVA FCT Canteen: 5
+NOVA FCT: 4
+Egas Moniz Event: 4
+Egas Moniz Canteen: 4
+Crowne Plaza Caparica Restaurant: 4
+Residencial Mar e Sol Bar: 4
+Top Left: 4
+Bottom Right: 4
+Top Right: 4
+Praia da Riviera Restaurant: 4
+Museu de Almada Bar: 4
+Solar dos Zagallos Bar: 4
+Praia da Riviera Party: 4
+Almada Hostel Conference: 4
+Solar dos Zagallos Event: 4
+Solar dos Zagallos Hotel: 4
+NOVA FCT Event: 4
+Top Left Bar: 4
+Crowne Plaza Caparica Hotel: 4
+Bottom Right Bar: 4
+Top Right Bar: 4
+Bottom Left Bar: 4
+Egas Moniz: 4
+Residencial Mar e Sol: 4
+Crowne Plaza Caparica Event: 4
+Residencial Mar e Sol Event: 4
+Bottom Left: 4
+Leisure Event: 4
+Eating Restaurant: 4
+Eating bar: 4
+Only One room: 4
+NOVA FCT Canteen Expensive: 4
+NOVA FCT Canteen Equal: 4
+Egas Moniz Canteen Thrifty: 4
+Egas Moniz expensive: 4
+Egas Moniz Thrifty: 4
+Egas Moniz Canteen Expensive: 4
+Egas Moniz Equal: 4
+Residencial Mar e Sol Expensive: 4
+Almada Hostel: 4
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Services sorted in descending order
+Praia da Riviera Camping: 5
+NOVA FCT Canteen: 5
+Crowne Plaza Caparica Event: 5
+NOVA FCT: 4
+Egas Moniz Event: 4
+Egas Moniz Canteen: 4
+Crowne Plaza Caparica Restaurant: 4
+Residencial Mar e Sol Bar: 4
+Top Left: 4
+Bottom Right: 4
+Top Right: 4
+Praia da Riviera Restaurant: 4
+Museu de Almada Bar: 4
+Solar dos Zagallos Bar: 4
+Praia da Riviera Party: 4
+Solar dos Zagallos Event: 4
+Solar dos Zagallos Hotel: 4
+NOVA FCT Event: 4
+Top Left Bar: 4
+Crowne Plaza Caparica Hotel: 4
+Bottom Right Bar: 4
+Top Right Bar: 4
+Bottom Left Bar: 4
+Residencial Mar e Sol: 4
+Residencial Mar e Sol Event: 4
+Bottom Left: 4
+Leisure Event: 4
+Eating Restaurant: 4
+Eating bar: 4
+Only One room: 4
+NOVA FCT Canteen Expensive: 4
+NOVA FCT Canteen Equal: 4
+Egas Moniz Canteen Thrifty: 4
+Egas Moniz expensive: 4
+Egas Moniz Thrifty: 4
+Egas Moniz Canteen Expensive: 4
+Egas Moniz Equal: 4
+Residencial Mar e Sol Expensive: 4
+Egas Moniz: 3
+Almada Hostel: 3
+Almada Hostel Conference: 3
+Invalid evaluation!
+Services sorted in descending order
+Praia da Riviera Camping: 5
+NOVA FCT Canteen: 5
+Crowne Plaza Caparica Event: 5
+NOVA FCT: 4
+Egas Moniz Event: 4
+Egas Moniz Canteen: 4
+Crowne Plaza Caparica Restaurant: 4
+Residencial Mar e Sol Bar: 4
+Top Left: 4
+Bottom Right: 4
+Top Right: 4
+Praia da Riviera Restaurant: 4
+Museu de Almada Bar: 4
+Solar dos Zagallos Bar: 4
+Praia da Riviera Party: 4
+Solar dos Zagallos Event: 4
+Solar dos Zagallos Hotel: 4
+NOVA FCT Event: 4
+Top Left Bar: 4
+Crowne Plaza Caparica Hotel: 4
+Bottom Right Bar: 4
+Top Right Bar: 4
+Bottom Left Bar: 4
+Residencial Mar e Sol: 4
+Residencial Mar e Sol Event: 4
+Bottom Left: 4
+Leisure Event: 4
+Eating Restaurant: 4
+Eating bar: 4
+Only One room: 4
+NOVA FCT Canteen Expensive: 4
+NOVA FCT Canteen Equal: 4
+Egas Moniz Canteen Thrifty: 4
+Egas Moniz expensive: 4
+Egas Moniz Thrifty: 4
+Egas Moniz Canteen Expensive: 4
+Egas Moniz Equal: 4
+Residencial Mar e Sol Expensive: 4
+Egas Moniz: 3
+Almada Hostel: 3
+Almada Hostel Conference: 3
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Invalid evaluation!
+Services sorted in descending order
+NOVA FCT Canteen: 5
+NOVA FCT: 5
+NOVA FCT Event: 5
+Egas Moniz Event: 4
+Egas Moniz Canteen: 4
+Crowne Plaza Caparica Restaurant: 4
+Residencial Mar e Sol Bar: 4
+Top Left: 4
+Bottom Right: 4
+Top Right: 4
+Praia da Riviera Restaurant: 4
+Museu de Almada Bar: 4
+Solar dos Zagallos Bar: 4
+Praia da Riviera Party: 4
+Solar dos Zagallos Event: 4
+Solar dos Zagallos Hotel: 4
+Top Left Bar: 4
+Crowne Plaza Caparica Hotel: 4
+Bottom Right Bar: 4
+Top Right Bar: 4
+Bottom Left Bar: 4
+Residencial Mar e Sol: 4
+Residencial Mar e Sol Event: 4
+Bottom Left: 4
+Leisure Event: 4
+Eating Restaurant: 4
+Eating bar: 4
+Only One room: 4
+NOVA FCT Canteen Expensive: 4
+NOVA FCT Canteen Equal: 4
+Egas Moniz Canteen Thrifty: 4
+Egas Moniz expensive: 4
+Egas Moniz Thrifty: 4
+Egas Moniz Canteen Expensive: 4
+Egas Moniz Equal: 4
+Residencial Mar e Sol Expensive: 4
+Crowne Plaza Caparica Event: 4
+Egas Moniz: 3
+Praia da Riviera Camping: 3
+Almada Hostel Conference: 2
+Almada Hostel: 2
+Almada does not exist!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Your evaluation has been registered!
+Invalid evaluation!
+Your evaluation has been registered!
+Services sorted in descending order
+NOVA FCT Canteen: 5
+NOVA FCT: 5
+NOVA FCT Event: 5
+Egas Moniz Event: 4
+Egas Moniz Canteen: 4
+Crowne Plaza Caparica Restaurant: 4
+Residencial Mar e Sol Bar: 4
+Top Left: 4
+Bottom Right: 4
+Top Right: 4
+Praia da Riviera Restaurant: 4
+Museu de Almada Bar: 4
+Solar dos Zagallos Bar: 4
+Praia da Riviera Party: 4
+Solar dos Zagallos Event: 4
+Solar dos Zagallos Hotel: 4
+Top Left Bar: 4
+Crowne Plaza Caparica Hotel: 4
+Bottom Right Bar: 4
+Top Right Bar: 4
+Bottom Left Bar: 4
+Residencial Mar e Sol: 4
+Residencial Mar e Sol Event: 4
+Bottom Left: 4
+Leisure Event: 4
+Eating Restaurant: 4
+Eating bar: 4
+Only One room: 4
+NOVA FCT Canteen Expensive: 4
+NOVA FCT Canteen Equal: 4
+Egas Moniz Canteen Thrifty: 4
+Egas Moniz expensive: 4
+Egas Moniz Thrifty: 4
+Egas Moniz Canteen Expensive: 4
+Egas Moniz Equal: 4
+Residencial Mar e Sol Expensive: 4
+Crowne Plaza Caparica Event: 4
+Egas Moniz: 3
+Praia da Riviera Camping: 3
+Almada Hostel: 2
+Almada Hostel Conference: 1
+Invalid evaluation!
+Services sorted in descending order
+NOVA FCT Canteen: 5
+NOVA FCT: 5
+NOVA FCT Event: 5
+Egas Moniz Event: 4
+Egas Moniz Canteen: 4
+Crowne Plaza Caparica Restaurant: 4
+Residencial Mar e Sol Bar: 4
+Top Left: 4
+Bottom Right: 4
+Top Right: 4
+Praia da Riviera Restaurant: 4
+Museu de Almada Bar: 4
+Solar dos Zagallos Bar: 4
+Praia da Riviera Party: 4
+Solar dos Zagallos Event: 4
+Solar dos Zagallos Hotel: 4
+Top Left Bar: 4
+Crowne Plaza Caparica Hotel: 4
+Bottom Right Bar: 4
+Top Right Bar: 4
+Bottom Left Bar: 4
+Residencial Mar e Sol: 4
+Residencial Mar e Sol Event: 4
+Bottom Left: 4
+Leisure Event: 4
+Eating Restaurant: 4
+Eating bar: 4
+Only One room: 4
+NOVA FCT Canteen Expensive: 4
+NOVA FCT Canteen Equal: 4
+Egas Moniz Canteen Thrifty: 4
+Egas Moniz expensive: 4
+Egas Moniz Thrifty: 4
+Egas Moniz Canteen Expensive: 4
+Egas Moniz Equal: 4
+Residencial Mar e Sol Expensive: 4
+Crowne Plaza Caparica Event: 4
+Egas Moniz: 3
+Praia da Riviera Camping: 3
+Almada Hostel: 2
+Almada Hostel Conference: 1
+eating NOVA FCT Canteen
+lodging NOVA FCT
+lodging Praia da Riviera Camping
+lodging Almada Hostel
+leisure NOVA FCT Event
+There are no services with this tag!
+leisure Crowne Plaza Caparica Event
+lodging Almada Hostel
+Costa do sol saved.
+lodging Praia da Riviera Camping
+lodging Almada Hostel
+leisure Almada Hostel Conference
+lodging Egas Moniz
+NOVA FCT Canteen: eating (38659640000, -9204380000).
+NOVA FCT: lodging (38659640000, -9204380000).
+Egas Moniz Event: leisure (38668600000, -9194010000).
+Egas Moniz Canteen: eating (38668600000, -9194010000).
+Crowne Plaza Caparica Restaurant: eating (38647706000, -9224750000).
+Praia da Riviera Camping: lodging (38620840000, -9216170000).
+Almada Hostel: lodging (38671020000, -9161000000).
+Residencial Mar e Sol Bar: eating (38643880000, -9233590000).
+Top Left: leisure (38679330000, -9257810000).
+Bottom Right: leisure (38522965000, -9104674000).
+Top Right: leisure (38679330000, -9104674000).
+Praia da Riviera Restaurant: eating (38620840000, -9216170000).
+Museu de Almada Bar: eating (38671020000, -9161000000).
+Solar dos Zagallos Bar: eating (38653010000, -9189930000).
+Praia da Riviera Party: leisure (38620840000, -9216170000).
+Almada Hostel Conference: leisure (38671020000, -9161000000).
+Solar dos Zagallos Event: leisure (38653010000, -9189930000).
+Solar dos Zagallos Hotel: lodging (38653010000, -9189930000).
+NOVA FCT Event: leisure (38659640000, -9204380000).
+Top Left Bar: eating (38679330000, -9257810000).
+Crowne Plaza Caparica Hotel: lodging (38647706000, -9224750000).
+Bottom Right Bar: eating (38522965000, -9104674000).
+Top Right Bar: eating (38679330000, -9104674000).
+Bottom Left Bar: eating (38522965000, -9257810000).
+Egas Moniz: lodging (38668600000, -9194010000).
+Residencial Mar e Sol: lodging (38643880000, -9233590000).
+Crowne Plaza Caparica Event: leisure (38647706000, -9224750000).
+Residencial Mar e Sol Event: leisure (38643880000, -9233590000).
+Bottom Left: leisure (38522965000, -9257810000).
+Leisure Event: leisure (38671020000, -9161000000).
+Eating Restaurant: eating (38671020000, -9161000000).
+Eating bar: eating (38671020000, -9161000000).
+Only One room: lodging (38643880000, -9233590000).
+NOVA FCT Canteen Expensive: eating (38659640000, -9204380000).
+NOVA FCT Canteen Equal: eating (38659640000, -9204380000).
+Egas Moniz Canteen Thrifty: eating (38668600000, -9194010000).
+Egas Moniz expensive: lodging (38668600000, -9194010000).
+Egas Moniz Thrifty: lodging (38668600000, -9194010000).
+Egas Moniz Canteen Expensive: eating (38668600000, -9194010000).
+Egas Moniz Equal: lodging (38668600000, -9194010000).
+Residencial Mar e Sol Expensive: lodging (38643880000, -9233590000).
+lodging Praia da Riviera Camping
+lodging Almada Hostel
+leisure Almada Hostel Conference
+lodging Egas Moniz
+leisure Crowne Plaza Caparica Event
+Your evaluation has been registered!
+There are no services with this tag!
+eating NOVA FCT Canteen
+lodging NOVA FCT
+lodging Praia da Riviera Camping
+lodging Almada Hostel
+leisure NOVA FCT Event
+There are no services with this tag!
+leisure NOVA FCT Event
+Neil Perry is at Eating Restaurant eating (38671020000, -9161000000).
+leisure services closer with 4 average
+Leisure Event
+eating services closer with 4 average
+Museu de Almada Bar
+Eating Restaurant
+Eating bar
+Maria is at Residencial Mar e Sol Expensive lodging (38643880000, -9233590000).
+leisure services closer with 1 average
+Almada Hostel Conference
+lodging services closer with 5 average
+NOVA FCT
+leisure services closer with 4 average
+Residencial Mar e Sol Event
+Invalid service type!
+Invalid stars!
+xx does not exist!
+yy does not exist!
+lodging services closer with 2 average
+Almada Hostel
+Your evaluation has been registered!
+No lodging services with average!
+NOVA FCT Canteen
+NOVA FCT
+NOVA FCT Canteen
+Praia da Riviera Camping
+Bottom Left
+NOVA FCT Event
+NOVA FCT Event
+Your evaluation has been registered!
+Egas Moniz Event
+Praia da Riviera Camping
+lodging lodgingCheaper added.
+lodgingCheaper
+Bottom Left
+leisure leisureCheaper added.
+Bottom Left
+leisure leisureCheaperEqual added.
+Bottom Left
+NOVA FCT Canteen
+eating eatingCheaper added.
+eatingCheaper
+NOVA FCT Canteen
+Egas Moniz Event
+Neil Perry: bookish at Eating Restaurant.
+John Lau: bookish at Almada Hostel.
+Neil Lau: bookish
+Neil Perry: bookish
+Mary Lau: outgoing
+Neil Perry has left.
+Neil Lau: bookish
+Mary Lau: outgoing
+neil perry does not exist!
+John Lau: bookish at Almada Hostel.
+Eva P: bookish at Residencial Mar e Sol Expensive.
+Eva P: bookish
+Maria: outgoing
+Eva P has left.
+Maria: outgoing
+No students from England!
+John Lau: bookish
+No students on Only One room!
+lodging Only One room is now John Lau's home. John Lau is at home.
+No students on Almada Hostel!
+John Lau: bookish
+John Lau has left.
+lodging Only One room is now Maria's home. Maria is at home.
+Maria: outgoing
+Mary Lau: outgoing at Eating Restaurant.
+Maria: outgoing at Only One room.
+Neil Lau Two: bookish at Praia da Riviera Camping.
+Jose Thrifty: thrifty at Egas Moniz Thrifty.
+Maria Thrifty: thrifty at NOVA FCT Canteen Equal.
+Maria has left.
+Mary Lau: outgoing at Eating Restaurant.
+Neil Lau Two: bookish at Praia da Riviera Camping.
+Jose Thrifty: thrifty at Egas Moniz Thrifty.
+Maria Thrifty: thrifty at NOVA FCT Canteen Equal.
+Mary Lau is now at Egas Moniz Event.
+Mary Lau has left.
+Jose Thrifty has left.
+Maria Thrifty: thrifty at NOVA FCT Canteen Equal.
+Mary Perry: thrifty at Residencial Mar e Sol.
+Neil Lau: bookish at Eating Restaurant.
+Neil Lau Two: bookish at Praia da Riviera Camping.
+Bye!

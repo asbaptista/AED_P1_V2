@@ -1,0 +1,26 @@
+load Costa Da Caparica
+services
+service lodging 38671020000 -9161000000 28 19 almada Hostel
+service eating 38671020000 -9161000000 28 19 Almada Hostel
+service eating 38671020000 -9161000000 28 19 NOVA FCT Canteen
+service eating 38671020000 -9161000000 28 19 Bottom left
+service type 38671020000 -9161000000 28 19 UnknownType
+service leisure 38671020000 -9161000000 28 19 Leisure Event
+service eating -38671020000 -9161000000 28 19 BadLocation
+service eating 38671020000 -9161000000 -5 19 BadPrice
+service lodging 38671020000 -9161000000 -5 19 BadPrice
+service eating 38671020000 -9161000000 28 19 Eating Restaurant
+service leisure 38671020000 -9161000000 10 190 BadPrice
+service eating 38671020000 -9161000000 10 -2 BadCapacity
+service lodging 38671020000 -9161000000 12 0 BadCapacity
+service eating -38671020000 -9161000000 28 19 Almada hostel
+services
+BoUNDS 38522965000 -9257810000 38679330000 -9104674000 Costa da Caparica Error
+service eating 38671020000 -9161000000 28 19 Eating bar
+services
+BOUNDS -34758707000 -58172744000 -34539672000 -58172744000 Buenos Line
+BOUNDS -34758707000 -58172744000 -34539672000 -58553941000 Buenos Error
+BOUNDs 30347003000 -18493227000 30347003000 -18493227000 Algeria PointError
+bounds 38679330000 -9257810000 38522965000 -9104674000 COsta da Caparica
+services
+exit

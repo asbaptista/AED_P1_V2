@@ -1,0 +1,2400 @@
+BoUNDS 420137500 -97605860 368577580 -74093840 Portugal Continental
+service lodging 420137500 -97605860 100 100 lodging_0
+service eating 368577580 -74093840 20 100 eating_0
+service leisure 420137500 -74093840 50 10 leisure_0
+service lodging 420137500 -97605860 100 100 lodging_1
+service eating 368577580 -74093840 20 100 eating_1
+service leisure 420137500 -74093840 50 10 leisure_1
+service lodging 420137500 -97605860 100 100 lodging_2
+service eating 368577580 -74093840 20 100 eating_2
+service leisure 420137500 -74093840 50 10 leisure_2
+service lodging 420137500 -97605860 100 100 lodging_3
+service eating 368577580 -74093840 20 100 eating_3
+service leisure 420137500 -74093840 50 10 leisure_3
+service lodging 420137500 -97605860 100 100 lodging_4
+service eating 368577580 -74093840 20 100 eating_4
+service leisure 420137500 -74093840 50 10 leisure_4
+service lodging 420137500 -97605860 100 100 lodging_5
+service eating 368577580 -74093840 20 100 eating_5
+service leisure 420137500 -74093840 50 10 leisure_5
+service lodging 420137500 -97605860 100 100 lodging_6
+service eating 368577580 -74093840 20 100 eating_6
+service leisure 420137500 -74093840 50 10 leisure_6
+service lodging 420137500 -97605860 100 100 lodging_7
+service eating 368577580 -74093840 20 100 eating_7
+service leisure 420137500 -74093840 50 10 leisure_7
+service lodging 420137500 -97605860 100 100 lodging_8
+service eating 368577580 -74093840 20 100 eating_8
+service leisure 420137500 -74093840 50 10 leisure_8
+service lodging 420137500 -97605860 100 100 lodging_9
+service eating 368577580 -74093840 20 100 eating_9
+service leisure 420137500 -74093840 50 10 leisure_9
+service lodging 420137500 -97605860 100 100 lodging_10
+service eating 368577580 -74093840 20 100 eating_10
+service leisure 420137500 -74093840 50 10 leisure_10
+service lodging 420137500 -97605860 100 100 lodging_11
+service eating 368577580 -74093840 20 100 eating_11
+service leisure 420137500 -74093840 50 10 leisure_11
+service lodging 420137500 -97605860 100 100 lodging_12
+service eating 368577580 -74093840 20 100 eating_12
+service leisure 420137500 -74093840 50 10 leisure_12
+service lodging 420137500 -97605860 100 100 lodging_13
+service eating 368577580 -74093840 20 100 eating_13
+service leisure 420137500 -74093840 50 10 leisure_13
+service lodging 420137500 -97605860 100 100 lodging_14
+service eating 368577580 -74093840 20 100 eating_14
+service leisure 420137500 -74093840 50 10 leisure_14
+service lodging 420137500 -97605860 100 100 lodging_15
+service eating 368577580 -74093840 20 100 eating_15
+service leisure 420137500 -74093840 50 10 leisure_15
+service lodging 420137500 -97605860 100 100 lodging_16
+service eating 368577580 -74093840 20 100 eating_16
+service leisure 420137500 -74093840 50 10 leisure_16
+service lodging 420137500 -97605860 100 100 lodging_17
+service eating 368577580 -74093840 20 100 eating_17
+service leisure 420137500 -74093840 50 10 leisure_17
+service lodging 420137500 -97605860 100 100 lodging_18
+service eating 368577580 -74093840 20 100 eating_18
+service leisure 420137500 -74093840 50 10 leisure_18
+service lodging 420137500 -97605860 100 100 lodging_19
+service eating 368577580 -74093840 20 100 eating_19
+service leisure 420137500 -74093840 50 10 leisure_19
+service lodging 420137500 -97605860 100 100 lodging_20
+service eating 368577580 -74093840 20 100 eating_20
+service leisure 420137500 -74093840 50 10 leisure_20
+service lodging 420137500 -97605860 100 100 lodging_21
+service eating 368577580 -74093840 20 100 eating_21
+service leisure 420137500 -74093840 50 10 leisure_21
+service lodging 420137500 -97605860 100 100 lodging_22
+service eating 368577580 -74093840 20 100 eating_22
+service leisure 420137500 -74093840 50 10 leisure_22
+service lodging 420137500 -97605860 100 100 lodging_23
+service eating 368577580 -74093840 20 100 eating_23
+service leisure 420137500 -74093840 50 10 leisure_23
+service lodging 420137500 -97605860 100 100 lodging_24
+service eating 368577580 -74093840 20 100 eating_24
+service leisure 420137500 -74093840 50 10 leisure_24
+service lodging 420137500 -97605860 100 100 lodging_25
+service eating 368577580 -74093840 20 100 eating_25
+service leisure 420137500 -74093840 50 10 leisure_25
+service lodging 420137500 -97605860 100 100 lodging_26
+service eating 368577580 -74093840 20 100 eating_26
+service leisure 420137500 -74093840 50 10 leisure_26
+service lodging 420137500 -97605860 100 100 lodging_27
+service eating 368577580 -74093840 20 100 eating_27
+service leisure 420137500 -74093840 50 10 leisure_27
+service lodging 420137500 -97605860 100 100 lodging_28
+service eating 368577580 -74093840 20 100 eating_28
+service leisure 420137500 -74093840 50 10 leisure_28
+service lodging 420137500 -97605860 100 100 lodging_29
+service eating 368577580 -74093840 20 100 eating_29
+service leisure 420137500 -74093840 50 10 leisure_29
+service lodging 420137500 -97605860 100 100 lodging_30
+service eating 368577580 -74093840 20 100 eating_30
+service leisure 420137500 -74093840 50 10 leisure_30
+service lodging 420137500 -97605860 100 100 lodging_31
+service eating 368577580 -74093840 20 100 eating_31
+service leisure 420137500 -74093840 50 10 leisure_31
+service lodging 420137500 -97605860 100 100 lodging_32
+service eating 368577580 -74093840 20 100 eating_32
+service leisure 420137500 -74093840 50 10 leisure_32
+service lodging 420137500 -97605860 100 100 lodging_33
+service eating 368577580 -74093840 20 100 eating_33
+service leisure 420137500 -74093840 50 10 leisure_33
+service lodging 420137500 -97605860 100 100 lodging_34
+service eating 368577580 -74093840 20 100 eating_34
+service leisure 420137500 -74093840 50 10 leisure_34
+service lodging 420137500 -97605860 100 100 lodging_35
+service eating 368577580 -74093840 20 100 eating_35
+service leisure 420137500 -74093840 50 10 leisure_35
+service lodging 420137500 -97605860 100 100 lodging_36
+service eating 368577580 -74093840 20 100 eating_36
+service leisure 420137500 -74093840 50 10 leisure_36
+service lodging 420137500 -97605860 100 100 lodging_37
+service eating 368577580 -74093840 20 100 eating_37
+service leisure 420137500 -74093840 50 10 leisure_37
+service lodging 420137500 -97605860 100 100 lodging_38
+service eating 368577580 -74093840 20 100 eating_38
+service leisure 420137500 -74093840 50 10 leisure_38
+service lodging 420137500 -97605860 100 100 lodging_39
+service eating 368577580 -74093840 20 100 eating_39
+service leisure 420137500 -74093840 50 10 leisure_39
+service lodging 420137500 -97605860 100 100 lodging_40
+service eating 368577580 -74093840 20 100 eating_40
+service leisure 420137500 -74093840 50 10 leisure_40
+service lodging 420137500 -97605860 100 100 lodging_41
+service eating 368577580 -74093840 20 100 eating_41
+service leisure 420137500 -74093840 50 10 leisure_41
+service lodging 420137500 -97605860 100 100 lodging_42
+service eating 368577580 -74093840 20 100 eating_42
+service leisure 420137500 -74093840 50 10 leisure_42
+service lodging 420137500 -97605860 100 100 lodging_43
+service eating 368577580 -74093840 20 100 eating_43
+service leisure 420137500 -74093840 50 10 leisure_43
+service lodging 420137500 -97605860 100 100 lodging_44
+service eating 368577580 -74093840 20 100 eating_44
+service leisure 420137500 -74093840 50 10 leisure_44
+service lodging 420137500 -97605860 100 100 lodging_45
+service eating 368577580 -74093840 20 100 eating_45
+service leisure 420137500 -74093840 50 10 leisure_45
+service lodging 420137500 -97605860 100 100 lodging_46
+service eating 368577580 -74093840 20 100 eating_46
+service leisure 420137500 -74093840 50 10 leisure_46
+service lodging 420137500 -97605860 100 100 lodging_47
+service eating 368577580 -74093840 20 100 eating_47
+service leisure 420137500 -74093840 50 10 leisure_47
+service lodging 420137500 -97605860 100 100 lodging_48
+service eating 368577580 -74093840 20 100 eating_48
+service leisure 420137500 -74093840 50 10 leisure_48
+service lodging 420137500 -97605860 100 100 lodging_49
+service eating 368577580 -74093840 20 100 eating_49
+service leisure 420137500 -74093840 50 10 leisure_49
+service lodging 420137500 -97605860 100 100 lodging_50
+service eating 368577580 -74093840 20 100 eating_50
+service leisure 420137500 -74093840 50 10 leisure_50
+service lodging 420137500 -97605860 100 100 lodging_51
+service eating 368577580 -74093840 20 100 eating_51
+service leisure 420137500 -74093840 50 10 leisure_51
+service lodging 420137500 -97605860 100 100 lodging_52
+service eating 368577580 -74093840 20 100 eating_52
+service leisure 420137500 -74093840 50 10 leisure_52
+service lodging 420137500 -97605860 100 100 lodging_53
+service eating 368577580 -74093840 20 100 eating_53
+service leisure 420137500 -74093840 50 10 leisure_53
+service lodging 420137500 -97605860 100 100 lodging_54
+service eating 368577580 -74093840 20 100 eating_54
+service leisure 420137500 -74093840 50 10 leisure_54
+service lodging 420137500 -97605860 100 100 lodging_55
+service eating 368577580 -74093840 20 100 eating_55
+service leisure 420137500 -74093840 50 10 leisure_55
+service lodging 420137500 -97605860 100 100 lodging_56
+service eating 368577580 -74093840 20 100 eating_56
+service leisure 420137500 -74093840 50 10 leisure_56
+service lodging 420137500 -97605860 100 100 lodging_57
+service eating 368577580 -74093840 20 100 eating_57
+service leisure 420137500 -74093840 50 10 leisure_57
+service lodging 420137500 -97605860 100 100 lodging_58
+service eating 368577580 -74093840 20 100 eating_58
+service leisure 420137500 -74093840 50 10 leisure_58
+service lodging 420137500 -97605860 100 100 lodging_59
+service eating 368577580 -74093840 20 100 eating_59
+service leisure 420137500 -74093840 50 10 leisure_59
+service lodging 420137500 -97605860 100 100 lodging_60
+service eating 368577580 -74093840 20 100 eating_60
+service leisure 420137500 -74093840 50 10 leisure_60
+service lodging 420137500 -97605860 100 100 lodging_61
+service eating 368577580 -74093840 20 100 eating_61
+service leisure 420137500 -74093840 50 10 leisure_61
+service lodging 420137500 -97605860 100 100 lodging_62
+service eating 368577580 -74093840 20 100 eating_62
+service leisure 420137500 -74093840 50 10 leisure_62
+service lodging 420137500 -97605860 100 100 lodging_63
+service eating 368577580 -74093840 20 100 eating_63
+service leisure 420137500 -74093840 50 10 leisure_63
+service lodging 420137500 -97605860 100 100 lodging_64
+service eating 368577580 -74093840 20 100 eating_64
+service leisure 420137500 -74093840 50 10 leisure_64
+service lodging 420137500 -97605860 100 100 lodging_65
+service eating 368577580 -74093840 20 100 eating_65
+service leisure 420137500 -74093840 50 10 leisure_65
+service lodging 420137500 -97605860 100 100 lodging_66
+service eating 368577580 -74093840 20 100 eating_66
+service leisure 420137500 -74093840 50 10 leisure_66
+service lodging 420137500 -97605860 100 100 lodging_67
+service eating 368577580 -74093840 20 100 eating_67
+service leisure 420137500 -74093840 50 10 leisure_67
+service lodging 420137500 -97605860 100 100 lodging_68
+service eating 368577580 -74093840 20 100 eating_68
+service leisure 420137500 -74093840 50 10 leisure_68
+service lodging 420137500 -97605860 100 100 lodging_69
+service eating 368577580 -74093840 20 100 eating_69
+service leisure 420137500 -74093840 50 10 leisure_69
+service lodging 420137500 -97605860 100 100 lodging_70
+service eating 368577580 -74093840 20 100 eating_70
+service leisure 420137500 -74093840 50 10 leisure_70
+service lodging 420137500 -97605860 100 100 lodging_71
+service eating 368577580 -74093840 20 100 eating_71
+service leisure 420137500 -74093840 50 10 leisure_71
+service lodging 420137500 -97605860 100 100 lodging_72
+service eating 368577580 -74093840 20 100 eating_72
+service leisure 420137500 -74093840 50 10 leisure_72
+service lodging 420137500 -97605860 100 100 lodging_73
+service eating 368577580 -74093840 20 100 eating_73
+service leisure 420137500 -74093840 50 10 leisure_73
+service lodging 420137500 -97605860 100 100 lodging_74
+service eating 368577580 -74093840 20 100 eating_74
+service leisure 420137500 -74093840 50 10 leisure_74
+service lodging 420137500 -97605860 100 100 lodging_75
+service eating 368577580 -74093840 20 100 eating_75
+service leisure 420137500 -74093840 50 10 leisure_75
+service lodging 420137500 -97605860 100 100 lodging_76
+service eating 368577580 -74093840 20 100 eating_76
+service leisure 420137500 -74093840 50 10 leisure_76
+service lodging 420137500 -97605860 100 100 lodging_77
+service eating 368577580 -74093840 20 100 eating_77
+service leisure 420137500 -74093840 50 10 leisure_77
+service lodging 420137500 -97605860 100 100 lodging_78
+service eating 368577580 -74093840 20 100 eating_78
+service leisure 420137500 -74093840 50 10 leisure_78
+service lodging 420137500 -97605860 100 100 lodging_79
+service eating 368577580 -74093840 20 100 eating_79
+service leisure 420137500 -74093840 50 10 leisure_79
+service lodging 420137500 -97605860 100 100 lodging_80
+service lodging 420137500 -97605860 100 100 lodging_442
+service eating 368577580 -74093840 20 100 eating_442
+service leisure 420137500 -74093840 50 10 leisure_442
+service lodging 420137500 -97605860 100 100 lodging_443
+service eating 368577580 -74093840 20 100 eating_443
+service leisure 420137500 -74093840 50 10 leisure_443
+service lodging 420137500 -97605860 100 100 lodging_444
+service eating 368577580 -74093840 20 100 eating_444
+service leisure 420137500 -74093840 50 10 leisure_444
+service lodging 420137500 -97605860 100 100 lodging_445
+service eating 368577580 -74093840 20 100 eating_445
+service leisure 420137500 -74093840 50 10 leisure_445
+service lodging 420137500 -97605860 100 100 lodging_446
+service eating 368577580 -74093840 20 100 eating_446
+service leisure 420137500 -74093840 50 10 leisure_446
+service lodging 420137500 -97605860 100 100 lodging_447
+service eating 368577580 -74093840 20 100 eating_447
+service leisure 420137500 -74093840 50 10 leisure_447
+service lodging 420137500 -97605860 100 100 lodging_448
+service eating 368577580 -74093840 20 100 eating_80
+service leisure 420137500 -74093840 50 10 leisure_80
+service lodging 420137500 -97605860 100 100 lodging_81
+service eating 368577580 -74093840 20 100 eating_81
+service leisure 420137500 -74093840 50 10 leisure_81
+service lodging 420137500 -97605860 100 100 lodging_82
+service eating 368577580 -74093840 20 100 eating_82
+service leisure 420137500 -74093840 50 10 leisure_82
+service lodging 420137500 -97605860 100 100 lodging_83
+service eating 368577580 -74093840 20 100 eating_83
+service leisure 420137500 -74093840 50 10 leisure_83
+service lodging 420137500 -97605860 100 100 lodging_84
+service eating 368577580 -74093840 20 100 eating_84
+service leisure 420137500 -74093840 50 10 leisure_84
+service lodging 420137500 -97605860 100 100 lodging_85
+service eating 368577580 -74093840 20 100 eating_85
+service leisure 420137500 -74093840 50 10 leisure_85
+service lodging 420137500 -97605860 100 100 lodging_86
+service eating 368577580 -74093840 20 100 eating_86
+service leisure 420137500 -74093840 50 10 leisure_86
+service lodging 420137500 -97605860 100 100 lodging_87
+service eating 368577580 -74093840 20 100 eating_87
+service leisure 420137500 -74093840 50 10 leisure_87
+service lodging 420137500 -97605860 100 100 lodging_88
+service eating 368577580 -74093840 20 100 eating_88
+service leisure 420137500 -74093840 50 10 leisure_88
+service lodging 420137500 -97605860 100 100 lodging_89
+service eating 368577580 -74093840 20 100 eating_89
+service leisure 420137500 -74093840 50 10 leisure_89
+service lodging 420137500 -97605860 100 100 lodging_90
+service eating 368577580 -74093840 20 100 eating_90
+service leisure 420137500 -74093840 50 10 leisure_90
+service lodging 420137500 -97605860 100 100 lodging_91
+service eating 368577580 -74093840 20 100 eating_91
+service leisure 420137500 -74093840 50 10 leisure_91
+service lodging 420137500 -97605860 100 100 lodging_92
+service eating 368577580 -74093840 20 100 eating_92
+service leisure 420137500 -74093840 50 10 leisure_92
+service lodging 420137500 -97605860 100 100 lodging_93
+service eating 368577580 -74093840 20 100 eating_93
+service leisure 420137500 -74093840 50 10 leisure_93
+service lodging 420137500 -97605860 100 100 lodging_94
+service eating 368577580 -74093840 20 100 eating_94
+service leisure 420137500 -74093840 50 10 leisure_94
+service lodging 420137500 -97605860 100 100 lodging_95
+service eating 368577580 -74093840 20 100 eating_95
+service leisure 420137500 -74093840 50 10 leisure_95
+service lodging 420137500 -97605860 100 100 lodging_96
+service eating 368577580 -74093840 20 100 eating_96
+service leisure 420137500 -74093840 50 10 leisure_96
+service lodging 420137500 -97605860 100 100 lodging_97
+service eating 368577580 -74093840 20 100 eating_97
+service leisure 420137500 -74093840 50 10 leisure_97
+service lodging 420137500 -97605860 100 100 lodging_98
+service eating 368577580 -74093840 20 100 eating_98
+service leisure 420137500 -74093840 50 10 leisure_98
+service lodging 420137500 -97605860 100 100 lodging_99
+service eating 368577580 -74093840 20 100 eating_99
+service leisure 420137500 -74093840 50 10 leisure_99
+service lodging 420137500 -97605860 100 100 lodging_100
+service eating 368577580 -74093840 20 100 eating_100
+service leisure 420137500 -74093840 50 10 leisure_100
+service lodging 420137500 -97605860 100 100 lodging_101
+service eating 368577580 -74093840 20 100 eating_101
+service leisure 420137500 -74093840 50 10 leisure_101
+service lodging 420137500 -97605860 100 100 lodging_102
+service eating 368577580 -74093840 20 100 eating_102
+service leisure 420137500 -74093840 50 10 leisure_102
+service lodging 420137500 -97605860 100 100 lodging_103
+service eating 368577580 -74093840 20 100 eating_103
+service leisure 420137500 -74093840 50 10 leisure_103
+service lodging 420137500 -97605860 100 100 lodging_104
+service eating 368577580 -74093840 20 100 eating_104
+service leisure 420137500 -74093840 50 10 leisure_104
+service lodging 420137500 -97605860 100 100 lodging_105
+service eating 368577580 -74093840 20 100 eating_105
+service leisure 420137500 -74093840 50 10 leisure_105
+service lodging 420137500 -97605860 100 100 lodging_106
+service eating 368577580 -74093840 20 100 eating_106
+service leisure 420137500 -74093840 50 10 leisure_106
+service lodging 420137500 -97605860 100 100 lodging_107
+service eating 368577580 -74093840 20 100 eating_107
+service leisure 420137500 -74093840 50 10 leisure_107
+service lodging 420137500 -97605860 100 100 lodging_108
+service eating 368577580 -74093840 20 100 eating_108
+service leisure 420137500 -74093840 50 10 leisure_108
+service lodging 420137500 -97605860 100 100 lodging_109
+service eating 368577580 -74093840 20 100 eating_109
+service leisure 420137500 -74093840 50 10 leisure_109
+service lodging 420137500 -97605860 100 100 lodging_110
+service eating 368577580 -74093840 20 100 eating_110
+service leisure 420137500 -74093840 50 10 leisure_110
+service lodging 420137500 -97605860 100 100 lodging_111
+service eating 368577580 -74093840 20 100 eating_111
+service leisure 420137500 -74093840 50 10 leisure_111
+service lodging 420137500 -97605860 100 100 lodging_112
+service eating 368577580 -74093840 20 100 eating_112
+service leisure 420137500 -74093840 50 10 leisure_112
+service lodging 420137500 -97605860 100 100 lodging_113
+service eating 368577580 -74093840 20 100 eating_113
+service leisure 420137500 -74093840 50 10 leisure_113
+service lodging 420137500 -97605860 100 100 lodging_114
+service eating 368577580 -74093840 20 100 eating_114
+service leisure 420137500 -74093840 50 10 leisure_114
+service lodging 420137500 -97605860 100 100 lodging_115
+service eating 368577580 -74093840 20 100 eating_115
+service leisure 420137500 -74093840 50 10 leisure_115
+service lodging 420137500 -97605860 100 100 lodging_116
+service eating 368577580 -74093840 20 100 eating_116
+service leisure 420137500 -74093840 50 10 leisure_116
+service lodging 420137500 -97605860 100 100 lodging_117
+service eating 368577580 -74093840 20 100 eating_117
+service leisure 420137500 -74093840 50 10 leisure_117
+service lodging 420137500 -97605860 100 100 lodging_118
+service eating 368577580 -74093840 20 100 eating_118
+service leisure 420137500 -74093840 50 10 leisure_118
+service lodging 420137500 -97605860 100 100 lodging_119
+service eating 368577580 -74093840 20 100 eating_119
+service leisure 420137500 -74093840 50 10 leisure_119
+service lodging 420137500 -97605860 100 100 lodging_120
+service eating 368577580 -74093840 20 100 eating_120
+service leisure 420137500 -74093840 50 10 leisure_120
+service lodging 420137500 -97605860 100 100 lodging_121
+service eating 368577580 -74093840 20 100 eating_121
+service leisure 420137500 -74093840 50 10 leisure_121
+service lodging 420137500 -97605860 100 100 lodging_122
+service eating 368577580 -74093840 20 100 eating_122
+service leisure 420137500 -74093840 50 10 leisure_122
+service lodging 420137500 -97605860 100 100 lodging_123
+service eating 368577580 -74093840 20 100 eating_123
+service leisure 420137500 -74093840 50 10 leisure_123
+service lodging 420137500 -97605860 100 100 lodging_124
+service eating 368577580 -74093840 20 100 eating_124
+service leisure 420137500 -74093840 50 10 leisure_124
+service lodging 420137500 -97605860 100 100 lodging_125
+service eating 368577580 -74093840 20 100 eating_125
+service leisure 420137500 -74093840 50 10 leisure_125
+service lodging 420137500 -97605860 100 100 lodging_126
+service eating 368577580 -74093840 20 100 eating_126
+service leisure 420137500 -74093840 50 10 leisure_126
+service lodging 420137500 -97605860 100 100 lodging_127
+service eating 368577580 -74093840 20 100 eating_127
+service leisure 420137500 -74093840 50 10 leisure_127
+service lodging 420137500 -97605860 100 100 lodging_128
+service eating 368577580 -74093840 20 100 eating_128
+service leisure 420137500 -74093840 50 10 leisure_128
+service lodging 420137500 -97605860 100 100 lodging_129
+service eating 368577580 -74093840 20 100 eating_129
+service leisure 420137500 -74093840 50 10 leisure_129
+service lodging 420137500 -97605860 100 100 lodging_130
+service eating 368577580 -74093840 20 100 eating_130
+service leisure 420137500 -74093840 50 10 leisure_130
+service lodging 420137500 -97605860 100 100 lodging_131
+service eating 368577580 -74093840 20 100 eating_131
+service leisure 420137500 -74093840 50 10 leisure_131
+service lodging 420137500 -97605860 100 100 lodging_132
+service eating 368577580 -74093840 20 100 eating_132
+service leisure 420137500 -74093840 50 10 leisure_132
+service lodging 420137500 -97605860 100 100 lodging_133
+service eating 368577580 -74093840 20 100 eating_133
+service leisure 420137500 -74093840 50 10 leisure_133
+service lodging 420137500 -97605860 100 100 lodging_134
+service eating 368577580 -74093840 20 100 eating_134
+service leisure 420137500 -74093840 50 10 leisure_134
+service lodging 420137500 -97605860 100 100 lodging_135
+service eating 368577580 -74093840 20 100 eating_135
+service leisure 420137500 -74093840 50 10 leisure_135
+service lodging 420137500 -97605860 100 100 lodging_136
+service eating 368577580 -74093840 20 100 eating_136
+service leisure 420137500 -74093840 50 10 leisure_136
+service lodging 420137500 -97605860 100 100 lodging_137
+service eating 368577580 -74093840 20 100 eating_137
+service leisure 420137500 -74093840 50 10 leisure_137
+service lodging 420137500 -97605860 100 100 lodging_138
+service eating 368577580 -74093840 20 100 eating_138
+service leisure 420137500 -74093840 50 10 leisure_138
+service lodging 420137500 -97605860 100 100 lodging_139
+service eating 368577580 -74093840 20 100 eating_139
+service leisure 420137500 -74093840 50 10 leisure_139
+service lodging 420137500 -97605860 100 100 lodging_140
+service eating 368577580 -74093840 20 100 eating_140
+service leisure 420137500 -74093840 50 10 leisure_140
+service lodging 420137500 -97605860 100 100 lodging_141
+service eating 368577580 -74093840 20 100 eating_141
+service leisure 420137500 -74093840 50 10 leisure_141
+service lodging 420137500 -97605860 100 100 lodging_142
+service eating 368577580 -74093840 20 100 eating_142
+service leisure 420137500 -74093840 50 10 leisure_142
+service lodging 420137500 -97605860 100 100 lodging_143
+service eating 368577580 -74093840 20 100 eating_143
+service leisure 420137500 -74093840 50 10 leisure_143
+service lodging 420137500 -97605860 100 100 lodging_144
+service eating 368577580 -74093840 20 100 eating_144
+service leisure 420137500 -74093840 50 10 leisure_144
+service lodging 420137500 -97605860 100 100 lodging_145
+service eating 368577580 -74093840 20 100 eating_145
+service leisure 420137500 -74093840 50 10 leisure_145
+service lodging 420137500 -97605860 100 100 lodging_146
+service eating 368577580 -74093840 20 100 eating_146
+service leisure 420137500 -74093840 50 10 leisure_146
+service lodging 420137500 -97605860 100 100 lodging_147
+service eating 368577580 -74093840 20 100 eating_147
+service leisure 420137500 -74093840 50 10 leisure_147
+service lodging 420137500 -97605860 100 100 lodging_148
+service eating 368577580 -74093840 20 100 eating_148
+service leisure 420137500 -74093840 50 10 leisure_148
+service lodging 420137500 -97605860 100 100 lodging_149
+service eating 368577580 -74093840 20 100 eating_149
+service leisure 420137500 -74093840 50 10 leisure_149
+service lodging 420137500 -97605860 100 100 lodging_150
+service eating 368577580 -74093840 20 100 eating_150
+service leisure 420137500 -74093840 50 10 leisure_150
+service lodging 420137500 -97605860 100 100 lodging_151
+service eating 368577580 -74093840 20 100 eating_151
+service leisure 420137500 -74093840 50 10 leisure_151
+service lodging 420137500 -97605860 100 100 lodging_152
+service eating 368577580 -74093840 20 100 eating_152
+service leisure 420137500 -74093840 50 10 leisure_152
+service lodging 420137500 -97605860 100 100 lodging_153
+service eating 368577580 -74093840 20 100 eating_153
+service leisure 420137500 -74093840 50 10 leisure_153
+service lodging 420137500 -97605860 100 100 lodging_154
+service eating 368577580 -74093840 20 100 eating_154
+service leisure 420137500 -74093840 50 10 leisure_154
+service lodging 420137500 -97605860 100 100 lodging_155
+service eating 368577580 -74093840 20 100 eating_155
+service leisure 420137500 -74093840 50 10 leisure_155
+service lodging 420137500 -97605860 100 100 lodging_156
+service eating 368577580 -74093840 20 100 eating_156
+service leisure 420137500 -74093840 50 10 leisure_156
+service lodging 420137500 -97605860 100 100 lodging_157
+service eating 368577580 -74093840 20 100 eating_157
+service leisure 420137500 -74093840 50 10 leisure_157
+service lodging 420137500 -97605860 100 100 lodging_158
+service eating 368577580 -74093840 20 100 eating_158
+service leisure 420137500 -74093840 50 10 leisure_158
+service lodging 420137500 -97605860 100 100 lodging_159
+service eating 368577580 -74093840 20 100 eating_159
+service leisure 420137500 -74093840 50 10 leisure_159
+service lodging 420137500 -97605860 100 100 lodging_160
+service eating 368577580 -74093840 20 100 eating_160
+service leisure 420137500 -74093840 50 10 leisure_160
+service lodging 420137500 -97605860 100 100 lodging_161
+service eating 368577580 -74093840 20 100 eating_161
+service leisure 420137500 -74093840 50 10 leisure_161
+service lodging 420137500 -97605860 100 100 lodging_162
+service eating 368577580 -74093840 20 100 eating_162
+service leisure 420137500 -74093840 50 10 leisure_162
+service lodging 420137500 -97605860 100 100 lodging_163
+service eating 368577580 -74093840 20 100 eating_163
+service leisure 420137500 -74093840 50 10 leisure_163
+service lodging 420137500 -97605860 100 100 lodging_164
+service eating 368577580 -74093840 20 100 eating_164
+service leisure 420137500 -74093840 50 10 leisure_164
+service lodging 420137500 -97605860 100 100 lodging_165
+service eating 368577580 -74093840 20 100 eating_165
+service leisure 420137500 -74093840 50 10 leisure_165
+service lodging 420137500 -97605860 100 100 lodging_166
+service eating 368577580 -74093840 20 100 eating_166
+service leisure 420137500 -74093840 50 10 leisure_166
+service lodging 420137500 -97605860 100 100 lodging_167
+service eating 368577580 -74093840 20 100 eating_167
+service leisure 420137500 -74093840 50 10 leisure_167
+service lodging 420137500 -97605860 100 100 lodging_168
+service eating 368577580 -74093840 20 100 eating_168
+service leisure 420137500 -74093840 50 10 leisure_168
+service lodging 420137500 -97605860 100 100 lodging_169
+service eating 368577580 -74093840 20 100 eating_169
+service leisure 420137500 -74093840 50 10 leisure_169
+service lodging 420137500 -97605860 100 100 lodging_170
+service eating 368577580 -74093840 20 100 eating_170
+service leisure 420137500 -74093840 50 10 leisure_170
+service lodging 420137500 -97605860 100 100 lodging_171
+service eating 368577580 -74093840 20 100 eating_171
+service leisure 420137500 -74093840 50 10 leisure_171
+service lodging 420137500 -97605860 100 100 lodging_172
+service eating 368577580 -74093840 20 100 eating_172
+service leisure 420137500 -74093840 50 10 leisure_172
+service lodging 420137500 -97605860 100 100 lodging_173
+service eating 368577580 -74093840 20 100 eating_173
+service leisure 420137500 -74093840 50 10 leisure_173
+service lodging 420137500 -97605860 100 100 lodging_174
+service eating 368577580 -74093840 20 100 eating_174
+service leisure 420137500 -74093840 50 10 leisure_174
+service lodging 420137500 -97605860 100 100 lodging_175
+service eating 368577580 -74093840 20 100 eating_175
+service leisure 420137500 -74093840 50 10 leisure_175
+service lodging 420137500 -97605860 100 100 lodging_176
+service eating 368577580 -74093840 20 100 eating_176
+service leisure 420137500 -74093840 50 10 leisure_176
+service lodging 420137500 -97605860 100 100 lodging_177
+service eating 368577580 -74093840 20 100 eating_177
+service leisure 420137500 -74093840 50 10 leisure_177
+service lodging 420137500 -97605860 100 100 lodging_178
+service eating 368577580 -74093840 20 100 eating_178
+service leisure 420137500 -74093840 50 10 leisure_178
+service lodging 420137500 -97605860 100 100 lodging_179
+service eating 368577580 -74093840 20 100 eating_179
+service leisure 420137500 -74093840 50 10 leisure_179
+service lodging 420137500 -97605860 100 100 lodging_180
+service eating 368577580 -74093840 20 100 eating_180
+service leisure 420137500 -74093840 50 10 leisure_180
+service lodging 420137500 -97605860 100 100 lodging_181
+service eating 368577580 -74093840 20 100 eating_181
+service leisure 420137500 -74093840 50 10 leisure_181
+service lodging 420137500 -97605860 100 100 lodging_182
+service eating 368577580 -74093840 20 100 eating_182
+service leisure 420137500 -74093840 50 10 leisure_182
+service lodging 420137500 -97605860 100 100 lodging_183
+service eating 368577580 -74093840 20 100 eating_183
+service leisure 420137500 -74093840 50 10 leisure_183
+service lodging 420137500 -97605860 100 100 lodging_184
+service eating 368577580 -74093840 20 100 eating_184
+service leisure 420137500 -74093840 50 10 leisure_184
+service lodging 420137500 -97605860 100 100 lodging_185
+service eating 368577580 -74093840 20 100 eating_185
+service leisure 420137500 -74093840 50 10 leisure_185
+service lodging 420137500 -97605860 100 100 lodging_186
+service eating 368577580 -74093840 20 100 eating_186
+service leisure 420137500 -74093840 50 10 leisure_186
+service lodging 420137500 -97605860 100 100 lodging_187
+service eating 368577580 -74093840 20 100 eating_187
+service leisure 420137500 -74093840 50 10 leisure_187
+service lodging 420137500 -97605860 100 100 lodging_188
+service eating 368577580 -74093840 20 100 eating_188
+service leisure 420137500 -74093840 50 10 leisure_188
+service lodging 420137500 -97605860 100 100 lodging_189
+service eating 368577580 -74093840 20 100 eating_189
+service leisure 420137500 -74093840 50 10 leisure_189
+service lodging 420137500 -97605860 100 100 lodging_190
+service eating 368577580 -74093840 20 100 eating_190
+service leisure 420137500 -74093840 50 10 leisure_190
+service lodging 420137500 -97605860 100 100 lodging_191
+service eating 368577580 -74093840 20 100 eating_191
+service leisure 420137500 -74093840 50 10 leisure_191
+service lodging 420137500 -97605860 100 100 lodging_192
+service eating 368577580 -74093840 20 100 eating_192
+service leisure 420137500 -74093840 50 10 leisure_192
+service lodging 420137500 -97605860 100 100 lodging_193
+service eating 368577580 -74093840 20 100 eating_193
+service leisure 420137500 -74093840 50 10 leisure_193
+service lodging 420137500 -97605860 100 100 lodging_194
+service eating 368577580 -74093840 20 100 eating_194
+service leisure 420137500 -74093840 50 10 leisure_194
+service lodging 420137500 -97605860 100 100 lodging_195
+service eating 368577580 -74093840 20 100 eating_195
+service leisure 420137500 -74093840 50 10 leisure_195
+service lodging 420137500 -97605860 100 100 lodging_196
+service eating 368577580 -74093840 20 100 eating_196
+service leisure 420137500 -74093840 50 10 leisure_196
+service lodging 420137500 -97605860 100 100 lodging_197
+service eating 368577580 -74093840 20 100 eating_197
+service leisure 420137500 -74093840 50 10 leisure_197
+service lodging 420137500 -97605860 100 100 lodging_198
+service eating 368577580 -74093840 20 100 eating_198
+service leisure 420137500 -74093840 50 10 leisure_198
+service lodging 420137500 -97605860 100 100 lodging_199
+service eating 368577580 -74093840 20 100 eating_199
+service leisure 420137500 -74093840 50 10 leisure_199
+service lodging 420137500 -97605860 100 100 lodging_200
+service eating 368577580 -74093840 20 100 eating_200
+service leisure 420137500 -74093840 50 10 leisure_200
+service lodging 420137500 -97605860 100 100 lodging_201
+service eating 368577580 -74093840 20 100 eating_201
+service leisure 420137500 -74093840 50 10 leisure_201
+service lodging 420137500 -97605860 100 100 lodging_202
+service eating 368577580 -74093840 20 100 eating_202
+service leisure 420137500 -74093840 50 10 leisure_202
+service lodging 420137500 -97605860 100 100 lodging_203
+service eating 368577580 -74093840 20 100 eating_203
+service leisure 420137500 -74093840 50 10 leisure_203
+service lodging 420137500 -97605860 100 100 lodging_204
+service eating 368577580 -74093840 20 100 eating_204
+service leisure 420137500 -74093840 50 10 leisure_204
+service lodging 420137500 -97605860 100 100 lodging_205
+service eating 368577580 -74093840 20 100 eating_205
+service leisure 420137500 -74093840 50 10 leisure_205
+service lodging 420137500 -97605860 100 100 lodging_206
+service eating 368577580 -74093840 20 100 eating_206
+service leisure 420137500 -74093840 50 10 leisure_206
+service lodging 420137500 -97605860 100 100 lodging_207
+service eating 368577580 -74093840 20 100 eating_207
+service leisure 420137500 -74093840 50 10 leisure_207
+service lodging 420137500 -97605860 100 100 lodging_208
+service eating 368577580 -74093840 20 100 eating_208
+service leisure 420137500 -74093840 50 10 leisure_208
+service lodging 420137500 -97605860 100 100 lodging_209
+service eating 368577580 -74093840 20 100 eating_209
+service leisure 420137500 -74093840 50 10 leisure_209
+service lodging 420137500 -97605860 100 100 lodging_210
+service eating 368577580 -74093840 20 100 eating_210
+service leisure 420137500 -74093840 50 10 leisure_210
+student bookish
+bookish_0
+Portugal
+lodging_0
+student thrifty
+thrifty_0
+England
+lodging_0
+student outgoing
+outgoing_0
+Portugal
+lodging_0
+student bookish
+bookish_1
+Portugal
+lodging_1
+student thrifty
+thrifty_1
+England
+lodging_2
+student outgoing
+outgoing_1
+Portugal
+lodging_3
+student bookish
+bookish_2
+Portugal
+lodging_2
+student thrifty
+thrifty_2
+England
+lodging_4
+student outgoing
+outgoing_2
+Portugal
+lodging_6
+student bookish
+bookish_3
+Portugal
+lodging_3
+student thrifty
+thrifty_3
+England
+lodging_6
+student outgoing
+outgoing_3
+Portugal
+lodging_9
+student bookish
+bookish_4
+Portugal
+lodging_4
+student thrifty
+thrifty_4
+England
+lodging_8
+student outgoing
+outgoing_4
+Portugal
+lodging_12
+student bookish
+bookish_5
+Portugal
+lodging_5
+student thrifty
+thrifty_5
+England
+lodging_10
+student outgoing
+outgoing_5
+Portugal
+lodging_15
+student bookish
+bookish_6
+Portugal
+lodging_6
+student thrifty
+thrifty_6
+England
+lodging_12
+student outgoing
+outgoing_6
+Portugal
+lodging_18
+student bookish
+bookish_7
+Portugal
+lodging_7
+student thrifty
+thrifty_7
+England
+lodging_14
+student outgoing
+outgoing_7
+Portugal
+lodging_21
+student bookish
+bookish_8
+Portugal
+lodging_8
+student thrifty
+thrifty_8
+England
+lodging_16
+student outgoing
+outgoing_8
+Portugal
+lodging_24
+student bookish
+bookish_9
+Portugal
+lodging_9
+student thrifty
+thrifty_9
+England
+lodging_18
+student outgoing
+outgoing_9
+Portugal
+lodging_27
+student bookish
+bookish_10
+Portugal
+lodging_10
+student thrifty
+thrifty_10
+England
+lodging_20
+student outgoing
+outgoing_10
+Portugal
+lodging_30
+student bookish
+bookish_11
+Portugal
+lodging_11
+student thrifty
+thrifty_11
+England
+lodging_22
+student outgoing
+outgoing_11
+Portugal
+lodging_33
+student bookish
+bookish_12
+Portugal
+lodging_12
+student thrifty
+thrifty_12
+England
+lodging_24
+student outgoing
+outgoing_12
+Portugal
+lodging_36
+student bookish
+bookish_13
+Portugal
+lodging_13
+student thrifty
+thrifty_13
+England
+lodging_26
+student outgoing
+outgoing_13
+Portugal
+lodging_39
+student bookish
+bookish_14
+Portugal
+lodging_14
+student thrifty
+thrifty_14
+England
+lodging_28
+student outgoing
+outgoing_14
+Portugal
+lodging_42
+student bookish
+bookish_15
+Portugal
+lodging_15
+student thrifty
+thrifty_15
+England
+lodging_30
+student outgoing
+outgoing_15
+Portugal
+lodging_45
+student bookish
+bookish_16
+Portugal
+lodging_16
+student thrifty
+thrifty_16
+England
+lodging_32
+student outgoing
+outgoing_16
+Portugal
+lodging_48
+student bookish
+bookish_17
+Portugal
+lodging_17
+student thrifty
+thrifty_17
+England
+lodging_34
+student outgoing
+outgoing_17
+Portugal
+lodging_51
+student bookish
+bookish_18
+Portugal
+lodging_18
+student thrifty
+thrifty_18
+England
+lodging_36
+student outgoing
+outgoing_18
+Portugal
+lodging_54
+student bookish
+bookish_19
+Portugal
+lodging_19
+student thrifty
+thrifty_19
+England
+lodging_38
+student outgoing
+outgoing_19
+Portugal
+lodging_57
+student bookish
+bookish_20
+Portugal
+lodging_20
+student thrifty
+thrifty_20
+England
+lodging_40
+student outgoing
+outgoing_20
+Portugal
+lodging_60
+student bookish
+bookish_21
+Portugal
+lodging_21
+student thrifty
+thrifty_21
+England
+lodging_42
+student outgoing
+outgoing_21
+Portugal
+lodging_63
+student bookish
+bookish_22
+Portugal
+lodging_22
+student thrifty
+thrifty_22
+England
+lodging_44
+student outgoing
+outgoing_22
+Portugal
+lodging_66
+student bookish
+bookish_23
+Portugal
+lodging_23
+student thrifty
+thrifty_23
+England
+lodging_46
+student outgoing
+outgoing_23
+Portugal
+lodging_69
+student bookish
+bookish_24
+Portugal
+lodging_24
+student thrifty
+thrifty_24
+England
+lodging_48
+student outgoing
+outgoing_24
+Portugal
+lodging_72
+student bookish
+bookish_25
+Portugal
+lodging_25
+student thrifty
+thrifty_25
+England
+lodging_50
+student outgoing
+outgoing_25
+Portugal
+lodging_75
+student bookish
+bookish_26
+Portugal
+lodging_26
+student thrifty
+thrifty_26
+England
+lodging_52
+student outgoing
+outgoing_26
+Portugal
+lodging_78
+student bookish
+bookish_27
+Portugal
+lodging_27
+student thrifty
+thrifty_27
+England
+lodging_54
+student outgoing
+outgoing_27
+Portugal
+lodging_81
+student bookish
+bookish_28
+Portugal
+lodging_28
+student thrifty
+thrifty_28
+England
+lodging_56
+student outgoing
+outgoing_28
+Portugal
+lodging_84
+student bookish
+bookish_29
+Portugal
+lodging_29
+student thrifty
+thrifty_29
+England
+lodging_58
+student outgoing
+outgoing_29
+Portugal
+lodging_87
+student bookish
+bookish_30
+Portugal
+lodging_30
+student thrifty
+thrifty_30
+England
+lodging_60
+student outgoing
+outgoing_30
+Portugal
+lodging_90
+student bookish
+bookish_31
+Portugal
+lodging_31
+student thrifty
+thrifty_31
+England
+lodging_62
+student outgoing
+outgoing_31
+Portugal
+lodging_93
+student bookish
+bookish_32
+Portugal
+lodging_32
+student thrifty
+thrifty_32
+England
+lodging_64
+student outgoing
+outgoing_32
+Portugal
+lodging_96
+student bookish
+bookish_33
+Portugal
+lodging_33
+student thrifty
+thrifty_33
+England
+lodging_66
+student outgoing
+outgoing_33
+Portugal
+lodging_99
+student bookish
+bookish_34
+Portugal
+lodging_34
+student thrifty
+thrifty_34
+England
+lodging_68
+student outgoing
+outgoing_34
+Portugal
+lodging_102
+student bookish
+bookish_35
+Portugal
+lodging_35
+student thrifty
+thrifty_35
+England
+lodging_70
+student outgoing
+outgoing_35
+Portugal
+lodging_105
+student bookish
+bookish_36
+Portugal
+lodging_36
+student thrifty
+thrifty_36
+England
+lodging_72
+student outgoing
+outgoing_36
+Portugal
+lodging_108
+student bookish
+bookish_37
+Portugal
+lodging_37
+student thrifty
+thrifty_37
+England
+lodging_74
+student outgoing
+outgoing_37
+Portugal
+lodging_111
+student bookish
+bookish_38
+Portugal
+lodging_38
+student thrifty
+thrifty_38
+England
+lodging_76
+student outgoing
+outgoing_38
+Portugal
+lodging_114
+student bookish
+bookish_39
+Portugal
+lodging_39
+student thrifty
+thrifty_39
+England
+lodging_78
+student outgoing
+outgoing_39
+Portugal
+lodging_117
+student bookish
+bookish_40
+Portugal
+lodging_40
+student thrifty
+thrifty_40
+England
+lodging_80
+student outgoing
+outgoing_40
+Portugal
+lodging_120
+student bookish
+bookish_41
+Portugal
+lodging_41
+student thrifty
+thrifty_41
+England
+lodging_82
+student outgoing
+outgoing_41
+Portugal
+lodging_123
+student bookish
+bookish_42
+Portugal
+lodging_42
+student thrifty
+thrifty_42
+England
+lodging_84
+student outgoing
+outgoing_42
+Portugal
+lodging_126
+student bookish
+bookish_43
+Portugal
+lodging_43
+student thrifty
+thrifty_43
+England
+lodging_86
+student outgoing
+outgoing_43
+Portugal
+lodging_129
+student bookish
+bookish_44
+Portugal
+lodging_44
+student thrifty
+thrifty_44
+England
+lodging_88
+student outgoing
+outgoing_44
+Portugal
+lodging_132
+student bookish
+bookish_45
+Portugal
+lodging_45
+student thrifty
+thrifty_45
+England
+lodging_90
+student outgoing
+outgoing_45
+Portugal
+lodging_135
+student bookish
+bookish_46
+Portugal
+lodging_46
+student thrifty
+thrifty_46
+England
+lodging_92
+student outgoing
+outgoing_46
+Portugal
+lodging_138
+users > lodging_0
+users > lodging_1
+users > lodging_2
+users > lodging_3
+users > lodging_4
+users > lodging_5
+users > lodging_6
+users > lodging_7
+users > lodging_8
+users > lodging_9
+users > lodging_10
+users > lodging_11
+users > lodging_12
+users > lodging_13
+users > lodging_14
+users > lodging_15
+users > lodging_16
+users > lodging_17
+users > lodging_18
+users > lodging_19
+users > lodging_20
+users > lodging_21
+users > lodging_22
+users > lodging_23
+users > lodging_24
+users > lodging_25
+users > lodging_26
+users > lodging_27
+users > lodging_28
+users > lodging_29
+users > lodging_30
+users > lodging_31
+users > lodging_32
+users > lodging_33
+users > lodging_34
+users > lodging_35
+users > lodging_36
+users > lodging_37
+users > lodging_38
+users > lodging_39
+users > lodging_40
+users > lodging_41
+users > lodging_42
+users > lodging_43
+users > lodging_44
+users > lodging_45
+users > lodging_46
+users > lodging_47
+users > lodging_48
+users > lodging_49
+users > lodging_50
+users > lodging_51
+users > lodging_52
+users > lodging_53
+users > lodging_54
+users > lodging_55
+users > lodging_56
+users > lodging_57
+users > lodging_58
+users > lodging_59
+users > lodging_60
+users > lodging_61
+users > lodging_62
+users > lodging_63
+users > lodging_64
+users > lodging_65
+users > lodging_66
+users > lodging_67
+users > lodging_68
+users > lodging_69
+users > lodging_70
+users > lodging_71
+users > lodging_72
+users > lodging_73
+users > lodging_74
+users > lodging_75
+users > lodging_76
+users > lodging_77
+users > lodging_78
+users > lodging_79
+users > lodging_80
+users > lodging_81
+users > lodging_82
+users > lodging_83
+users > lodging_84
+users > lodging_85
+users > lodging_86
+users > lodging_87
+users > lodging_88
+users > lodging_89
+users > lodging_90
+users > lodging_91
+users > lodging_92
+users > lodging_93
+users > lodging_94
+users > lodging_95
+users > lodging_96
+users > lodging_97
+users > lodging_98
+users > lodging_99
+users > lodging_100
+users > lodging_101
+users > lodging_102
+users > lodging_103
+users > lodging_104
+users > lodging_105
+users > lodging_106
+users > lodging_107
+users > lodging_108
+users > lodging_109
+users > lodging_110
+users > lodging_111
+users > lodging_112
+users > lodging_113
+users > lodging_114
+users > lodging_115
+users > lodging_116
+users > lodging_117
+users > lodging_118
+users > lodging_119
+users > lodging_120
+users > lodging_121
+users > lodging_122
+users > lodging_123
+users > lodging_124
+users > lodging_125
+users > lodging_126
+users > lodging_127
+users > lodging_128
+users > lodging_129
+users > lodging_130
+users > lodging_131
+users > lodging_132
+users > lodging_133
+users > lodging_134
+users > lodging_135
+users > lodging_136
+users > lodging_137
+users > lodging_138
+users > lodging_139
+users > lodging_140
+users > lodging_141
+users > lodging_142
+users > lodging_143
+users > lodging_144
+users > lodging_145
+users > lodging_146
+users > lodging_147
+users > lodging_148
+users > lodging_149
+users > lodging_150
+users > lodging_151
+users > lodging_152
+users > lodging_153
+users > lodging_154
+users > lodging_155
+users > lodging_156
+users > lodging_157
+users > lodging_158
+users > lodging_159
+users > lodging_160
+users > lodging_161
+users > lodging_162
+users > lodging_163
+users > lodging_164
+users > lodging_165
+users > lodging_166
+users > lodging_167
+users > lodging_168
+users > lodging_169
+users > lodging_170
+users > lodging_171
+users > lodging_172
+users > lodging_173
+users > lodging_174
+users > lodging_175
+users > lodging_176
+users > lodging_177
+users > lodging_178
+users > lodging_179
+users > lodging_180
+users > lodging_181
+users > lodging_182
+users > lodging_183
+users > lodging_184
+users > lodging_185
+users > lodging_186
+users > lodging_187
+users > lodging_188
+users > lodging_189
+users > lodging_190
+users > lodging_191
+users > lodging_192
+users > lodging_193
+users > lodging_194
+users > lodging_195
+users > lodging_196
+users > lodging_197
+users > lodging_198
+users > lodging_199
+users > lodging_200
+users > lodging_201
+users > lodging_202
+users > lodging_203
+users > lodging_204
+users > lodging_205
+users > lodging_206
+users > lodging_207
+users > lodging_208
+users > lodging_209
+users > lodging_210
+visited bookish_15
+visited outgoing_15
+visited thrifty_15
+visited bookish_30
+visited outgoing_30
+visited thrifty_30
+visited bookish_60
+visited outgoing_60
+visited thrifty_60
+find bookish_3
+eating
+go bookish_3
+leisure_3
+move bookish_3
+lodging_3
+find outgoing_3
+eating
+go outgoing_3
+leisure_3
+move outgoing_3
+lodging_3
+find thrifty_3
+eating
+find bookish_4
+eating
+go bookish_4
+leisure_4
+move bookish_4
+lodging_4
+find outgoing_4
+eating
+go outgoing_4
+leisure_4
+move outgoing_4
+lodging_4
+find thrifty_4
+eating
+find bookish_5
+eating
+go bookish_5
+leisure_5
+move bookish_5
+lodging_5
+find outgoing_5
+eating
+go outgoing_5
+leisure_5
+move outgoing_5
+lodging_5
+find thrifty_5
+eating
+find bookish_6
+eating
+go bookish_6
+leisure_6
+move bookish_6
+lodging_6
+find outgoing_6
+eating
+go outgoing_6
+leisure_6
+move outgoing_6
+lodging_6
+find thrifty_6
+eating
+find bookish_7
+eating
+go bookish_7
+leisure_7
+move bookish_7
+lodging_7
+find outgoing_7
+eating
+go outgoing_7
+leisure_7
+move outgoing_7
+lodging_7
+find thrifty_7
+eating
+find bookish_8
+eating
+go bookish_8
+leisure_8
+move bookish_8
+lodging_8
+find outgoing_8
+eating
+go outgoing_8
+leisure_8
+move outgoing_8
+lodging_8
+find thrifty_8
+eating
+find bookish_9
+eating
+go bookish_9
+leisure_9
+move bookish_9
+lodging_9
+find outgoing_9
+eating
+go outgoing_9
+leisure_9
+move outgoing_9
+lodging_9
+find thrifty_9
+eating
+find bookish_10
+eating
+go bookish_10
+leisure_10
+move bookish_10
+lodging_10
+find outgoing_10
+eating
+go outgoing_10
+leisure_10
+move outgoing_10
+lodging_10
+find thrifty_10
+eating
+find bookish_11
+eating
+go bookish_11
+leisure_11
+move bookish_11
+lodging_11
+find outgoing_11
+eating
+go outgoing_11
+leisure_11
+move outgoing_11
+lodging_11
+find thrifty_11
+eating
+find bookish_12
+eating
+go bookish_12
+leisure_12
+move bookish_12
+lodging_12
+find outgoing_12
+eating
+go outgoing_12
+leisure_12
+move outgoing_12
+lodging_12
+find thrifty_12
+eating
+find bookish_13
+eating
+go bookish_13
+leisure_13
+move bookish_13
+lodging_13
+find outgoing_13
+eating
+go outgoing_13
+leisure_13
+move outgoing_13
+lodging_13
+find thrifty_13
+eating
+find bookish_14
+eating
+go bookish_14
+leisure_14
+move bookish_14
+lodging_14
+find outgoing_14
+eating
+go outgoing_14
+leisure_14
+move outgoing_14
+lodging_14
+find thrifty_14
+eating
+find bookish_15
+eating
+go bookish_15
+leisure_15
+move bookish_15
+lodging_15
+find outgoing_15
+eating
+go outgoing_15
+leisure_15
+move outgoing_15
+lodging_15
+find thrifty_15
+eating
+find bookish_16
+eating
+go bookish_16
+leisure_16
+move bookish_16
+lodging_16
+find outgoing_16
+eating
+go outgoing_16
+leisure_16
+move outgoing_16
+lodging_16
+find thrifty_16
+eating
+find bookish_17
+eating
+go bookish_17
+leisure_17
+move bookish_17
+lodging_17
+find outgoing_17
+eating
+go outgoing_17
+leisure_17
+move outgoing_17
+lodging_17
+find thrifty_17
+eating
+find bookish_18
+eating
+go bookish_18
+leisure_18
+move bookish_18
+lodging_18
+find outgoing_18
+eating
+go outgoing_18
+leisure_18
+move outgoing_18
+lodging_18
+find thrifty_18
+eating
+find bookish_19
+eating
+go bookish_19
+leisure_19
+move bookish_19
+lodging_19
+find outgoing_19
+eating
+go outgoing_19
+leisure_19
+move outgoing_19
+lodging_19
+find thrifty_19
+eating
+find bookish_20
+eating
+go bookish_20
+leisure_20
+move bookish_20
+lodging_20
+find outgoing_20
+eating
+go outgoing_20
+leisure_20
+move outgoing_20
+lodging_20
+find thrifty_20
+eating
+find bookish_21
+eating
+go bookish_21
+leisure_21
+move bookish_21
+lodging_21
+find outgoing_21
+eating
+go outgoing_21
+leisure_21
+move outgoing_21
+lodging_21
+find thrifty_21
+eating
+find bookish_22
+eating
+go bookish_22
+leisure_22
+move bookish_22
+lodging_22
+find outgoing_22
+eating
+go outgoing_22
+leisure_22
+move outgoing_22
+lodging_22
+find thrifty_22
+eating
+find bookish_23
+eating
+go bookish_23
+leisure_23
+move bookish_23
+lodging_23
+find outgoing_23
+eating
+go outgoing_23
+leisure_23
+move outgoing_23
+lodging_23
+find thrifty_23
+eating
+find bookish_24
+eating
+go bookish_24
+leisure_24
+move bookish_24
+lodging_24
+find outgoing_24
+eating
+go outgoing_24
+leisure_24
+move outgoing_24
+lodging_24
+find thrifty_24
+eating
+find bookish_25
+eating
+go bookish_25
+leisure_25
+move bookish_25
+lodging_25
+find outgoing_25
+eating
+go outgoing_25
+leisure_25
+move outgoing_25
+lodging_25
+find thrifty_25
+eating
+find bookish_26
+eating
+go bookish_26
+leisure_26
+move bookish_26
+lodging_26
+find outgoing_26
+eating
+go outgoing_26
+leisure_26
+move outgoing_26
+lodging_26
+find thrifty_26
+eating
+find bookish_27
+eating
+go bookish_27
+leisure_27
+move bookish_27
+lodging_27
+find outgoing_27
+eating
+go outgoing_27
+leisure_27
+move outgoing_27
+lodging_27
+find thrifty_27
+eating
+find bookish_28
+eating
+go bookish_28
+leisure_28
+move bookish_28
+lodging_28
+find outgoing_28
+eating
+go outgoing_28
+leisure_28
+move outgoing_28
+lodging_28
+find thrifty_28
+eating
+find bookish_29
+eating
+go bookish_29
+leisure_29
+move bookish_29
+lodging_29
+find outgoing_29
+eating
+go outgoing_29
+leisure_29
+move outgoing_29
+lodging_29
+find thrifty_29
+eating
+find bookish_30
+eating
+go bookish_30
+leisure_30
+move bookish_30
+lodging_30
+find outgoing_30
+eating
+go outgoing_30
+leisure_30
+move outgoing_30
+lodging_30
+find thrifty_30
+eating
+find bookish_31
+eating
+go bookish_31
+leisure_31
+move bookish_31
+lodging_31
+find outgoing_31
+eating
+go outgoing_31
+leisure_31
+move outgoing_31
+lodging_31
+find thrifty_31
+eating
+find bookish_32
+eating
+go bookish_32
+leisure_32
+move bookish_32
+lodging_32
+find outgoing_32
+eating
+go outgoing_32
+leisure_32
+move outgoing_32
+lodging_32
+find thrifty_32
+eating
+find bookish_33
+eating
+go bookish_33
+leisure_33
+move bookish_33
+lodging_33
+find outgoing_33
+eating
+go outgoing_33
+leisure_33
+move outgoing_33
+lodging_33
+find thrifty_33
+eating
+find bookish_34
+eating
+go bookish_34
+leisure_34
+move bookish_34
+lodging_34
+find outgoing_34
+eating
+go outgoing_34
+leisure_34
+move outgoing_34
+lodging_34
+find thrifty_34
+eating
+find bookish_35
+eating
+go bookish_35
+leisure_35
+move bookish_35
+lodging_35
+find outgoing_35
+eating
+go outgoing_35
+leisure_35
+move outgoing_35
+lodging_35
+find thrifty_35
+eating
+find bookish_36
+eating
+go bookish_36
+leisure_36
+move bookish_36
+lodging_36
+find outgoing_36
+eating
+go outgoing_36
+leisure_36
+move outgoing_36
+lodging_36
+find thrifty_36
+eating
+find bookish_37
+eating
+go bookish_37
+leisure_37
+move bookish_37
+lodging_37
+find outgoing_37
+eating
+go outgoing_37
+leisure_37
+move outgoing_37
+lodging_37
+find thrifty_37
+eating
+find bookish_38
+eating
+go bookish_38
+leisure_38
+move bookish_38
+lodging_38
+find outgoing_38
+eating
+go outgoing_38
+leisure_38
+move outgoing_38
+lodging_38
+find thrifty_38
+eating
+find bookish_39
+eating
+go bookish_39
+leisure_39
+move bookish_39
+lodging_39
+find outgoing_39
+eating
+go outgoing_39
+leisure_39
+move outgoing_39
+lodging_39
+find thrifty_39
+eating
+find bookish_40
+eating
+go bookish_40
+leisure_40
+move bookish_40
+lodging_40
+find outgoing_40
+eating
+go outgoing_40
+leisure_40
+move outgoing_40
+lodging_40
+find thrifty_40
+eating
+find bookish_41
+eating
+go bookish_41
+leisure_41
+move bookish_41
+lodging_41
+find outgoing_41
+eating
+go outgoing_41
+leisure_41
+move outgoing_41
+lodging_41
+find thrifty_41
+eating
+find bookish_42
+eating
+go bookish_42
+leisure_42
+move bookish_42
+lodging_42
+find outgoing_42
+eating
+go outgoing_42
+leisure_42
+move outgoing_42
+lodging_42
+find thrifty_42
+eating
+find bookish_43
+eating
+go bookish_43
+leisure_43
+move bookish_43
+lodging_43
+find outgoing_43
+eating
+go outgoing_43
+leisure_43
+move outgoing_43
+lodging_43
+find thrifty_43
+eating
+find bookish_44
+eating
+go bookish_44
+leisure_44
+move bookish_44
+lodging_44
+find outgoing_44
+eating
+go outgoing_44
+leisure_44
+move outgoing_44
+lodging_44
+find thrifty_44
+eating
+find bookish_45
+eating
+go bookish_45
+leisure_45
+move bookish_45
+lodging_45
+find outgoing_45
+eating
+go outgoing_45
+leisure_45
+move outgoing_45
+lodging_45
+find thrifty_45
+eating
+visited bookish_3
+visited outgoing_3
+visited thrifty_3
+visited bookish_4
+visited outgoing_4
+visited thrifty_4
+visited bookish_5
+visited outgoing_5
+visited thrifty_5
+visited bookish_6
+visited outgoing_6
+visited thrifty_6
+visited bookish_7
+visited outgoing_7
+visited thrifty_7
+visited bookish_8
+visited outgoing_8
+visited thrifty_8
+visited bookish_9
+visited outgoing_9
+visited thrifty_9
+visited bookish_10
+visited outgoing_10
+visited thrifty_10
+visited bookish_11
+visited outgoing_11
+visited thrifty_11
+visited bookish_12
+visited outgoing_12
+visited thrifty_12
+visited bookish_13
+visited outgoing_13
+visited thrifty_13
+visited bookish_14
+visited outgoing_14
+visited thrifty_14
+visited bookish_15
+visited outgoing_15
+visited thrifty_15
+visited bookish_16
+visited outgoing_16
+visited thrifty_16
+visited bookish_17
+visited outgoing_17
+visited thrifty_17
+visited bookish_18
+visited outgoing_18
+visited thrifty_18
+visited bookish_19
+visited outgoing_19
+visited thrifty_19
+visited bookish_20
+visited outgoing_20
+visited thrifty_20
+visited bookish_21
+visited outgoing_21
+visited thrifty_21
+visited bookish_22
+visited outgoing_22
+visited thrifty_22
+visited bookish_23
+visited outgoing_23
+visited thrifty_23
+visited bookish_24
+visited outgoing_24
+visited thrifty_24
+visited bookish_25
+visited outgoing_25
+visited thrifty_25
+visited bookish_26
+visited outgoing_26
+visited thrifty_26
+visited bookish_27
+visited outgoing_27
+visited thrifty_27
+visited bookish_28
+visited outgoing_28
+visited thrifty_28
+visited bookish_29
+visited outgoing_29
+visited thrifty_29
+visited bookish_30
+visited outgoing_30
+visited thrifty_30
+visited bookish_31
+visited outgoing_31
+visited thrifty_31
+visited bookish_32
+visited outgoing_32
+visited thrifty_32
+visited bookish_33
+visited outgoing_33
+visited thrifty_33
+visited bookish_34
+visited outgoing_34
+visited thrifty_34
+visited bookish_35
+visited outgoing_35
+visited thrifty_35
+visited bookish_36
+visited outgoing_36
+visited thrifty_36
+visited bookish_37
+visited outgoing_37
+visited thrifty_37
+visited bookish_38
+visited outgoing_38
+visited thrifty_38
+visited bookish_39
+visited outgoing_39
+visited thrifty_39
+visited bookish_40
+visited outgoing_40
+visited thrifty_40
+visited bookish_41
+visited outgoing_41
+visited thrifty_41
+visited bookish_42
+visited outgoing_42
+visited thrifty_42
+visited bookish_43
+visited outgoing_43
+visited thrifty_43
+visited bookish_44
+visited outgoing_44
+visited thrifty_44
+visited bookish_45
+visited outgoing_45
+visited thrifty_45
+ranking
+leave bookish_25
+leave outgoing_25
+leave thrifty_25
+leave bookish_26
+leave outgoing_26
+leave thrifty_26
+leave bookish_27
+leave outgoing_27
+leave thrifty_27
+leave bookish_28
+leave outgoing_28
+leave thrifty_28
+leave bookish_29
+leave outgoing_29
+leave thrifty_29
+leave bookish_30
+leave outgoing_30
+leave thrifty_30
+leave bookish_31
+leave outgoing_31
+leave thrifty_31
+leave bookish_32
+leave outgoing_32
+leave thrifty_32
+leave bookish_33
+leave outgoing_33
+leave thrifty_33
+leave bookish_34
+leave outgoing_34
+leave thrifty_34
+students Portugal
+star 1 leisure_2
+star 1 lodging_2
+star 1 eating_2
+star 1 leisure_2
+star 1 lodging_2
+star 1 eating_2
+star 1 leisure_2
+star 1 lodging_2
+star 1 eating_2
+star 1 leisure_2
+star 1 lodging_2
+star 1 eating_2
+star 1 leisure_2
+star 1 lodging_2
+star 1 eating_2
+star 1 leisure_3
+star 1 lodging_3
+star 1 eating_3
+star 1 leisure_3
+star 1 lodging_3
+star 1 eating_3
+star 1 leisure_3
+star 1 lodging_3
+star 1 eating_3
+star 1 leisure_3
+star 1 lodging_3
+star 1 eating_3
+star 1 leisure_3
+star 1 lodging_3
+star 1 eating_3
+star 1 leisure_4
+star 1 lodging_4
+star 1 eating_4
+star 1 leisure_4
+star 1 lodging_4
+star 1 eating_4
+star 1 leisure_4
+star 1 lodging_4
+star 1 eating_4
+star 1 leisure_4
+star 1 lodging_4
+star 1 eating_4
+star 1 leisure_4
+star 1 lodging_4
+star 1 eating_4
+star 1 leisure_5
+star 1 lodging_5
+star 1 eating_5
+star 1 leisure_5
+star 1 lodging_5
+star 1 eating_5
+star 1 leisure_5
+star 1 lodging_5
+star 1 eating_5
+star 1 leisure_5
+star 1 lodging_5
+star 1 eating_5
+star 1 leisure_5
+star 1 lodging_5
+star 1 eating_5
+star 1 leisure_6
+star 1 lodging_6
+star 1 eating_6
+star 1 leisure_6
+star 1 lodging_6
+star 1 eating_6
+star 1 leisure_6
+star 1 lodging_6
+star 1 eating_6
+star 1 leisure_6
+star 1 lodging_6
+star 1 eating_6
+star 1 leisure_6
+star 1 lodging_6
+star 1 eating_6
+star 1 leisure_7
+star 1 lodging_7
+star 1 eating_7
+star 1 leisure_7
+star 1 lodging_7
+star 1 eating_7
+star 1 leisure_7
+star 1 lodging_7
+star 1 eating_7
+star 1 leisure_7
+star 1 lodging_7
+star 1 eating_7
+star 1 leisure_7
+star 1 lodging_7
+star 1 eating_7
+star 1 leisure_8
+star 1 lodging_8
+star 1 eating_8
+star 1 leisure_8
+star 1 lodging_8
+star 1 eating_8
+star 1 leisure_8
+star 1 lodging_8
+star 1 eating_8
+star 1 leisure_8
+star 1 lodging_8
+star 1 eating_8
+star 1 leisure_8
+star 1 lodging_8
+star 1 eating_8
+star 1 leisure_9
+star 1 lodging_9
+star 1 eating_9
+star 1 leisure_9
+star 1 lodging_9
+star 1 eating_9
+star 1 leisure_9
+star 1 lodging_9
+star 1 eating_9
+star 1 leisure_9
+star 1 lodging_9
+star 1 eating_9
+star 1 leisure_9
+star 1 lodging_9
+star 1 eating_9
+star 1 leisure_10
+star 1 lodging_10
+star 1 eating_10
+star 1 leisure_10
+star 1 lodging_10
+star 1 eating_10
+star 1 leisure_10
+star 1 lodging_10
+star 1 eating_10
+star 1 leisure_10
+star 1 lodging_10
+star 1 eating_10
+star 1 leisure_10
+star 1 lodging_10
+star 1 eating_10
+star 1 leisure_11
+star 1 lodging_11
+star 1 eating_11
+star 1 leisure_11
+star 1 lodging_11
+star 1 eating_11
+star 1 leisure_11
+star 1 lodging_11
+star 1 eating_11
+star 1 leisure_11
+star 1 lodging_11
+star 1 eating_11
+star 1 leisure_11
+star 1 lodging_11
+star 1 eating_11
+star 1 leisure_12
+star 1 lodging_12
+star 1 eating_12
+star 1 leisure_12
+star 1 lodging_12
+star 1 eating_12
+star 1 leisure_12
+star 1 lodging_12
+star 1 eating_12
+star 1 leisure_12
+star 1 lodging_12
+star 1 eating_12
+star 1 leisure_12
+star 1 lodging_12
+star 1 eating_12
+star 1 leisure_13
+star 1 lodging_13
+star 1 eating_13
+star 1 leisure_13
+star 1 lodging_13
+star 1 eating_13
+star 1 leisure_13
+star 1 lodging_13
+star 1 eating_13
+star 1 leisure_13
+star 1 lodging_13
+star 1 eating_13
+star 1 leisure_13
+star 1 lodging_13
+star 1 eating_13
+star 1 leisure_14
+star 1 lodging_14
+star 1 eating_14
+star 1 leisure_14
+star 1 lodging_14
+star 1 eating_14
+star 1 leisure_14
+star 1 lodging_14
+star 1 eating_14
+star 1 leisure_14
+star 1 lodging_14
+star 1 eating_14
+star 1 leisure_14
+star 1 lodging_14
+star 1 eating_14
+ranKED leisure 2 thrifty_4
+ranKED lodging 2 bookish_10
+ranKED eating 2 outgoing_10
+ranKing
+exit

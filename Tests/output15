@@ -1,0 +1,107 @@
+bounds - Defines the new geographic bounding rectangle
+save - Saves the current geographic bounding rectangle to a text file
+load - Load a geographic bounding rectangle from a text file
+service - Adds a new service to the current geographic bounding rectangle. The service may be eating, lodging or leisure
+services - Displays the list of services in current geographic bounding rectangle, in order of registration
+student - Adds a student to the current geographic bounding rectangle
+students - Lists all the students or those of a given country in the current geographic bounding rectangle, in alphabetical order of the student's name
+leave - Removes a student from the the current geographic bounding rectangle
+go - Changes the location of a student to a leisure service, or eating service
+move - Changes the home of a student
+users - List all students who are in a given service (eating or lodging)
+star - Evaluates a service
+where - Locates a student
+visited - Lists locations visited by one student
+ranking - Lists services ordered by star
+ranked - Lists the service(s) of the indicated type with the given score that are closer to the student location
+tag - Lists all services that have at least one review whose description contains the specified word
+find - Finds the most relevant service of a certain type, for a specific student
+help - Shows the available commands
+exit - Terminates the execution of the program
+Costa AnyWhere created.
+No students yet!
+No services yet!
+lodging Praia da Riviera Camping added.
+lodging Almada Hostel added.
+John Lau added.
+lodging Solar dos Zagallos Hotel added.
+eating NOVA FCT Canteen added.
+lodging NOVA FCT added.
+leisure NOVA FCT Event added.
+Neil Perry added.
+Neil Lau added.
+Mary Perry added.
+Mary Lau added.
+John Lau: outgoing at Almada Hostel.
+Neil Lau already exists!
+Praia da Riviera Camping: lodging (38620840000, -9216170000).
+Almada Hostel: lodging (38671020000, -9161000000).
+Solar dos Zagallos Hotel: lodging (38653010000, -9189930000).
+NOVA FCT Canteen: eating (38659640000, -9204380000).
+NOVA FCT: lodging (38659640000, -9204380000).
+NOVA FCT Event: leisure (38659640000, -9204380000).
+lodging Praia da Riviera does not exist!
+No students from Portugal!
+Neil does not exist!
+Mary Perry has left.
+John Lau: outgoing at Almada Hostel.
+Mary Lau: outgoing at NOVA FCT.
+Neil Lau: bookish at Praia da Riviera Camping.
+Neil Perry: bookish at NOVA FCT.
+ToKyo created.
+No students yet!
+Nobody does not exist!
+leisure Setagaya Party added.
+Invalid room price!
+lodging Edogawa Camping added.
+Edogawa Camping already exists!
+Setagaya Party: leisure (35668885000, 139654772000).
+Edogawa Camping: lodging (35695657000, 139897845000).
+lodging Setagaya Hostel added.
+No students from Portugal!
+Invalid location!
+Mary Perry added.
+Mary Perry already exists!
+eating Edogawa Bar added.
+Mary Perry: thrifty at Edogawa Camping.
+Madagascar created.
+No students yet!
+Mary perry does not exist!
+Buenos Aires created.
+lodging Edogawa Bar added.
+eating La Plata Bar added.
+leisure Plaza la Plata Party added.
+lodging Tolosa Hostel added.
+eating Plaza la Plata Bar added.
+Eva added.
+John Trujillo added.
+John Yanes added.
+Mary Trujillo added.
+Edogawa Bar: lodging (-34054020000, -57145312000).
+La Plata Bar: eating (-34899104000, -57945618000).
+Plaza la Plata Party: leisure (-34915860000, -57961580000).
+Tolosa Hostel: lodging (-34908536000, -57982869000).
+Plaza la Plata Bar: eating (-34915860000, -57961580000).
+John Trujillo: bookish at Tolosa Hostel.
+John Yanes: bookish at Tolosa Hostel.
+Mary Trujillo: bookish at Tolosa Hostel.
+Algeria created.
+lodging Aougrout Hotel added.
+John does not exist!
+lodging Fogaret Ezzaouia Resident does not exist!
+No students from Colombia!
+Bounds already exists. Please load it!
+Aougrout Hotel: lodging (29129162000, 1680005000).
+eating Anajas Restaurant added.
+lodging Fogaret Ezzaouia Resident added.
+John Ezzaouia added.
+John Ezzaouia: bookish at Fogaret Ezzaouia Resident.
+Aougrout Hotel: lodging (29129162000, 1680005000).
+Anajas Restaurant: eating (25668808000, -713998000).
+Fogaret Ezzaouia Resident: lodging (27068141000, 4444021000).
+Costa AnyWhere loaded.
+John Lau: outgoing at Almada Hostel.
+Mary Lau: outgoing at NOVA FCT.
+Neil Lau: bookish at Praia da Riviera Camping.
+Neil Perry: bookish at NOVA FCT.
+Bye!
