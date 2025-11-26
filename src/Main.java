@@ -725,7 +725,7 @@ public class Main {
      * @param manager The {@link SystemManager} instance.
      */
     private static void handleTag(Scanner sc, SystemManager manager) {
-        String tag = sc.nextLine().trim();
+        String tag = sc.nextLine();
         Iterator<Service> it = manager.listServicesWithTag(tag);
         if (!it.hasNext()) {
             Message.NO_SERVICES_WITH_TAG.print();

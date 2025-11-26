@@ -74,13 +74,79 @@ public class EvaluationImpl implements Evaluation, Serializable {
      * @return true if the tag is found as a standalone word, false otherwise.
      */
     @Override
-    public boolean containsTag(String tag) {
-        tag = tag.trim();
+    public boolean containsTag(String tag) { //kmp algorithm
+        if (description == null || tag == null) {
+            return false;
+        }
+        int descriptionLength = description.length();
+        int tagLength = tag.length();
 
-        String[] words = description.split("\\s");
-        for (String word : words) {
-            if (word.toLowerCase().equals(tag)) return true;
+        if (descriptionLength == 0 || tagLength == 0 || tagLength > descriptionLength) {
+            return false;
+        }
+        int[] lps = LPS(tag);
+
+        int i = 0;
+        int j = 0;
+
+        while(i<descriptionLength){
+            if(charsEqualIgnoreCase(description.charAt(i), tag.charAt(j))){
+                i++;
+                j++;
+            }
+            if( j == tagLength){
+                int wordStart = i-tagLength;
+                int wordEnd = i;
+                
+                if (isSeparateWord(wordStart, wordEnd)) {
+                    return true;
+                }
+                j = lps[j - 1];
+            } else if (i < descriptionLength && ! charsEqualIgnoreCase(description.charAt(i), tag. charAt(j))) {
+                if (j != 0) {
+                    j = lps[j - 1];
+                } else {
+                    i++;
+                }
+            }
+
         }
         return false;
     }
+
+    private boolean isSeparateWord(int wordStart, int wordEnd) {
+        boolean left = (wordStart == 0) || Character.isWhitespace(description.charAt(wordStart - 1));
+        boolean right = (wordEnd == description.length()) || Character.isWhitespace(description.charAt(wordEnd));
+        return left && right;
+    }
+
+    private int[] LPS(String tag) {
+        int m = tag.length();
+        int[] lps = new int[m];
+
+        int len = 0;
+        int i = 1;
+        lps[0] = 0;
+        while (i < m) {
+            if (charsEqualIgnoreCase(tag.charAt(i), tag. charAt(len))) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    len = lps[len - 1];
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        return lps;
+    }
+
+    private boolean charsEqualIgnoreCase(char c1, char c2) {
+        return Character.toLowerCase(c1) == Character.toLowerCase(c2);
+    }
+
+
 }

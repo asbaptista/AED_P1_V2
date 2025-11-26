@@ -188,19 +188,38 @@ public class SystemManagerImpl implements SystemManager {
      * @param service The service to associate with the tags.
      */
     private void indexTagsFromComment(String comment, Service service) {
-        if (comment == null || comment.trim().isEmpty()) {
+        if (comment == null) {
             return;
         }
+        int length = comment.length();
+        int index = -1;
 
-        // Split comment by whitespace and index each word as a tag
-        String[] words = comment.split("\\s+");
-        for (String word : words) {
-            String cleanedWord = word.trim();
-            if (!cleanedWord.isEmpty()) {
-                currentArea.getServicesCollection().addTagToService(cleanedWord, service);
+        for (int i = 0; i <= length; i++) {
+            boolean isSpace = (i == length) || Character.isWhitespace(comment.charAt(i));
+
+            if (isSpace) {
+                if (index != -1) {
+                    String word = extractWord(comment, index, i);
+                    currentArea.getServicesCollection().addTagToService(word.toLowerCase(), service);
+                    index = -1;
+                }
+            } else {
+                if (index == -1) {
+                    index = i;
+                }
             }
         }
     }
+
+    private String extractWord(String comment, int start, int end) {
+        char[] chars = new char[end-start];
+        for (int i = 0; i < chars.length; i++) {
+            char c = comment.charAt(start+i);
+            chars[i] = Character.toLowerCase(c);
+        }
+        return new String(chars);
+    }
+
 
     /**
      * {@inheritDoc}

@@ -24,7 +24,6 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      * Standard serial version UID for serialization.
      */
     private static final long serialVersionUID = 1L;
-//deve ter que se por isto tudo private
     /**
      * List of services, maintained in their original insertion order.
      */
@@ -259,17 +258,52 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public void addTagToService(String tag, Service service) {
-        String tagLower = tag.toLowerCase().trim();
+        String tagLower = trimString(tag);
 
-        // Get or create the map for this tag
         Map<String, Service> servicesWithTag = tagMap.get(tagLower);
         if (servicesWithTag == null) {
             servicesWithTag = new SepChainHashTable<>();
             tagMap.put(tagLower, servicesWithTag);
         }
 
-        // Add the service to the tag's map (using service name as key to avoid duplicates)
         servicesWithTag.put(service.getName().toLowerCase(), service);
+    }
+
+    private String trimString(String s) {
+        if (s == null || s.length() == 0) {
+            return s;
+        }
+
+        int start = 0;
+        int end = s.length();
+
+        while (start < end && Character.isWhitespace(s.charAt(start))) {
+            start++;
+        }
+
+        while (end > start && Character.isWhitespace(s.charAt(end - 1))) {
+            end--;
+        }
+
+        if (start == 0 && end == s.length()) {
+            return s;
+        }
+
+        if (start >= end) {
+            return "";
+        }
+
+        return extractWord(s, start, end);
+    }
+
+
+    private String extractWord(String comment, int start, int end) { // dps tratar de nao te codigo repetido
+        char[] chars = new char[end-start];
+        for (int i = 0; i < chars.length; i++) {
+            char c = comment.charAt(start+i);
+            chars[i] = Character.toLowerCase(c);
+        }
+        return new String(chars);
     }
 
     /**
@@ -281,25 +315,13 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public Iterator<Service> getServicesByTag(String tag) {
-        String tagLower = tag.toLowerCase().trim();
-        Map<String, Service> servicesWithTag = tagMap.get(tagLower);
+        String tagClean = trimString(tag);
+        Map<String, Service> servicesWithTag = tagMap.get(tagClean);
 
-        if (servicesWithTag == null) {
-            // No services with this tag, return empty iterator
+        if (servicesWithTag == null || servicesWithTag.isEmpty()) {
             return new DoublyLinkedList<Service>().iterator();
         }
-
-        // Iterate through services in insertion order and keep only those with the tag
-        List<Service> servicesList = new DoublyLinkedList<>();
-        Iterator<Service> insertionIt = servicesByInsertion.iterator();
-        while (insertionIt.hasNext()) {
-            Service service = insertionIt.next();
-            // Check if this service has the tag (O(1) lookup in the inner map)
-            if (servicesWithTag.get(service.getName().toLowerCase()) != null) {
-                servicesList.addLast(service);
-            }
-        }
-        return servicesList.iterator();
+        return new FilterIterator<>(servicesByInsertion.iterator(), service -> servicesWithTag.get(service.getName().toLowerCase()) != null);
     }
 
     // --- Serialization Methods ---
@@ -337,13 +359,14 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      * @throws ClassNotFoundException If the class of a serialized object cannot be found.
      */
     @SuppressWarnings("unchecked")
-    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException { // tbh nao percebi o que fizeste aqui
         ois.defaultReadObject();
 
         // Initialize fields that need rebuilding
         this.servicesByInsertion = new DoublyLinkedList<>();
         this.servicesByName = new ClosedHashTable<>();
         this.rankingByStars = new ClosedHashTable<>();
+        this.servicesByTypeAndStars = new SepChainHashTable<>();
         this.servicesByTypeAndStars = new SepChainHashTable<>();
 
         // Always re-initialize tagMap to ensure it's empty before re-indexing
