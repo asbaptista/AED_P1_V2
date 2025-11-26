@@ -1,0 +1,13 @@
+# Compiled class files
+out/
+*.class
+
+# IDE files
+*.iml
+.idea/
+
+# Data files
+data/
+
+# Log files
+*.log

@@ -359,14 +359,13 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      * @throws ClassNotFoundException If the class of a serialized object cannot be found.
      */
     @SuppressWarnings("unchecked")
-    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException { // tbh nao percebi o que fizeste aqui
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
 
         // Initialize fields that need rebuilding
         this.servicesByInsertion = new DoublyLinkedList<>();
         this.servicesByName = new ClosedHashTable<>();
         this.rankingByStars = new ClosedHashTable<>();
-        this.servicesByTypeAndStars = new SepChainHashTable<>();
         this.servicesByTypeAndStars = new SepChainHashTable<>();
 
         // Always re-initialize tagMap to ensure it's empty before re-indexing

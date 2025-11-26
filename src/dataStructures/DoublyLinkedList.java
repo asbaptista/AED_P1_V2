@@ -150,7 +150,7 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
      * If the specified position is 0, add corresponds to addFirst.
      * If the specified position is size(), add corresponds to addLast.
      *
-     * @apiNote Time Complexity: O(N) (Worst case O(N) to find position; Best case O(1) for pos=0 or pos=N).
+     * @apiNote Time Complexity: O(N/2) (Optimized to start from the closer end; Best case O(1) for pos=0 or pos=N).
      * @param position - position where to insert element.
      * @param element  - element to be inserted.
      * @throws InvalidPositionException - if position is not valid in the list.
@@ -164,10 +164,8 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
         } else if (position == currentSize) {
             addLast(element);
         } else {
-            DoublyListNode<E> current = head;
-            for (int i = 0; i < position; i++) {
-                current = current.getNext();
-            }
+            // Use optimized getNode which starts from the closer end
+            DoublyListNode<E> current = getNode(position);
             DoublyListNode<E> newNode = new DoublyListNode<>(element);
             newNode.setPrevious(current.getPrevious());
             newNode.setNext(current);
@@ -175,7 +173,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
             current.setPrevious(newNode);
             currentSize++;
         }
-        //TODO: Left as an exercise.//done
     }
 
     // --- Get Operations ---
@@ -216,7 +213,7 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
      * Returns the element at the specified position in the list.
      * Range of valid positions: 0, ..., size()-1.
      *
-     * @apiNote Time Complexity: O(N) (Worst case O(N) to find position; Best case O(1) for pos=0).
+     * @apiNote Time Complexity: O(N/2) (Optimized to start from the closer end; Best case O(1) for pos=0 or pos=N-1).
      * @param position - position of element to be returned.
      * @return Element at position.
      * @throws InvalidPositionException if position is not valid in the list.
@@ -225,12 +222,33 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
         if (position < 0 || position >= currentSize) {
             throw new InvalidPositionException();
         }
-        DoublyListNode<E> current = head;
-        for (int i = 0; i < position; i++) {
-            current = current.getNext();
+        return getNode(position).getElement();
+    }
+
+    /**
+     * Helper method to get the node at a specific position.
+     * Optimized to start from either head or tail, depending on which is closer.
+     *
+     * @apiNote Time Complexity: O(N/2) in the worst case.
+     * @param position - the position of the node to find.
+     * @return The node at the given position.
+     */
+    private DoublyListNode<E> getNode(int position) {
+        DoublyListNode<E> current;
+        if (position < currentSize / 2) {
+            // Start from head
+            current = head;
+            for (int i = 0; i < position; i++) {
+                current = current.getNext();
+            }
+        } else {
+            // Start from tail
+            current = tail;
+            for (int i = currentSize - 1; i > position; i--) {
+                current = current.getPrevious();
+            }
         }
-        return current.getElement();
-        //TODO: Left as an exercise.//done
+        return current;
     }
 
     /**
@@ -310,7 +328,7 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
      * Removes and returns the element at the specified position in the list.
      * Range of valid positions: 0, ..., size()-1.
      *
-     * @apiNote Time Complexity: O(N) (Worst case O(N) to find position; Best case O(1) for pos=0 or pos=N-1).
+     * @apiNote Time Complexity: O(N/2) (Optimized to start from the closer end; Best case O(1) for pos=0 or pos=N-1).
      * @param position - position of element to be removed.
      * @return Element removed at position.
      * @throws InvalidPositionException - if position is not valid in the list.
@@ -324,16 +342,13 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
         } else if (position == currentSize - 1) {
             return removeLast();
         } else {
-            DoublyListNode<E> current = head;
-            for (int i = 0; i < position; i++) {
-                current = current.getNext();
-            }
+            // Use optimized getNode which starts from the closer end
+            DoublyListNode<E> current = getNode(position);
             E element = current.getElement();
             current.getPrevious().setNext(current.getNext());
             current.getNext().setPrevious(current.getPrevious());
             currentSize--;
             return element;
-            //TODO: Left as an exercise.
         }
     }
 
