@@ -54,10 +54,9 @@ public class OutgoingImpl extends StudentAbs implements Outgoing, Serializable {
      */
     @Override
     protected void registerVisit(Service service) {
-        // Outgoing students store all services
-        int index = visitedServices.indexOf(service);
-        if (index == -1) { // Avoids duplicates
-            visitedServices.addLast(service);
+        if (visitedServicesSet. get(service) == null) {
+            visitedServices. addLast(service);
+            visitedServicesSet.put(service, true);
         }
     }
 }

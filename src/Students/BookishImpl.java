@@ -48,11 +48,10 @@ public class BookishImpl extends StudentAbs implements Bookish, Serializable {
      */
     @Override
     protected void registerVisit(Service service) {
-        // Bookish students only store Leisure services
         if (service instanceof Leisure) {
-            int index = visitedServices.indexOf(service);
-            if (index == -1) { // Avoids duplicates
+            if (visitedServicesSet.get(service) == null) {
                 visitedServices.addLast(service);
+                visitedServicesSet. put(service, true);
             }
         }
     }

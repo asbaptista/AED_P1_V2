@@ -1,12 +1,9 @@
 package Students;
 
 import Services.*;
-import dataStructures.DoublyLinkedList;
-import dataStructures.Iterator;
-import dataStructures.TwoWayList;
+import dataStructures.*;
 
 import java.io.*;
-// import java.util.Objects; // This import is unused
 
 /**
  * Abstract base class implementing the {@link Student} interface.
@@ -54,6 +51,9 @@ public class StudentAbs implements Student, Serializable {
      */
     protected TwoWayList<Service> visitedServices;
 
+    protected Map<Service, Boolean> visitedServicesSet;
+
+
     // --- Constructor ---
 
     /**
@@ -72,8 +72,9 @@ public class StudentAbs implements Student, Serializable {
         this.home = home;
         this.current = home;
         this.visitedServices = new DoublyLinkedList<>();
-        // Note: Logic to add 'home' to visitedServices for Outgoing
-        // has been moved to the OutgoingImpl constructor.
+        this.visitedServicesSet = new ClosedHashTable<>();
+
+
         home.addOccupant(this);
     }
 
