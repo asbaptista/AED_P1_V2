@@ -359,41 +359,46 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      * @throws ClassNotFoundException If the class of a serialized object cannot be found.
      */
     @SuppressWarnings("unchecked")
-    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException { // tbh nao percebi o que fizeste aqui
-        ois.defaultReadObject();
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois. defaultReadObject();
 
-        // Initialize fields that need rebuilding
         this.servicesByInsertion = new DoublyLinkedList<>();
-        this.servicesByName = new ClosedHashTable<>();
-        this.rankingByStars = new ClosedHashTable<>();
-        this.servicesByTypeAndStars = new SepChainHashTable<>();
+        this. servicesByName = new ClosedHashTable<>();
+        this. rankingByStars = new ClosedHashTable<>();
         this.servicesByTypeAndStars = new SepChainHashTable<>();
 
-        // Always re-initialize tagMap to ensure it's empty before re-indexing
         this.tagMap = new SepChainHashTable<>();
 
-        // Read services and rebuild all data structures including tagMap
         int size = ois.readInt();
         for (int i = 0; i < size; i++) {
-            Service service = (Service) ois.readObject();
+            Service service = (Service) ois. readObject();
             this.add(service);
 
-            // Re-index tags from all evaluations
-            if (service instanceof Services.ServiceAbs serviceAbs) {
+            if (service instanceof Services. ServiceAbs serviceAbs) {
                 dataStructures.Iterator<Services.Evaluation> evalIt = serviceAbs.getEvaluations();
                 while (evalIt.hasNext()) {
-                    Services.Evaluation eval = evalIt.next();
-                    String desc = eval.getDescription();
-                    if (desc != null && !desc.trim().isEmpty()) {
-                        for (String word : desc.split("\\s+")) {
-                            String cleanWord = word.trim();
-                            if (!cleanWord.isEmpty()) {
-                                addTagToService(cleanWord, service);
+                    Services. Evaluation eval = evalIt.next();
+                    String desc = eval. getDescription();
+                    if (desc != null && !desc.isEmpty()) {
+                        int length = desc.length();
+                        int index = -1;
+                        for (int j = 0; j <= length; j++) {
+                            boolean isSpace = (j == length) || Character.isWhitespace(desc.charAt(j));
+                            if (isSpace) {
+                                if (index != -1) {
+                                    String word = desc.substring(index, j).toLowerCase();
+                                    addTagToService(word, service);
+                                    index = -1;
+                                }
+                            } else {
+                                if (index == -1) {
+                                    index = j;
+                                }
                             }
                         }
                     }
                 }
             }
         }
-    }
+}
 }

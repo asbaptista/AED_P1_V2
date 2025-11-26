@@ -39,7 +39,7 @@ public class Tests {
     @Test public void test17() { test("input17", "output17"); }
     @Test public void test18() { test("input18", "output18"); }
 
-    private static final File BASE = new File("tests");
+    private static final File BASE = new File("Tests");
 
     private PrintStream consoleStream;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
