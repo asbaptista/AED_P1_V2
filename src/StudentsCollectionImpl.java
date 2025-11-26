@@ -157,9 +157,8 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     /**
      * Custom serialization method.
      * <p>
-     * Saves the students once and preserves the insertion order per country
-     * by storing the country-to-student-names mapping. This avoids duplicating
-     * student objects during serialization.
+     * Serializes students in insertion order (by iterating through country lists).
+     * During deserialization, we simply call addStudent() to rebuild all structures.
      *
      * @param oos The ObjectOutputStream to write to.
      * @throws IOException If an I/O error occurs.
@@ -167,34 +166,31 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
 
-        // Serialize students (only once)
-        oos.writeInt(studentsByName.size());
-        Iterator<Student> it = studentsByName.values();
-        while (it.hasNext()) {
-            oos.writeObject(it.next());
-        }
-
-        // Serialize the country-to-student-names mapping (preserves insertion order per country)
-        oos.writeInt(studentsByCountry.size());
+        // Collect all students in insertion order (from country lists)
+        List<Student> allStudents = new DoublyLinkedList<>();
         Iterator<String> countryIt = studentsByCountry.keys();
         while (countryIt.hasNext()) {
             String country = countryIt.next();
-            oos.writeObject(country);
             List<Student> countryList = studentsByCountry.get(country);
-            oos.writeInt(countryList.size());
             Iterator<Student> studentIt = countryList.iterator();
             while (studentIt.hasNext()) {
-                // Write only the student name (key) to preserve insertion order
-                oos.writeObject(studentIt.next().getName().toLowerCase());
+                allStudents.addLast(studentIt.next());
             }
+        }
+
+        // Write the total count and each student
+        oos.writeInt(allStudents.size());
+        Iterator<Student> it = allStudents.iterator();
+        while (it.hasNext()) {
+            oos.writeObject(it.next());
         }
     }
 
     /**
      * Custom deserialization method.
      * <p>
-     * Reads students once into studentsByName, then reconstructs studentsByCountry
-     * using references to the same student objects (avoiding duplicates).
+     * Reads students and uses addStudent() to rebuild all internal structures.
+     * This is simpler and guarantees consistency.
      *
      * @param ois The ObjectInputStream to read from.
      * @throws IOException            If an I/O error occurs.
@@ -204,33 +200,15 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
 
+        // Initialize empty structures
         this.studentsByName = new AVLSortedMap<>();
         this.studentsByCountry = new SepChainHashTable<>();
 
-        // Deserialize students into studentsByName
-        int nameSize = ois.readInt();
-        for (int i = 0; i < nameSize; i++) {
+        // Read students and use addStudent() to rebuild everything
+        int size = ois.readInt();
+        for (int i = 0; i < size; i++) {
             Student student = (Student) ois.readObject();
-            this.studentsByName.put(student.getName().toLowerCase(), student);
-        }
-
-        // Reconstruct studentsByCountry using references to the same student objects
-        int countryMapSize = ois.readInt();
-        for (int i = 0; i < countryMapSize; i++) {
-            String country = (String) ois.readObject();
-            int countryListSize = ois.readInt();
-            List<Student> countryList = new DoublyLinkedList<>();
-            for (int j = 0; j < countryListSize; j++) {
-                String studentName = (String) ois.readObject();
-                // Get the actual student object from studentsByName (shared reference)
-                // The student should always exist since we serialized both structures together
-                Student student = this.studentsByName.get(studentName);
-                if (student != null) {
-                    countryList.addLast(student);
-                }
-                // Note: student being null would indicate corrupted serialization data
-            }
-            this.studentsByCountry.put(country, countryList);
+            this.addStudent(student);
         }
     }
 }
