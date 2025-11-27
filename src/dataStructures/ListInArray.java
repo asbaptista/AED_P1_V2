@@ -29,12 +29,12 @@ public class ListInArray<E> implements List<E>, Serializable {
     /**
      * Array of generic elements E.
      */
-    private E[] elems;
+    private transient E[] elems;
 
     /**
      * Number of elements in array (the logical size of the list).
      */
-    private int counter;
+    private transient int counter;
 
     // --- Constructor ---
 
@@ -310,4 +310,25 @@ public class ListInArray<E> implements List<E>, Serializable {
         }
         elems = newArray;
     }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+        out.defaultWriteObject();
+        out.writeInt(elems.length);
+        for (int i = 0; i < counter; i++) {
+            out.writeObject(elems[i]);
+        }
+        out.flush();
+    }
+
+    @SuppressWarnings("unchecked")
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        int arrayLength = in.readInt();
+        this.elems = (E[]) new Object[arrayLength];
+        for (int i = 0; i < counter; i++) {
+            elems[i] = (E) in.readObject();
+        }
+    }
+
+
 }

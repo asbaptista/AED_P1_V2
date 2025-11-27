@@ -36,11 +36,11 @@ public class ServicesCollectionImpl implements ServiceCollection {
      * Key: avgStars (0-5), Value: List of services with that rating.
      * This allows O(1) updates instead of O(n) with SortedList.
      */
-    private Map<Integer, List<Service>> rankingByStars;
+    private transient Map<Integer, List<Service>> rankingByStars;
 
-    private Map<ServiceType, Map<Integer, List<Service>>> servicesByTypeAndStars;
+    private transient Map<ServiceType, Map<Integer, List<Service>>> servicesByTypeAndStars;
 
-    private Map<String, Map<String, Service>> tagMap;
+    private transient Map<String, Map<String, Service>> tagMap;
 
 
 
