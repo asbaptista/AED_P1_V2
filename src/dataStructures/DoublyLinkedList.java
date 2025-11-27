@@ -26,19 +26,19 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
      * Node at the head (start) of the list.
      * Transient to support custom serialization.
      */
-    protected DoublyListNode<E> head;
+    protected transient DoublyListNode<E> head;
 
     /**
      * Node at the tail (end) of the list.
      * Transient to support custom serialization.
      */
-    protected DoublyListNode<E> tail;
+    protected transient DoublyListNode<E> tail;
 
     /**
      * Number of elements currently in the list.
      * Transient to support custom serialization.
      */
-    protected int currentSize;
+    protected transient int currentSize;
 
     // --- Constructor ---
 
@@ -334,6 +334,29 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
             currentSize--;
             return element;
             //TODO: Left as an exercise.
+        }
+    }
+
+    private void writeObject(ObjectOutputStream oos) throws IOException {
+        oos.defaultWriteObject();
+        oos.writeInt(currentSize);
+        DoublyListNode<E> current = head;
+        while (current != null) {
+            oos.writeObject(current.getElement());
+            current = current.getNext();
+        }
+    }
+
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        int size = ois.readInt();
+        this.head = null;
+        this.tail = null;
+        this.currentSize = 0;
+        for (int i = 0; i < size; i++) {
+            @SuppressWarnings("unchecked")
+            E element = (E) ois.readObject();
+            this.addLast(element);
         }
     }
 

@@ -17,7 +17,7 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
     static final float MAX_LOAD_FACTOR =0.9f;
 
     // The array of Map with singly linked list.
-    private Map<K,V>[] table;
+    private transient Map<K,V>[] table;
 
     public SepChainHashTable( ){
         this(DEFAULT_CAPACITY);
@@ -128,6 +128,33 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
      */
     public Iterator<Entry<K, V>> iterator() {
         return new SepChainHashTableIterator<>(table);
+    }
+
+
+    private void writeObject(java.io.ObjectOutputStream out)
+            throws java.io.IOException {
+        out.defaultWriteObject();
+        out.writeInt(table.length);
+        for (Map<K,V> map : table) {
+            Iterator<Entry<K,V>> it = map.iterator();
+            while (it.hasNext()) {
+                Entry<K,V> entry = it.next();
+                out.writeObject(entry.key());
+                out.writeObject(entry.value());
+            }
+        }
+        out.writeObject(null); // End marker
+    }
+
+    @SuppressWarnings("unchecked")
+    private void readObject(java.io.ObjectInputStream in)
+            throws java.io.IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        int tableLength = in.readInt();
+        this.table = (Map<K, V>[]) new MapSinglyList[tableLength];
+        for (int i = 0; i < tableLength; i++) {
+            table[i] = new MapSinglyList<>();
+        }
     }
 
 

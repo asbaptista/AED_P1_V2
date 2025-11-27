@@ -188,4 +188,34 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
 
     }
 
+    private void writeObject(java.io.ObjectOutputStream out)
+            throws java.io.IOException {
+        out.defaultWriteObject();
+        out.writeInt(table.length);
+        for (Entry<K,V> entry : table) {
+            if (entry != null && entry != REMOVED_CELL) {
+                out.writeObject(entry.key());
+                out.writeObject(entry.value());
+            }
+        }
+        out.writeObject(null); // End marker
+    }
+
+    @SuppressWarnings("unchecked")
+    private void readObject(java.io.ObjectInputStream in)
+            throws java.io.IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        int tableLength = in.readInt();
+        this.table = (Entry<K, V>[]) new Entry[tableLength];
+        for (int i = 0; i < tableLength; i++) {
+            table[i] = null;
+        }
+
+        Object key;
+        while ((key = in.readObject()) != null) {
+            V value = (V) in.readObject();
+            put((K) key, value);
+        }
+    }
+
 }

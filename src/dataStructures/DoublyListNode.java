@@ -31,13 +31,13 @@ class DoublyListNode<E> implements Serializable {
          * (Pointer to) the previous node.
          * Marked as transient.
          */
-        private  DoublyListNode<E> previous;
+        private transient DoublyListNode<E> previous;
 
         /**
          * (Pointer to) the next node.
          * Marked as transient.
          */
-        private DoublyListNode<E> next;
+        private transient DoublyListNode<E> next;
 
         // --- Constructors ---
 
@@ -134,4 +134,6 @@ class DoublyListNode<E> implements Serializable {
                 this.next = newNext;
                 //TODO: Left as an exercise.// done
         }
+
+
 }
