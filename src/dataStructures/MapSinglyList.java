@@ -1,4 +1,7 @@
 package dataStructures;
+
+import java.io.*;
+
 /**
  * Map with a singly linked list with head and size
  * @author AED  Team
@@ -6,12 +9,14 @@ package dataStructures;
  * @param <K> Generic Key
  * @param <V> Generic Value
  */
-class MapSinglyList<K,V> implements Map<K, V> {
+class MapSinglyList<K,V> implements Map<K, V> , Serializable {
+
+    private static final long serialVersionUID = 1L;
 
 
-    private SinglyListNode<Entry<K,V>> head;
+    private transient SinglyListNode<Entry<K,V>> head;
 
-    private int size;
+    private transient int size;
 
     public MapSinglyList() {
         head=null;
@@ -79,8 +84,7 @@ class MapSinglyList<K,V> implements Map<K, V> {
             node.setElement(newValue);
             return oldValue;
         }else {
-            SinglyListNode<Entry<K,V>> newNode = new SinglyListNode<>(newValue, head); // provavelmente posso por so head= isto;
-            head = newNode;
+            head = new SinglyListNode<>(newValue, head);
             size++;
             return null;
         }
@@ -160,6 +164,16 @@ class MapSinglyList<K,V> implements Map<K, V> {
             current = current.getNext();
         }
         return null;
+    }
+
+    @Serial
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject(); // Grava a 'list' automaticamente
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject(); // Restaura a 'list'
     }
 
 }

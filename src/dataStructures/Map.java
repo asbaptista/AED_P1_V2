@@ -13,6 +13,9 @@ import java.io.Serializable;
 public interface Map<K,V>  {
 
     record Entry<K,V>(K key,V value) implements Serializable {
+
+
+
         @SuppressWarnings("unchecked")
         public boolean equals(Object obj) {
 

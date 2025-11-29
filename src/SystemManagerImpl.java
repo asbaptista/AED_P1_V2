@@ -67,7 +67,6 @@ public class SystemManagerImpl implements SystemManager {
     @Override
     public void loadArea(String name) throws BoundsNotFoundException {
         if (currentArea != null) {
-            // Guardar sempre a área corrente (independentemente de o load falhar ou não)
             saveCurrentAreaToFile(currentArea);
         }
 
@@ -149,9 +148,6 @@ public class SystemManagerImpl implements SystemManager {
         }
         Service service = createService(name, lat, lon, price, type, value);
         currentArea.addService(service);
-
-        // Index tags from the initial "Initial rating" comment
-        indexTagsFromComment("Initial rating", service);
     }
 
     /**
@@ -175,49 +171,6 @@ public class SystemManagerImpl implements SystemManager {
         if (newAvgStar != oldAvgStar) {
             currentArea.updateRankingByStars(service, oldAvgStar);
         }
-
-        // Index tags from the comment into the tagMap
-        indexTagsFromComment(comment, service);
-    }
-
-    /**
-     * Extracts and indexes all tags (words) from a comment into the tag map.
-     * This allows efficient O(1) lookup of services by tag.
-     *
-     * @param comment The comment text to extract tags from.
-     * @param service The service to associate with the tags.
-     */
-    private void indexTagsFromComment(String comment, Service service) {
-        if (comment == null) {
-            return;
-        }
-        int length = comment.length();
-        int index = -1;
-
-        for (int i = 0; i <= length; i++) {
-            boolean isSpace = (i == length) || Character.isWhitespace(comment.charAt(i));
-
-            if (isSpace) {
-                if (index != -1) {
-                    String word = extractWord(comment, index, i);
-                    currentArea.getServicesCollection().addTagToService(word.toLowerCase(), service);
-                    index = -1;
-                }
-            } else {
-                if (index == -1) {
-                    index = i;
-                }
-            }
-        }
-    }
-
-    private String extractWord(String comment, int start, int end) {
-        char[] chars = new char[end-start];
-        for (int i = 0; i < chars.length; i++) {
-            char c = comment.charAt(start+i);
-            chars[i] = Character.toLowerCase(c);
-        }
-        return new String(chars);
     }
 
 
@@ -277,7 +230,6 @@ public class SystemManagerImpl implements SystemManager {
         }
         Student student = createStudentByType(type, name, country, (Lodging) lodging);
         currentArea.addStudent(student);
-        //((Lodging)lodging).addOccupant(student);
     }
 
     /**
@@ -302,7 +254,6 @@ public class SystemManagerImpl implements SystemManager {
         if (student == null) {
             throw new StudentNotFoundException();
         }
-        // Before removing from the area, remove from their current location's occupant list
         if (student.getCurrent() instanceof Eating eating) {
             eating.removeOccupant(student);
         } else if (student.getCurrent() instanceof Lodging lodging) {
@@ -439,13 +390,11 @@ public class SystemManagerImpl implements SystemManager {
             throw new ServiceDoesNotControlEntryExitException();
         }
 
-        // Get the appropriate iterator from the service
         TwoWayIterator<Student> it = (service instanceof Eating)
                 ? ((Eating) service).getOccupantsIterator()
                 : ((Lodging) service).getOccupantsIterator();
 
-        // If reverse order ("<"), fast-forward the iterator to the end
-        // so that .previous() can be called.
+
         if ("<".equals(order)) {
             while (it.hasNext()) it.next();
         }
@@ -541,18 +490,14 @@ public class SystemManagerImpl implements SystemManager {
             throw new StudentNotFoundException();
         }
 
-        // Filter services by the desired type
-        Iterator<Service> allServices = currentArea.getServices();
-        Iterator<Service> filteredServices = new FilterIterator<>(allServices, s -> s.getType() == serviceType);
+        Iterator<Service> typeServicesIterator = currentArea.getServicesByTypeOrderedByStars(serviceType);
 
-        if (!filteredServices.hasNext()) {
+        if (!typeServicesIterator.hasNext()) {
             throw new NoServicesOfThisTypeException();
         }
 
-        // Delegate the "relevance" logic to the student
-        Service relevantService = student.findMostRelevant(filteredServices);
 
-        return relevantService;
+        return student.findMostRelevant(typeServicesIterator);
     }
 
     // --- Property Getters (Convenience) ---
@@ -691,109 +636,34 @@ public class SystemManagerImpl implements SystemManager {
         File directory = new File("data");
         if (!directory.exists()) {
             boolean created = directory.mkdirs();
-            if (!created) {
+            if (!created) { // verificar se é preciso ,em principio n
                 System.err.println("ERRO: Não foi possível criar a diretoria 'data'. Verifique permissões.");
                 return;
             }
         }
+        try (ObjectOutputStream oos = new ObjectOutputStream(
+                (new FileOutputStream(filename)))) {
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-            oos.writeObject(area.getName());
-            oos.writeLong(area.getTopLat());
-            oos.writeLong(area.getLeftLong());
-            oos.writeLong(area.getBottomLat());
-            oos.writeLong(area.getRightLong());
-
-            oos.writeInt(area.getNumberOfServices());
-            Iterator<Service> servicesIt = area.getServices();
-            while (servicesIt.hasNext()) {
-                oos.writeObject(servicesIt.next());
-            }
-
-//            int studentCount = 0;
-//            Iterator<Student> countIt = area.listAllStudents();
-//            while (countIt.hasNext()) { countIt.next(); studentCount++; }
-//
-//            oos.writeInt(studentCount);
-//            Iterator<Student> studentsIt = area.listAllStudents();
-//            while (studentsIt.hasNext()) {
-//                oos.writeObject(studentsIt.next());
-//            }
-
-
-            Iterator<Student> studentsIt;
-            if (area instanceof AreaImpl) {
-                studentsIt = ((AreaImpl) area).getStudentsForPersistence();
-            } else {
-                studentsIt = area.listAllStudents(); // Fallback
-            }
-
-            dataStructures.List<Student> tempSaveList = new dataStructures.DoublyLinkedList<>();
-            while (studentsIt.hasNext()) {
-                tempSaveList.addLast(studentsIt.next());
-            }
-
-            oos.writeInt(tempSaveList.size());
-
-            Iterator<Student> writeIt = tempSaveList.iterator();
-            while (writeIt.hasNext()) {
-                oos.writeObject(writeIt.next());
-            }
-
+            oos.writeObject(area);
             oos.flush();
-            // System.out.println("DEBUG: Área gravada com sucesso em " + filename); // Opcional
-        } catch (IOException e) {
-            System.err.println("ERRO AO SALVAR: " + e.getMessage());
-            e.printStackTrace();
+
+        } catch (IOException ignored) {
         }
+
     }
 
     private Area loadAreaFromFile(String name) {
         String filename = "data/" + getAreaFileName(name);
         File file = new File(filename);
         if (!file.exists()) {
-            // System.err.println("DEBUG: Ficheiro não encontrado: " + filename);
             return null;
         }
+        try (ObjectInputStream ois = new ObjectInputStream(
+                (new FileInputStream(filename)))) {
 
-        Area oldArea = this.currentArea;
-
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            String areaName = (String) ois.readObject();
-            long top = ois.readLong();
-            long left = ois.readLong();
-            long bottom = ois.readLong();
-            long right = ois.readLong();
-
-            AreaImpl newArea = new AreaImpl(areaName, top, left, bottom, right);
-            this.currentArea = newArea;
-
-            int numServices = ois.readInt();
-            for (int i = 0; i < numServices; i++) {
-                Service s = (Service) ois.readObject();
-                newArea.addService(s);
-                // Re-indexar tags
-                Iterator<Evaluation> evaluations = s.getEvaluations();
-                while (evaluations.hasNext()) {
-                    Evaluation ev = evaluations.next();
-                    // Garante que usas o método correto: getDescription() ou getComment()
-                    String comment = ev.getDescription();
-                    if (comment != null) indexTagsFromComment(comment, s);
-                }
-            }
-
-            int numStudents = ois.readInt();
-            for (int i = 0; i < numStudents; i++) {
-                Student st = (Student) ois.readObject();
-                newArea.addStudent(st);
-            }
-
-            return newArea;
+            return (Area) ois.readObject();
 
         } catch (Exception e) {
-            System.err.println("ERRO AO CARREGAR: " + e.getMessage());
-            e.printStackTrace(); // Isto vai mostrar-nos exatamente onde falha
-            this.currentArea = oldArea;
             return null;
         }
     }
@@ -809,16 +679,7 @@ public class SystemManagerImpl implements SystemManager {
         return name.toLowerCase().replace(" ", "_") + ".ser";
     }
 
-    /**
-     * Checks if a serialized file for an area exists.
-     *
-     * @param name The name of the area.
-     * @return true if the .ser file exists, false otherwise.
-     */
-    private boolean areaFileExists(String name) {
-        String filename = getAreaFileName(name);
-        return new File(filename).exists();
-    }
+
 
 
     // --- Private Validation Helpers ---
@@ -881,7 +742,7 @@ public class SystemManagerImpl implements SystemManager {
      * @param tag     The tag to search for.
      * @return true if the service has the tag, false otherwise.
      */
-    private boolean serviceHasTag(Service service, String tag) {
+    public boolean serviceHasTag(Service service, String tag) {
         return service.hasEvaluationWithTag(tag);
     }
 

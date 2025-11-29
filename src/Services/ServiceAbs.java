@@ -2,7 +2,7 @@ package Services;
 
 import dataStructures.*;
 
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Abstract base class implementing the {@link Service} interface.
@@ -65,10 +65,7 @@ public class ServiceAbs implements Service, Serializable {
      */
     private TwoWayList<Evaluation> evaluations;
 
-    /**
-     * A list for storing indexed tags (for future use).
-     */
-    List<String> tagsIndexed;
+
 
     // --- Constructor ---
 
@@ -94,7 +91,6 @@ public class ServiceAbs implements Service, Serializable {
         this.avgStar = 0.0;
         this.nEval = 0;
         this.evaluations = new DoublyLinkedList<>();
-        this.tagsIndexed = new ListInArray<>(100);
 
         // A freshly created service is given 4 stars
         addReview(4, "Initial rating");
@@ -242,17 +238,26 @@ public class ServiceAbs implements Service, Serializable {
      */
     @Override
     public boolean hasEvaluationWithTag(String tag) {
-        tag = tag.trim();
-
-        String tagLower = tag.toLowerCase();
         Iterator<Evaluation> it = evaluations.iterator();
         while (it.hasNext()) {
             Evaluation eval = it.next();
-            if (eval.containsTag(tagLower)) {
+            if (eval.containsTag(tag)) {
                 return true;
             }
         }
         return false;
+    }
+
+
+    @Serial
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+    }
+
+
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
     }
 
 }

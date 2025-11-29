@@ -337,6 +337,7 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
         }
     }
 
+    @Serial
     private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
         oos.writeInt(currentSize);
@@ -347,6 +348,7 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
         }
     }
 
+    @Serial
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
         int size = ois.readInt();

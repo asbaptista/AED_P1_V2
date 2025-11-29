@@ -1,5 +1,5 @@
 package dataStructures;
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Singly List Node Implementation
@@ -8,7 +8,9 @@ import java.io.Serializable;
  * @param <E> Generic Element
  *
  */
-class SinglyListNode<E>  {
+class SinglyListNode<E> implements Serializable  {
+
+    private static final long serialVersionUID = 1L;
     /**
      * Serial Version UID of the Class
      */
@@ -16,12 +18,12 @@ class SinglyListNode<E>  {
     /**
      * Element stored in the node.
      */
-    private E element;
+    private transient E element;
 
     /**
      * (Pointer to) the next node.
      */
-    private SinglyListNode<E> next;
+    private transient SinglyListNode<E> next;
 
     /**
      *

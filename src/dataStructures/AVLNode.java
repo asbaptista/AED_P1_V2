@@ -1,13 +1,18 @@
 package dataStructures;
+
+import java.io.Serializable;
+
 /**
  * AVL Tree Node
  * @author AED  Team
  * @version 1.0
  * @param <E> Generic Element
  */
-class AVLNode<E> extends BTNode<E> {
+class AVLNode<E> extends BTNode<E> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     // Height of the node
-    protected int height;
+    protected transient int height;
 
     public AVLNode(E elem) {
         super(elem);
@@ -34,6 +39,7 @@ class AVLNode<E> extends BTNode<E> {
         if (node==null)	return -1;
         return node.getHeight();
     }
+    @Override
     public int getHeight() {
         return height;
     }

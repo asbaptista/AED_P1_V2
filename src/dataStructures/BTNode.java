@@ -1,23 +1,28 @@
 package dataStructures;
 
+import java.io.*;
+
 /**
  * Binary Tree Node
  * @author AED  Team
  * @version 1.0
  * @param <E> Generic Element
  */
-class BTNode<E> implements Node<E> {
+class BTNode<E> implements Node<E>, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
     // Element stored in the node.
-    private E element;
+    private transient E element;
 
     // (Pointer to) the father.
-    private Node<E> parent;
+    private transient Node<E> parent;
 
     // (Pointer to) the left child.
-    private Node<E> leftChild;
+    private transient Node<E> leftChild;
 
     // (Pointer to) the right child.
-    private Node<E> rightChild;
+    private transient Node<E> rightChild;
 
     /**
      * Constructor

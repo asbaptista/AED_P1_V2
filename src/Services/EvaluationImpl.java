@@ -1,6 +1,6 @@
 package Services;
 
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Implements the {@link Evaluation} interface.
@@ -10,11 +10,14 @@ import java.io.Serializable;
  */
 public class EvaluationImpl implements Evaluation, Serializable {
 
+
+
     // --- Fields ---
 
     /**
      * Standard serial version UID for serialization.
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -66,69 +69,93 @@ public class EvaluationImpl implements Evaluation, Serializable {
 
     /**
      * Checks if the evaluation's description contains a specific tag (word).
-     * This method splits the description by whitespace and performs a
-     * case-insensitive comparison for each word against the provided tag.
+     * This method performs a case-insensitive search for the tag as a standalone word
+     * using the KMP algorithm.
      *
-     * @param tag The tag (word) to search for. This method expects the
-     * tag to be provided in lowercase for a correct match.
+     * @param tag The tag (word) to search for.
      * @return true if the tag is found as a standalone word, false otherwise.
      */
     @Override
-    public boolean containsTag(String tag) { //kmp algorithm
-        if (description == null || tag == null) {
-            return false;
+    public boolean containsTag(String tag) {
+        char[] text = description.toCharArray();
+        char[] pattern = tag.trim().toCharArray();
+
+        // Convert pattern to lowercase for comparison
+        char[] lowerPattern = new char[pattern.length];
+        for (int k = 0; k < pattern.length; k++) {
+            lowerPattern[k] = toLowerCase(pattern[k]);
         }
-        int descriptionLength = description.length();
-        int tagLength = tag.length();
 
-        if (descriptionLength == 0 || tagLength == 0 || tagLength > descriptionLength) {
-            return false;
+        // Extract and search each word from the description
+        int n = text.length;
+        int wordStart = 0;
+
+        for (int i = 0; i <= n; i++) {
+            // End of word: either whitespace or end of text
+            if (i == n || isWhitespace(text[i])) {
+                int wordLength = i - wordStart;
+
+                if (wordLength > 0) {
+                    // Extract current word and convert to lowercase
+                    char[] word = new char[wordLength];
+                    for (int k = 0; k < wordLength; k++) {
+                        word[k] = toLowerCase(text[wordStart + k]);
+                    }
+
+                    // Check if word matches pattern exactly
+                    if (word.length == lowerPattern.length && kmpSearch(word, lowerPattern)) {
+                        return true;
+                    }
+                }
+
+                // Move to start of next word (skip whitespace)
+                wordStart = i + 1;
+            }
         }
-        int[] lps = LPS(tag);
 
-        int i = 0;
-        int j = 0;
+        return false;
+    }
 
-        while(i<descriptionLength){
-            if(charsEqualIgnoreCase(description.charAt(i), tag.charAt(j))){
+    /**
+     * Performs KMP (Knuth-Morris-Pratt) search algorithm to find a pattern in text.
+     *
+     * @param text    The text to search in.
+     * @param pattern The pattern to search for.
+     * @return true if the pattern is found in the text, false otherwise.
+     */
+    public static boolean kmpSearch(char[] text, char[] pattern) {
+        int n = text.length;
+        int m = pattern.length;
+        int[] lps = LPS(pattern);
+        int i = 0, j = 0;
+        while (i < n) {
+            if (pattern[j] == text[i]) {
                 i++;
                 j++;
             }
-            if( j == tagLength){
-                int wordStart = i-tagLength;
-                int wordEnd = i;
-                
-                if (isSeparateWord(wordStart, wordEnd)) {
-                    return true;
-                }
-                j = lps[j - 1];
-            } else if (i < descriptionLength && ! charsEqualIgnoreCase(description.charAt(i), tag. charAt(j))) {
-                if (j != 0) {
-                    j = lps[j - 1];
-                } else {
+            if (j == m) //found
+                return true;
+            if (i < n && pattern[j] != text[i]) {
+                if (j != 0)
+                    j = lps[j - 1]; //reuse suffix of P[0..j-1]
+                else
                     i++;
-                }
             }
 
         }
         return false;
     }
 
-    private boolean isSeparateWord(int wordStart, int wordEnd) {
-        boolean left = (wordStart == 0) || Character.isWhitespace(description.charAt(wordStart - 1));
-        boolean right = (wordEnd == description.length()) || Character.isWhitespace(description.charAt(wordEnd));
-        return left && right;
-    }
 
-    private int[] LPS(String tag) {
-        int m = tag.length();
+    private static int[] LPS(char[] pattern) {
+        int m = pattern.length;
         int[] lps = new int[m];
 
         int len = 0;
         int i = 1;
         lps[0] = 0;
         while (i < m) {
-            if (charsEqualIgnoreCase(tag.charAt(i), tag. charAt(len))) {
+            if (pattern[i] == pattern[len]) {
                 len++;
                 lps[i] = len;
                 i++;
@@ -144,9 +171,27 @@ public class EvaluationImpl implements Evaluation, Serializable {
         return lps;
     }
 
-    private boolean charsEqualIgnoreCase(char c1, char c2) {
-        return Character.toLowerCase(c1) == Character.toLowerCase(c2);
+    /**
+     * Converts a character to lowercase.
+     *
+     * @param c The character to convert.
+     * @return The lowercase version of the character.
+     */
+    private static char toLowerCase(char c) {
+        if (c >= 'A' && c <= 'Z') {
+            return (char) (c + 32);
+        }
+        return c;
     }
 
+    /**
+     * Checks if a character is whitespace.
+     *
+     * @param c The character to check.
+     * @return true if the character is whitespace, false otherwise.
+     */
+    private static boolean isWhitespace(char c) {
+        return c == ' ' || c == '\t' || c == '\n' || c == '\r';
+    }
 
 }

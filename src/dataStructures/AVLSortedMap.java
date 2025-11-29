@@ -1,8 +1,6 @@
 package dataStructures;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 /**
  * AVL Tree Sorted Map
@@ -11,12 +9,17 @@ import java.io.ObjectOutputStream;
  * @param <K> Generic Key
  * @param <V> Generic Value
  */
-public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V> {
+public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V> implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     /**
      * @param key
      * @param value
      * @return
      */
+    @Override
     public V put(K key, V value) {
         if (isEmpty()) {
             root = createNode(new Entry<>(key, value), null);
@@ -40,7 +43,7 @@ public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V
         }
         currentSize++;
 
-        organizeTree((AVLNode<Entry<K, V>>) newNode);
+        organizeTree(newNode);
 
         return null;
         //TODO: Left as an exercise.// done ish
@@ -78,7 +81,6 @@ public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V
 
 
     private AVLNode<Entry<K, V>> removeNode(BTNode<Entry<K, V>> nodeToRemove) {
-        //AVLNode<Entry<K,V>> nodeToRemoveAVL = (AVLNode<Entry<K,V>>) nodeToRemove;
 
         if (nodeToRemove.isLeaf()) {  //caso1
             AVLNode<Entry<K, V>> parent = (AVLNode<Entry<K, V>>) nodeToRemove.getParent();
@@ -103,9 +105,9 @@ public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V
 
             if (nodeToRemove.isRoot()) {
                 root = child;
-                ((BTNode<Entry<K, V>>) child).setParent(null);
+                ( child).setParent(null);
             } else {
-                ((BTNode<Entry<K, V>>) child).setParent(parent);
+                ( child).setParent(parent);
                 if (parent.getLeftChild() == nodeToRemove) {
                     parent.setLeftChild(child);
                 } else {
@@ -189,6 +191,7 @@ public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V
         return parent;
     }
 
+    @Serial
     private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
         oos.writeInt(currentSize);
@@ -201,12 +204,14 @@ public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V
         oos.flush();
     }
 
+
+    @Serial
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
         int size = ois.readInt();
 
-        root = null;
-        currentSize = 0;
+        this.root = null;
+        this.currentSize = 0;
 
         for (int i = 0; i < size; i++) {
             @SuppressWarnings("unchecked")

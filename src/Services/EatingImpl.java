@@ -3,7 +3,7 @@ package Services;
 import Students.Student;
 import dataStructures.*;
 
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Implementation of the {@link Eating} service.
@@ -104,4 +104,24 @@ public class EatingImpl extends ServiceAbs implements Eating, Serializable {
     public TwoWayIterator<Student> getOccupantsIterator() {
         return occupants.twoWayiterator();
     }
+
+
+    /**
+     * Saves the eating service state, including the list of current occupants.
+     */
+    @Serial
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+    }
+
+    /**
+     * Restores the eating service state.
+     */
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+    }
+
+
+
 }

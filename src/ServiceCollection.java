@@ -93,20 +93,17 @@ public interface ServiceCollection {
     Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars);
 
     /**
-     * Adds a tag to the tag map for a specific service.
-     * This should be called when a new evaluation with tags is added to a service.
-     *
-     * @param tag     The tag (word) to index.
-     * @param service The service to associate with this tag.
-     */
-    void addTagToService(String tag, Service service);
-
-    /**
      * Gets an iterator over all services that have the specified tag.
-     * Uses the tag map for O(1) lookup instead of iterating all services.
+     * Filters services by checking if they have an evaluation containing the tag.
      *
-     * @param tag The tag to search for.
-     * @return An {@link Iterator} of services that have this tag.
+     * @param tag The tag to search for (case-insensitive).
+     * @return An {@link Iterator} of services that have this tag, in insertion order.
      */
     Iterator<Service> getServicesByTag(String tag);
+
+
+
+
+
+    Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type);
 }

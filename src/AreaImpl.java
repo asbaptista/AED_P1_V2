@@ -11,7 +11,10 @@ import java.io.*;
  * and manages the collections of all {@link Student}s and {@link Service}s
  * within that area. This class is serializable.
  */
-public class AreaImpl implements Area {
+public class AreaImpl implements Area, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     // --- Fields ---
 
@@ -304,9 +307,36 @@ public class AreaImpl implements Area {
     }
 
 
-    //p tentar resolver problema da 13
-    public Iterator<Student> getStudentsForPersistence() {
-        return students.getStudentsByInsertion();
+
+
+
+    @Override
+    public Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type) {
+        return services.getServicesByTypeOrderedByStars(type);
     }
 
+
+    @Serial
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.writeObject(name);
+        out.writeLong(topLat);
+        out.writeLong(leftLong);
+        out.writeLong(bottomLat);
+        out.writeLong(rightLong);
+
+        out.writeObject(students);
+        out.writeObject(services);
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        this.name = (String) in.readObject();
+        this.topLat = in.readLong();
+        this.leftLong = in.readLong();
+        this.bottomLat = in.readLong();
+        this.rightLong = in.readLong();
+
+        this.students = (StudentsCollectionImpl) in.readObject();
+        this.services = (ServicesCollectionImpl) in.readObject();
+    }
 }

@@ -17,8 +17,11 @@ import java.io.*;
  * This class is serializable and uses custom `writeObject` and `readObject`
  * methods to ensure the sorted list is correctly rebuilt upon deserialization.
  */
-public class StudentsCollectionImpl implements StudentCollection {
+public class StudentsCollectionImpl implements StudentCollection, Serializable {
 
+
+    @Serial
+    private static final long serialVersionUID = 1L;
     // --- Fields ---
 
     /**
@@ -28,12 +31,13 @@ public class StudentsCollectionImpl implements StudentCollection {
     /**
      * List of students, automatically sorted alphabetically by name.
      */
-    SortedMap<String, Student> studentsByName;
+    private  SortedMap<String, Student> studentsByName;
 
     /**
      * List of students, maintained in their original insertion order.
      */
-    Map<String, List<Student>> studentsByCountry;
+    private Map<String, List<Student>> studentsByCountry;
+
 
     // --- Constructor ---
 
@@ -151,19 +155,17 @@ public class StudentsCollectionImpl implements StudentCollection {
     }
 
 
-    public Iterator<Student> getStudentsByInsertion() {
-        DoublyLinkedList<Student> allOrdered = new DoublyLinkedList<>();
 
-        // Iterar sobre as listas de cada país
-        Iterator<List<Student>> lists = studentsByCountry.values();
-        while (lists.hasNext()) {
-            List<Student> countryList = lists.next();
-            Iterator<Student> studentIt = countryList.iterator();
-            while (studentIt.hasNext()) {
-                allOrdered.addLast(studentIt.next());
-            }
-        }
-        return allOrdered.iterator();
+    @Serial
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
     }
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+    }
+
+
+
 
 }

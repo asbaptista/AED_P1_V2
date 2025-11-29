@@ -3,7 +3,7 @@ package Students;
 import Services.Leisure;
 import Services.Lodging;
 import Services.Service;
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Implementation of the {@link Bookish} student type.
@@ -54,5 +54,16 @@ public class BookishImpl extends StudentAbs implements Bookish, Serializable {
                 visitedServicesSet. put(service, true);
             }
         }
+    }
+
+
+    @Serial
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
     }
 }

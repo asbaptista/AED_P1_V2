@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @param <E> Generic Element
  */
 class DoublyListNode<E> implements Serializable {
-    private static final long serialVersionUID = 1L; // <--- ADICIONADO
+    private static final long serialVersionUID = 1L;
 
         // --- Fields ---
 
@@ -25,7 +25,7 @@ class DoublyListNode<E> implements Serializable {
          * Marked as transient because the containing List (e.g., DoublyLinkedList)
          * is responsible for custom serialization of its elements, not the nodes.
          */
-        private  E element;
+        private transient E element;
 
         /**
          * (Pointer to) the previous node.

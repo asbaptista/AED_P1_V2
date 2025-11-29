@@ -1,6 +1,8 @@
 import Students.Student;
 import dataStructures.Iterator;
 
+import java.io.Serializable;
+
 /**
  * Interface for a collection that manages all {@link Student} objects.
  * <p>
@@ -9,7 +11,7 @@ import dataStructures.Iterator;
  * 1. Order of registration (insertion order), for country-based filtering.
  * 2. Alphabetical order by name, for listing all students.
  */
-public interface StudentCollection {
+public interface StudentCollection  {
 
     // --- State Modifiers ---
 

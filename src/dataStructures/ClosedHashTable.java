@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable {
 
-    private static final long serialVersionUID = 1L; // <--- ADICIONAR
+    private static final long serialVersionUID = 1L;
     //Load factors
     static final float IDEAL_LOAD_FACTOR =0.5f;
     static final float MAX_LOAD_FACTOR =0.8f;
@@ -21,7 +21,7 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
     static final Entry<?,?> REMOVED_CELL = new Entry<>(null,null);
 
     // The array of entries.
-    private Entry<K,V>[] table;
+    private transient Entry<K,V>[] table; // mudado p transient
 
     /**
      * Constructors
@@ -36,7 +36,7 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
         super(capacity);
         int arraySize = HashTable.nextPrime((int) (capacity / IDEAL_LOAD_FACTOR));
         // Compiler gives a warning.
-        table = (Entry<K,V>[]) new Entry[arraySize];
+        table =  new Entry[arraySize];
         for ( int i = 0; i < arraySize; i++ )
             table[i] = null;
         maxSize = (int)(arraySize * MAX_LOAD_FACTOR);
@@ -132,7 +132,7 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
      private void rehash(){
          Entry<K,V>[] oldTable = table;
          int newCapacity = HashTable.nextPrime(table.length * 2);
-         table = (Entry<K,V>[]) new Entry[newCapacity]; // cast talvez nao necessario
+         table = new Entry[newCapacity];
          currentSize = 0;
          maxSize = (int)(newCapacity * MAX_LOAD_FACTOR);
 
@@ -206,7 +206,7 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
             throws java.io.IOException, ClassNotFoundException {
         in.defaultReadObject();
         int tableLength = in.readInt();
-        this.table = (Entry<K, V>[]) new Entry[tableLength];
+        this.table =  new Entry[tableLength];
         for (int i = 0; i < tableLength; i++) {
             table[i] = null;
         }

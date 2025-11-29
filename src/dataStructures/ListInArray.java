@@ -1,6 +1,7 @@
 package dataStructures;
 import dataStructures.exceptions.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -311,8 +312,10 @@ public class ListInArray<E> implements List<E>, Serializable {
         elems = newArray;
     }
 
+    @Serial
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
         out.defaultWriteObject();
+        out.writeInt(counter);
         out.writeInt(elems.length);
         for (int i = 0; i < counter; i++) {
             out.writeObject(elems[i]);
@@ -320,12 +323,14 @@ public class ListInArray<E> implements List<E>, Serializable {
         out.flush();
     }
 
+    @Serial
     @SuppressWarnings("unchecked")
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
         in.defaultReadObject();
+        this.counter = in.readInt();
         int arrayLength = in.readInt();
         this.elems = (E[]) new Object[arrayLength];
-        for (int i = 0; i < counter; i++) {
+        for (int i = 0; i < this.counter; i++) {
             elems[i] = (E) in.readObject();
         }
     }

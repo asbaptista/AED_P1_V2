@@ -7,7 +7,7 @@ package dataStructures;
  */
 import java.io.Serializable;
 
-abstract class Tree<E> implements Serializable {
+abstract class Tree<E>  {
 
     /**
      * Root

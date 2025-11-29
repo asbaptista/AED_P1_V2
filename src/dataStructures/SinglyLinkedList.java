@@ -1,21 +1,23 @@
 package dataStructures;
 
 import dataStructures.exceptions.*;
-import java.io.Serializable;
+import java.io.*;
 
-public class SinglyLinkedList<E> implements List<E> {
+public class SinglyLinkedList<E> implements List<E> , Serializable{
+
+    private static final long serialVersionUID = 1L;
     /**
      *  Node at the head of the list.
      */
-    private SinglyListNode<E> head;
+    private transient SinglyListNode<E> head;
     /**
      * Node at the tail of the list.
      */
-    private SinglyListNode<E> tail;
+    private transient SinglyListNode<E> tail;
     /**
      * Number of elements in the list.
      */
-    private int currentSize;
+    private transient int currentSize;
     /**
      * Constructor of an empty singly linked list.
      * head and tail are initialized as null.
@@ -194,6 +196,31 @@ public class SinglyLinkedList<E> implements List<E> {
             throw new InvalidPositionException();
        //TODO: Left as an exercise.
         return null;
+    }
+
+
+    @Serial
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        out.writeInt(currentSize);
+        SinglyListNode<E> current = head;
+        while (current != null) {
+            out.writeObject(current.getElement());
+            current = current.getNext();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        int size = in.readInt();
+        this.head = null;
+        this.tail = null;
+        this.currentSize = 0;
+        for (int i = 0; i < size; i++) {
+            addLast((E) in.readObject()); // Efficient O(1) per element
+        }
     }
 
 }

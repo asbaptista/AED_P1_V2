@@ -28,7 +28,7 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
         super(capacity);
 
         int arraySize = HashTable.nextPrime((int)(capacity/IDEAL_LOAD_FACTOR));
-        this.table = (Map<K,V>[]) new MapSinglyList[arraySize];
+        this.table =  new MapSinglyList[arraySize];
         for (int i = 0; i < arraySize; i++){
             table[i] = new MapSinglyList<>();
         }
@@ -84,7 +84,7 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
     private void rehash() {
         Map<K,V>[] oldTable = table;
         int newArraySize = HashTable.nextPrime(2 * oldTable.length);
-        table = (Map<K,V>[]) new MapSinglyList[newArraySize];
+        table =  new MapSinglyList[newArraySize];
         for (int i = 0; i < newArraySize; i++) {
             table[i] = new MapSinglyList<>();
         }
@@ -150,12 +150,20 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
     private void readObject(java.io.ObjectInputStream in)
             throws java.io.IOException, ClassNotFoundException {
         in.defaultReadObject();
+
+        // 1. Ler o tamanho do array da tabela
         int tableLength = in.readInt();
-        this.table = (Map<K, V>[]) new MapSinglyList[tableLength];
+        this.table =  new MapSinglyList[tableLength];
         for (int i = 0; i < tableLength; i++) {
             table[i] = new MapSinglyList<>();
         }
+
+        // 2. CORREÇÃO: Ler as chaves e valores que foram gravados
+        // O writeObject escreve 'null' no final como marcador.
+        Object key;
+        while ((key = in.readObject()) != null) {
+            V value = (V) in.readObject();
+            this.put((K) key, value);
+        }
     }
-
-
 }

@@ -179,4 +179,6 @@ public interface Area {
      */
     Iterator<Student> listStudentsByCountry(String filter);
 
+
+    Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type);
 }

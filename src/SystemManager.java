@@ -418,4 +418,6 @@ public interface SystemManager {
      */
     long manhattanDistance(long lat1, long lon1, long lat2, long lon2);
 
+    boolean serviceHasTag(Service service, String tag);
+
 }

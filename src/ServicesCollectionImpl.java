@@ -1,3 +1,4 @@
+import Services.Evaluation;
 import Services.Service;
 import Services.ServiceType;
 import dataStructures.*;
@@ -16,7 +17,10 @@ import java.io.*;
  * This class is serializable and uses custom `writeObject` and `readObject`
  * methods to ensure the `rankingByStars` map is correctly rebuilt upon deserialization.
  */
-public class ServicesCollectionImpl implements ServiceCollection {
+public class ServicesCollectionImpl implements ServiceCollection, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     // --- Fields ---
 
@@ -26,9 +30,9 @@ public class ServicesCollectionImpl implements ServiceCollection {
     /**
      * List of services, maintained in their original insertion order.
      */
-    private List<Service> servicesByInsertion;
+    private  List<Service> servicesByInsertion;
 
-    private Map<String, Service> servicesByName;
+    private  Map<String, Service> servicesByName;
 
 
     /**
@@ -36,11 +40,10 @@ public class ServicesCollectionImpl implements ServiceCollection {
      * Key: avgStars (0-5), Value: List of services with that rating.
      * This allows O(1) updates instead of O(n) with SortedList.
      */
-    private transient Map<Integer, List<Service>> rankingByStars;
+    private  Map<Integer, List<Service>> rankingByStars;
 
-    private transient Map<ServiceType, Map<Integer, List<Service>>> servicesByTypeAndStars;
+    private  Map<ServiceType, Map<Integer, List<Service>>> servicesByTypeAndStars;
 
-    private transient Map<String, Map<String, Service>> tagMap;
 
 
 
@@ -57,7 +60,6 @@ public class ServicesCollectionImpl implements ServiceCollection {
         this.servicesByName = new ClosedHashTable<>(); // em principio closed
         this.rankingByStars = new ClosedHashTable<>(); // Map com buckets por estrelas
         this.servicesByTypeAndStars = new SepChainHashTable<>();
-        this.tagMap = new SepChainHashTable<>();
     }
 
     // --- State Modifiers ---
@@ -72,7 +74,7 @@ public class ServicesCollectionImpl implements ServiceCollection {
     @Override
     public void add(Service service) {
         servicesByInsertion.addLast(service);
-        servicesByName.put(service.getName().toLowerCase(),service);
+        servicesByName.put(toLowerCase(service.getName()),service);
         addServiceToRankingByStars(service);
         addServiceToTypeStarsMap(service);
     }
@@ -89,7 +91,11 @@ public class ServicesCollectionImpl implements ServiceCollection {
      */
     @Override
     public void updateRankingByStars(Service service, int oldStars) {
-        // Remove from old stars bucket
+        int newStars = service.getAvgStar();
+
+        if (newStars == oldStars) {
+            return;
+        }
         List<Service> oldList = rankingByStars.get(oldStars);
         if (oldList != null) {
             int index = oldList.indexOf(service);
@@ -97,13 +103,10 @@ public class ServicesCollectionImpl implements ServiceCollection {
                 oldList.remove(index);
             }
         }
-
-        // Add to new stars bucket
         addServiceToRankingByStars(service);
-
-        // Update the type-stars map
         ServiceType type = service.getType();
         Map<Integer, List<Service>> starsMap = servicesByTypeAndStars.get(type);
+
         if(starsMap != null){
             List<Service> oldTypeList = starsMap.get(oldStars);
             if(oldTypeList != null) {
@@ -165,7 +168,7 @@ public class ServicesCollectionImpl implements ServiceCollection {
      */
     @Override
     public Service findByName(String name) {
-        return servicesByName.get(name.toLowerCase()); // confirmar os lowerCase, aqui e em cima
+        return servicesByName.get(toLowerCase(name)); // confirmar os lowerCase, aqui e em cima
     }
 
     /**
@@ -248,79 +251,83 @@ public class ServicesCollectionImpl implements ServiceCollection {
     }
 
     /**
-     * Adds a tag to the tag map, associating it with a specific service.
-     * If the tag already exists, the service is added to its map.
-     * If the service already exists for that tag, it won't be duplicated.
-     *
-     * @param tag     The tag (word) to index (case-insensitive).
-     * @param service The service to associate with this tag.
-     */
-    @Override
-    public void addTagToService(String tag, Service service) {
-        String tagLower = trimString(tag);
-
-        Map<String, Service> servicesWithTag = tagMap.get(tagLower);
-        if (servicesWithTag == null) {
-            servicesWithTag = new SepChainHashTable<>();
-            tagMap.put(tagLower, servicesWithTag);
-        }
-
-        servicesWithTag.put(service.getName().toLowerCase(), service);
-    }
-
-    private String trimString(String s) {
-        if (s == null || s.length() == 0) {
-            return s;
-        }
-
-        int start = 0;
-        int end = s.length();
-
-        while (start < end && Character.isWhitespace(s.charAt(start))) {
-            start++;
-        }
-
-        while (end > start && Character.isWhitespace(s.charAt(end - 1))) {
-            end--;
-        }
-
-        if (start == 0 && end == s.length()) {
-            return s;
-        }
-
-        if (start >= end) {
-            return "";
-        }
-
-        return extractWord(s, start, end);
-    }
-
-
-    private String extractWord(String comment, int start, int end) { // dps tratar de nao te codigo repetido
-        char[] chars = new char[end-start];
-        for (int i = 0; i < chars.length; i++) {
-            char c = comment.charAt(start+i);
-            chars[i] = Character.toLowerCase(c);
-        }
-        return new String(chars);
-    }
-
-    /**
      * Gets an iterator over all services that have the specified tag.
-     * Uses the tag map for O(1) lookup but returns services in insertion order.
+     * Filters services by checking if they have an evaluation containing the tag.
      *
      * @param tag The tag to search for (case-insensitive).
      * @return An {@link Iterator} of services that have this tag, in insertion order.
      */
     @Override
     public Iterator<Service> getServicesByTag(String tag) {
-        String tagClean = trimString(tag);
-        Map<String, Service> servicesWithTag = tagMap.get(tagClean);
+        return new FilterIterator<>(servicesByInsertion.iterator(),
+            service -> service.hasEvaluationWithTag(tag));
+    }
 
-        if (servicesWithTag == null || servicesWithTag.isEmpty()) {
+    @Override
+    public Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type) {
+
+        Map<Integer, List<Service>> starsMap = servicesByTypeAndStars.get(type);
+
+        if (starsMap == null) {
             return new DoublyLinkedList<Service>().iterator();
         }
-        return new FilterIterator<>(servicesByInsertion.iterator(), service -> servicesWithTag.get(service.getName().toLowerCase()) != null);
+
+        DoublyLinkedList<Service> sortedServices = new DoublyLinkedList<>();
+
+        for (int stars = 5; stars >= 0; stars--) {
+            List<Service> list = starsMap.get(stars);
+            if (list != null) {
+                Iterator<Service> it = list.iterator();
+                while (it.hasNext()) {
+                    sortedServices.addLast(it.next());
+                }
+            }
+        }
+
+        return sortedServices.iterator();
+    }
+
+    /**
+     * Converts a string to lowercase without using String.toLowerCase().
+     * Creates a new string with all characters converted to lowercase.
+     *
+     * @param s The string to convert.
+     * @return A new string with all characters in lowercase.
+     */
+    private String toLowerCase(String s) {
+        if (s == null) {
+            return null;
+        }
+
+        int len = 0;
+        try {
+            while (true) {
+                s.charAt(len);
+                len++;
+            }
+        } catch (IndexOutOfBoundsException e) {
+            // Reached end of string
+        }
+
+        char[] chars = new char[len];
+        for (int i = 0; i < len; i++) {
+            chars[i] = Character.toLowerCase(s.charAt(i));
+        }
+        return new String(chars);
+    }
+
+
+
+
+    @Serial
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
     }
 
 }
+
