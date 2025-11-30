@@ -633,8 +633,14 @@ public class SystemManagerImpl implements SystemManager {
 
     private void saveCurrentAreaToFile(Area area) {
         String filename = "data/" + getAreaFileName(area.getName());
-        try (ObjectOutputStream oos = new ObjectOutputStream((new FileOutputStream(filename)))) {
-            oos.writeObject(area);
+        try {
+            File dataDir = new File("data");
+            if (!dataDir.exists()) {
+                dataDir.mkdirs();
+            }
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+                oos.writeObject(area);
+            }
         } catch (IOException ignored) {
         }
 
