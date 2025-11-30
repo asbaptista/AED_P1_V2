@@ -40,9 +40,9 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      * Key: avgStars (0-5), Value: List of services with that rating.
      * This allows O(1) updates instead of O(n) with SortedList.
      */
-    private  Map<Integer, List<Service>> rankingByStars;
+    private  List<Service>[] rankingByStars;
 
-    private  Map<ServiceType, Map<Integer, List<Service>>> servicesByTypeAndStars;
+    private  Map<ServiceType, List<Service>[]> servicesByTypeAndStars;
 
 
 
@@ -58,8 +58,11 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     public ServicesCollectionImpl() {
         this.servicesByInsertion = new DoublyLinkedList<>();
         this.servicesByName = new ClosedHashTable<>(); // em principio closed
-        this.rankingByStars = new ClosedHashTable<>(); // Map com buckets por estrelas
-        this.servicesByTypeAndStars = new SepChainHashTable<>();
+        this.rankingByStars = (List<Service>[]) new List[6];
+        for (int i = 0; i < 6; i++) {
+            this.rankingByStars[i] = new DoublyLinkedList<>();
+        }
+        this.servicesByTypeAndStars = new SepChainHashTable<>(); // verificar se é closed ou open
     }
 
     // --- State Modifiers ---
@@ -96,7 +99,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         if (newStars == oldStars) {
             return;
         }
-        List<Service> oldList = rankingByStars.get(oldStars);
+        List<Service> oldList = rankingByStars[oldStars];
         if (oldList != null) {
             int index = oldList.indexOf(service);
             if (index != -1) {
@@ -105,10 +108,10 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         }
         addServiceToRankingByStars(service);
         ServiceType type = service.getType();
-        Map<Integer, List<Service>> starsMap = servicesByTypeAndStars.get(type);
+        List<Service>[] starsArray = servicesByTypeAndStars.get(type);
 
-        if(starsMap != null){
-            List<Service> oldTypeList = starsMap.get(oldStars);
+        if(starsArray != null){
+            List<Service> oldTypeList = starsArray[oldStars];
             if(oldTypeList != null) {
                 int index = oldTypeList.indexOf(service);
                 if (index != -1) {
@@ -128,29 +131,25 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     private void addServiceToRankingByStars(Service service) {
         int stars = service.getAvgStar();
-        List<Service> list = rankingByStars.get(stars);
-        if (list == null) {
-            list = new DoublyLinkedList<>();
-            rankingByStars.put(stars, list);
-        }
-        list.addLast(service);
+        rankingByStars[stars].addLast(service);
+
     }
 
     private void addServiceToTypeStarsMap(Service service) {
         ServiceType type = service.getType();
         int stars = service.getAvgStar();
 
-        Map<Integer, List<Service>> starsMap = servicesByTypeAndStars.get(type);
-        if (starsMap == null) {
-            starsMap = new SepChainHashTable<>();
-            servicesByTypeAndStars.put(type, starsMap);
+        List<Service>[] starsArray = servicesByTypeAndStars.get(type);
+        if (starsArray == null) {
+            starsArray = (List<Service>[]) new List[6];
+            for (int i = 0; i < 6; i++) {
+                starsArray[i] = new DoublyLinkedList<>();
+            }
+            servicesByTypeAndStars.put(type, starsArray);
         }
 
-        List<Service> list = starsMap.get(stars);
-        if (list == null) {
-            list = new DoublyLinkedList<>();
-            starsMap.put(stars, list);
-        }
+        List<Service> list = starsArray[stars];
+
         list.addLast(service);
     }
 
@@ -218,7 +217,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         List<Service> sortedList = new DoublyLinkedList<>();
         // Iterate from 5 stars down to 0
         for (int stars = 5; stars >= 0; stars--) {
-            List<Service> servicesWithStars = rankingByStars.get(stars);
+            List<Service> servicesWithStars = rankingByStars[stars];
             if (servicesWithStars != null) {
                 Iterator<Service> it = servicesWithStars.iterator();
                 while (it.hasNext()) {
@@ -240,9 +239,9 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     }
     @Override
     public Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars) {
-        Map<Integer, List<Service>> starsMap = servicesByTypeAndStars.get(type);
-        if (starsMap != null) {
-            List<Service> list = starsMap.get(stars);
+        List<Service>[] starsArray = servicesByTypeAndStars.get(type);
+        if (starsArray != null) {
+            List<Service> list = starsArray[stars];
             if (list != null) {
                 return list.iterator();
             }
@@ -266,16 +265,17 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     @Override
     public Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type) {
 
-        Map<Integer, List<Service>> starsMap = servicesByTypeAndStars.get(type);
+        List<Service>[] starsArray = servicesByTypeAndStars.get(type);
 
-        if (starsMap == null) {
+
+        if (starsArray == null) {
             return new DoublyLinkedList<Service>().iterator();
         }
 
         DoublyLinkedList<Service> sortedServices = new DoublyLinkedList<>();
 
         for (int stars = 5; stars >= 0; stars--) {
-            List<Service> list = starsMap.get(stars);
+            List<Service> list = starsArray[stars];
             if (list != null) {
                 Iterator<Service> it = list.iterator();
                 while (it.hasNext()) {
