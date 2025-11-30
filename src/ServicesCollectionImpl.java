@@ -74,7 +74,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     @Override
     public void add(Service service) {
         servicesByInsertion.addLast(service);
-        servicesByName.put(toLowerCase(service.getName()),service);
+        servicesByName.put(service.getName().toLowerCase(),service);
         addServiceToRankingByStars(service);
         addServiceToTypeStarsMap(service);
     }
@@ -168,7 +168,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public Service findByName(String name) {
-        return servicesByName.get(toLowerCase(name)); // confirmar os lowerCase, aqui e em cima
+        return servicesByName.get(name.toLowerCase()); // confirmar os lowerCase, aqui e em cima
     }
 
     /**
@@ -285,48 +285,6 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         }
 
         return sortedServices.iterator();
-    }
-
-    /**
-     * Converts a string to lowercase without using String.toLowerCase().
-     * Creates a new string with all characters converted to lowercase.
-     *
-     * @param s The string to convert.
-     * @return A new string with all characters in lowercase.
-     */
-    private String toLowerCase(String s) {
-        if (s == null) {
-            return null;
-        }
-
-        int len = 0;
-        try {
-            while (true) {
-                s.charAt(len);
-                len++;
-            }
-        } catch (IndexOutOfBoundsException e) {
-            // Reached end of string
-        }
-
-        char[] chars = new char[len];
-        for (int i = 0; i < len; i++) {
-            chars[i] = Character.toLowerCase(s.charAt(i));
-        }
-        return new String(chars);
-    }
-
-
-
-
-    @Serial
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-    }
-
-    @Serial
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
     }
 
 }

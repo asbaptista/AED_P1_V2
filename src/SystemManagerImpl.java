@@ -633,20 +633,8 @@ public class SystemManagerImpl implements SystemManager {
 
     private void saveCurrentAreaToFile(Area area) {
         String filename = "data/" + getAreaFileName(area.getName());
-        File directory = new File("data");
-        if (!directory.exists()) {
-            boolean created = directory.mkdirs();
-            if (!created) { // verificar se é preciso ,em principio n
-                System.err.println("ERRO: Não foi possível criar a diretoria 'data'. Verifique permissões.");
-                return;
-            }
-        }
-        try (ObjectOutputStream oos = new ObjectOutputStream(
-                (new FileOutputStream(filename)))) {
-
+        try (ObjectOutputStream oos = new ObjectOutputStream((new FileOutputStream(filename)))) {
             oos.writeObject(area);
-            oos.flush();
-
         } catch (IOException ignored) {
         }
 
@@ -654,15 +642,8 @@ public class SystemManagerImpl implements SystemManager {
 
     private Area loadAreaFromFile(String name) {
         String filename = "data/" + getAreaFileName(name);
-        File file = new File(filename);
-        if (!file.exists()) {
-            return null;
-        }
-        try (ObjectInputStream ois = new ObjectInputStream(
-                (new FileInputStream(filename)))) {
-
+        try (ObjectInputStream ois = new ObjectInputStream((new FileInputStream(filename)))) {
             return (Area) ois.readObject();
-
         } catch (Exception e) {
             return null;
         }

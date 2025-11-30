@@ -56,14 +56,4 @@ public class BookishImpl extends StudentAbs implements Bookish, Serializable {
         }
     }
 
-
-    @Serial
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-    }
-
-    @Serial
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-    }
 }

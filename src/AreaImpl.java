@@ -307,9 +307,6 @@ public class AreaImpl implements Area, Serializable {
     }
 
 
-
-
-
     @Override
     public Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type) {
         return services.getServicesByTypeOrderedByStars(type);

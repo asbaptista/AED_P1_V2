@@ -286,34 +286,4 @@ public class StudentAbs implements Student, Serializable {
             }
         }
     }
-
-
-    // --- Serialization Methods ---
-
-    /**
-     * Custom serialization method to write the object's state.
-     * Uses default serialization, which is sufficient as all fields
-     * (including data structures) are either serializable or handle
-     * their own custom serialization.
-     *
-     * @param oos The ObjectOutputStream to write to.
-     * @throws IOException If an I/O error occurs.
-     */
-    @Serial
-    private void writeObject(java.io.ObjectOutputStream oos) throws IOException {
-        oos.defaultWriteObject();
-    }
-
-    /**
-     * Custom serialization method to read the object's state.
-     * Uses default deserialization.
-     *
-     * @param ois The ObjectInputStream to read from.
-     * @throws IOException            If an I/O error occurs.
-     * @throws ClassNotFoundException If the class of a serialized object cannot be found.
-     */
-    @Serial
-    private void readObject(java.io.ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        ois.defaultReadObject();
-    }
 }

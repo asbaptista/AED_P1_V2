@@ -106,22 +106,6 @@ public class EatingImpl extends ServiceAbs implements Eating, Serializable {
     }
 
 
-    /**
-     * Saves the eating service state, including the list of current occupants.
-     */
-    @Serial
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-    }
-
-    /**
-     * Restores the eating service state.
-     */
-    @Serial
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-    }
-
 
 
 }

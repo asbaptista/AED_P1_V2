@@ -78,7 +78,7 @@ public class EvaluationImpl implements Evaluation, Serializable {
     @Override
     public boolean containsTag(String tag) {
         char[] text = description.toCharArray();
-        char[] pattern = tag.trim().toCharArray();
+        char[] pattern = trimWhitespace(tag.toCharArray());
 
         // Convert pattern to lowercase for comparison
         char[] lowerPattern = new char[pattern.length];
@@ -169,6 +169,39 @@ public class EvaluationImpl implements Evaluation, Serializable {
             }
         }
         return lps;
+    }
+
+    /**
+     * Removes leading and trailing whitespace from a character array.
+     *
+     * @param chars The character array to trim.
+     * @return A new character array without leading/trailing whitespace.
+     */
+    private static char[] trimWhitespace(char[] chars) {
+        // Skip leading whitespace
+        int start = 0;
+        while (start < chars.length && isWhitespace(chars[start])) {
+            start++;
+        }
+
+        // Skip trailing whitespace
+        int end = chars.length - 1;
+        while (end >= start && isWhitespace(chars[end])) {
+            end--;
+        }
+
+        // Extract trimmed content
+        int length = end - start + 1;
+        if (length <= 0) {
+            return new char[0]; // Empty array
+        }
+
+        char[] result = new char[length];
+        for (int i = 0; i < length; i++) {
+            result[i] = chars[start + i];
+        }
+
+        return result;
     }
 
     /**
