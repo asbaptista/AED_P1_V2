@@ -3,9 +3,8 @@ package dataStructures;
 import dataStructures.exceptions.*;
 import java.io.*;
 
-public class SinglyLinkedList<E> implements List<E> , Serializable{
+public class SinglyLinkedList<E> implements List<E>{
 
-    private static final long serialVersionUID = 1L;
     /**
      *  Node at the head of the list.
      */
@@ -62,8 +61,9 @@ public class SinglyLinkedList<E> implements List<E> , Serializable{
      */
     @Override
     public E getFirst() {
-        //TODO: Left as an exercise.
-        return null;
+        if (this.isEmpty())
+            throw new NoSuchElementException();
+        return head.getElement();
     }
 
     /**
@@ -74,8 +74,9 @@ public class SinglyLinkedList<E> implements List<E> , Serializable{
      */
     @Override
     public E getLast() {
-        //TODO: Left as an exercise.
-        return null;
+        if (this.isEmpty())
+            throw new NoSuchElementException();
+        return tail.getElement();
     }
 
     /**
@@ -90,9 +91,15 @@ public class SinglyLinkedList<E> implements List<E> , Serializable{
      */
     @Override
     public E get(int position) {
-        //TODO: Left as an exercise.
-        return null;
-        }
+        if (position < 0 || position >= currentSize)
+            throw new InvalidPositionException();
+
+        SinglyListNode<E> current = head;
+        for (int i = 0; i < position; i++)
+            current = current.getNext();
+
+        return current.getElement();
+    }
 
 
     /**
@@ -105,10 +112,17 @@ public class SinglyLinkedList<E> implements List<E> , Serializable{
      */
     @Override
     public int indexOf(E element) {
-       
-        //TODO: Left as an exercise.
-       
-        return 0;
+        SinglyListNode<E> current = head;
+        int position = 0;
+
+        while (current != null) {
+            if (current.getElement().equals(element))
+                return position;
+            current = current.getNext();
+            position++;
+        }
+
+        return -1;
     }
 
     /**
@@ -118,8 +132,11 @@ public class SinglyLinkedList<E> implements List<E> , Serializable{
      */
     @Override
     public void addFirst(E element) {
-        //TODO: Left as an exercise.
-        
+        SinglyListNode<E> newNode = new SinglyListNode<>(element, head);
+        head = newNode;
+        if (tail == null)
+            tail = head;
+        currentSize++;
     }
 
     /**
@@ -129,8 +146,15 @@ public class SinglyLinkedList<E> implements List<E> , Serializable{
      */
     @Override
     public void addLast(E element) {
-        //TODO: Left as an exercise.
-        
+        SinglyListNode<E> newNode = new SinglyListNode<>(element, null);
+        if (this.isEmpty()) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail.setNext(newNode);
+            tail = newNode;
+        }
+        currentSize++;
     }
 
     /**
@@ -147,8 +171,20 @@ public class SinglyLinkedList<E> implements List<E> , Serializable{
     public void add(int position, E element) {
         if ( position < 0 || position > currentSize )
             throw new InvalidPositionException();
-        //TODO: Left as an exercise.
-        
+
+        if (position == 0)
+            addFirst(element);
+        else if (position == currentSize)
+            addLast(element);
+        else {
+            SinglyListNode<E> previous = head;
+            for (int i = 0; i < position - 1; i++)
+                previous = previous.getNext();
+
+            SinglyListNode<E> newNode = new SinglyListNode<>(element, previous.getNext());
+            previous.setNext(newNode);
+            currentSize++;
+        }
     }
 
 
@@ -162,8 +198,15 @@ public class SinglyLinkedList<E> implements List<E> , Serializable{
     public E removeFirst() {
         if ( this.isEmpty() )
             throw new NoSuchElementException();
-        //TODO: Left as an exercise.
-        return null;
+
+        E element = head.getElement();
+        head = head.getNext();
+        currentSize--;
+
+        if (this.isEmpty())
+            tail = null;
+
+        return element;
     }
 
     /**
@@ -176,8 +219,23 @@ public class SinglyLinkedList<E> implements List<E> , Serializable{
     public E removeLast() {
         if ( this.isEmpty() )
             throw new NoSuchElementException();
-        //TODO: Left as an exercise.
-        return null;
+
+        E element = tail.getElement();
+
+        if (currentSize == 1) {
+            head = null;
+            tail = null;
+        } else {
+            SinglyListNode<E> previous = head;
+            while (previous.getNext() != tail)
+                previous = previous.getNext();
+
+            previous.setNext(null);
+            tail = previous;
+        }
+
+        currentSize--;
+        return element;
     }
 
     /**
@@ -194,32 +252,20 @@ public class SinglyLinkedList<E> implements List<E> , Serializable{
     public E remove(int position) {
         if ( position < 0 || position >= currentSize )
             throw new InvalidPositionException();
-       //TODO: Left as an exercise.
-        return null;
-    }
 
+        if (position == 0)
+            return removeFirst();
+        else if (position == currentSize - 1)
+            return removeLast();
+        else {
+            SinglyListNode<E> previous = head;
+            for (int i = 0; i < position - 1; i++)
+                previous = previous.getNext();
 
-    @Serial
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-        out.writeInt(currentSize);
-        SinglyListNode<E> current = head;
-        while (current != null) {
-            out.writeObject(current.getElement());
-            current = current.getNext();
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    @Serial
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        int size = in.readInt();
-        this.head = null;
-        this.tail = null;
-        this.currentSize = 0;
-        for (int i = 0; i < size; i++) {
-            addLast((E) in.readObject()); // Efficient O(1) per element
+            E element = previous.getNext().getElement();
+            previous.setNext(previous.getNext().getNext());
+            currentSize--;
+            return element;
         }
     }
 

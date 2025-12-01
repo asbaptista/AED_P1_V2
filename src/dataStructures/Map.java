@@ -26,7 +26,6 @@ public interface Map<K,V>  {
                 Entry<K,V> other = (Entry<K,V>) obj;
                 return (this.key.equals(other.key) && this.value.equals(other.value));
             }
-            //TODO: Left as an exercise.// por rever;
             return false;
 
         }

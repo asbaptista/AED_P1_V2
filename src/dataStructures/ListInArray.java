@@ -20,6 +20,7 @@ public class ListInArray<E> implements List<E>, Serializable {
     /**
      * Standard serial version UID for serialization.
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -100,7 +101,6 @@ public class ListInArray<E> implements List<E>, Serializable {
             throw new NoSuchElementException();
         }
         return elems[0];
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -115,7 +115,6 @@ public class ListInArray<E> implements List<E>, Serializable {
             throw new NoSuchElementException();
         }
         return elems[counter - 1];
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -132,7 +131,6 @@ public class ListInArray<E> implements List<E>, Serializable {
             throw new InvalidPositionException();
         }
         return elems[position];
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -150,7 +148,6 @@ public class ListInArray<E> implements List<E>, Serializable {
                 return i;
             }
         }
-        //TODO: Left as an exercise.
         return -1;
     }
 
@@ -173,7 +170,6 @@ public class ListInArray<E> implements List<E>, Serializable {
         }
         elems[0] = element;
         counter++;
-        //TODO: Left as an exercise.
     }
 
     /**
@@ -189,7 +185,6 @@ public class ListInArray<E> implements List<E>, Serializable {
         }
         elems[counter] = element;
         counter++;
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -221,7 +216,6 @@ public class ListInArray<E> implements List<E>, Serializable {
             elems[position] = element;
             counter++;
         }
-        //TODO: Left as an exercise.//done
     }
 
     // --- Remove Operations ---
@@ -244,7 +238,6 @@ public class ListInArray<E> implements List<E>, Serializable {
         }
         elems[--counter] = null; // Help garbage collector
         return removedElement;
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -261,7 +254,6 @@ public class ListInArray<E> implements List<E>, Serializable {
         E removedElement = elems[--counter];
         elems[counter] = null; // Help garbage collector
         return removedElement;
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -290,7 +282,6 @@ public class ListInArray<E> implements List<E>, Serializable {
             }
             elems[--counter] = null; // Help garbage collector
             return removedElement;
-            //TODO: Left as an exercise.
         }
     }
 

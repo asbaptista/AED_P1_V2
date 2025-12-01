@@ -46,11 +46,6 @@ public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V
         organizeTree(newNode);
 
         return null;
-        //TODO: Left as an exercise.// done ish
-        // If exists a entry with this Key, update the node with new element
-        // and return the old value of the entry
-        // otherwise, insert the newNode, "rebalance" from the insertion position
-        // and return value
 
     }
 
@@ -71,12 +66,6 @@ public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V
             organizeTree(restructureStart);
         }
         return returnValue;
-
-
-        //TODO: Left as an exercise.
-        // If does not exist a entry with this Key, return null
-        // otherwise, remove the node where is the element with this key,
-        // "rebalance" from the removal position and return value
     }
 
 
@@ -94,7 +83,7 @@ public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V
                 }
             }
             return parent;
-        } // caso2
+        }
         else if (nodeToRemove.getLeftChild() == null || nodeToRemove.getRightChild() == null) {
 
             BTNode<Entry<K, V>> child = (nodeToRemove.getLeftChild() != null) ?
@@ -115,7 +104,7 @@ public class AVLSortedMap <K extends Comparable<K>,V> extends AdvancedBSTree<K,V
                 }
             }
             return parent;
-        } // caso 3
+        }
         else {
             BTNode<Entry<K, V>> successor = ((BTNode<Entry<K, V>>) nodeToRemove.getRightChild()).furtherLeftElement();
             nodeToRemove.setElement(successor.getElement());

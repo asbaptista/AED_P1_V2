@@ -51,7 +51,6 @@ public class FilterIterator<E> implements Iterator<E> {
         this.iterator = list;
         this.filter = filter;
         advanceNext();
-        //TODO: Left as an exercise.//done
     }
 
     // --- Public Methods (from Iterator interface) ---
@@ -65,7 +64,6 @@ public class FilterIterator<E> implements Iterator<E> {
      */
     public boolean hasNext() {
         return nextToReturn != null;
-        //TODO: Left as an exercise.
     }
 
     /**
@@ -90,7 +88,6 @@ public class FilterIterator<E> implements Iterator<E> {
         E element = nextToReturn;
         advanceNext(); // Find the next element for the *next* call
         return element;
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -105,7 +102,6 @@ public class FilterIterator<E> implements Iterator<E> {
     public void rewind() {
         iterator.rewind();
         advanceNext();
-        //TODO: Left as an exercise.//done
     }
 
     // --- Private Helper Methods ---

@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -8,10 +9,7 @@ import java.io.Serializable;
  * @version 1.0
  * @param <E> Generic Element
  */
-class AVLNode<E> extends BTNode<E> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-    // Height of the node
+class AVLNode<E> extends BTNode<E> {
     protected transient int height;
 
     public AVLNode(E elem) {
@@ -22,7 +20,6 @@ class AVLNode<E> extends BTNode<E> implements Serializable {
     public AVLNode( E element, AVLNode<E> parent, AVLNode<E> left, AVLNode<E> right ){
         super(element, parent, left, right);
         updateHeight();
-        //TODO: Left as an exercise.//done
     }
     public AVLNode( E element, AVLNode<E> parent){
         super(element, parent,null, null);
@@ -51,7 +48,6 @@ class AVLNode<E> extends BTNode<E> implements Serializable {
     public void setLeftChild(AVLNode<E> node) {
         super.setLeftChild(node);
         updateHeight();
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -61,7 +57,6 @@ class AVLNode<E> extends BTNode<E> implements Serializable {
     public void setRightChild(AVLNode<E> node) {
         super.setRightChild(node);
         updateHeight();
-        //TODO: Left as an exercise.//done
     }
 
 
@@ -73,10 +68,6 @@ class AVLNode<E> extends BTNode<E> implements Serializable {
         int balance = getBalanceFactor();
         return (balance >= -1) && (balance <= 1);
     }
-
-
-// others public methods
-//TODO: Left as an exercise.
 
 
 }

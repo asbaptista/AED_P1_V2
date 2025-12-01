@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -11,7 +12,6 @@ import java.io.Serializable;
  */
  abstract class HashTable<K,V> implements Map<K,V>, Serializable {
 
-    private static final long serialVersionUID = 1L;
      // Default size of the hash table.
      static final int DEFAULT_CAPACITY = 50;
 
@@ -76,7 +76,6 @@ import java.io.Serializable;
              if (number < 0)
                  return 0;
          }
-         //TODO: Left as exercise
         
      }
 

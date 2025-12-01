@@ -36,7 +36,6 @@ class DoublyIterator<E> implements Iterator<E> {
     public DoublyIterator(DoublyListNode<E> first) {
         this.firstNode = first;
         this.nextToReturn = first;
-        //TODO: Left as an exercise.//done
     }
 
     // --- Public Methods ---
@@ -49,7 +48,6 @@ class DoublyIterator<E> implements Iterator<E> {
      */
     public boolean hasNext( ) {
         return nextToReturn != null;
-        //TODO: Left as an exercise.
     }
 
     /**
@@ -66,7 +64,6 @@ class DoublyIterator<E> implements Iterator<E> {
         E element = nextToReturn.getElement();
         nextToReturn = nextToReturn.getNext();
         return element;
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -78,5 +75,4 @@ class DoublyIterator<E> implements Iterator<E> {
     public void rewind(){
         this.nextToReturn = this.firstNode;
     }
-    //TODO: Left as an exercise.
 }

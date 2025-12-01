@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -15,8 +16,8 @@ import java.io.Serializable;
  * @version 1.0
  * @param <E> Generic Element
  */
-class DoublyListNode<E> implements Serializable {
-    private static final long serialVersionUID = 1L;
+class DoublyListNode<E> {
+
 
         // --- Fields ---
 
@@ -54,7 +55,6 @@ class DoublyListNode<E> implements Serializable {
                 this.element = theElement;
                 this.previous = thePrevious;
                 this.next = theNext;
-                //TODO: Left as an exercise.// done
         }
 
         /**
@@ -65,7 +65,6 @@ class DoublyListNode<E> implements Serializable {
          */
         public DoublyListNode(E theElement ) {
                 this(theElement, null, null);
-                //TODO: Left as an exercise.// done
         }
 
         // --- Getters ---
@@ -110,7 +109,6 @@ class DoublyListNode<E> implements Serializable {
          */
         public void setElement( E newElement ) {
                 this.element = newElement;
-                //TODO: Left as an exercise //done
         }
 
         /**
@@ -121,7 +119,6 @@ class DoublyListNode<E> implements Serializable {
          */
         public void setPrevious( DoublyListNode<E> newPrevious ) {
                 this.previous = newPrevious;
-                //TODO: Left as an exercise.// done
         }
 
         /**
@@ -132,7 +129,6 @@ class DoublyListNode<E> implements Serializable {
          */
         public void setNext( DoublyListNode<E> newNext ) {
                 this.next = newNext;
-                //TODO: Left as an exercise.// done
         }
 
 

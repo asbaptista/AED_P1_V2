@@ -40,7 +40,6 @@ public class StackWithListInArray<E> implements Stack<E> {
     @Override
     public boolean isEmpty() {
         return array.isEmpty();
-	//TODO: Left as an exercise.//done
     }
 
     /**
@@ -51,7 +50,6 @@ public class StackWithListInArray<E> implements Stack<E> {
     @Override
     public int size() {
         return array.size();
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -67,7 +65,6 @@ public class StackWithListInArray<E> implements Stack<E> {
             throw new EmptyStackException();
         }
         return array.get(array.size()-1);
-       //TODO: Left as an exercise.//done
     }
 
     /**
@@ -83,7 +80,6 @@ public class StackWithListInArray<E> implements Stack<E> {
             throw new FullStackException();
         }
         array.addLast(element);
-        //TODO: Left as an exercise.//done
     }
 
     
@@ -100,6 +96,5 @@ public class StackWithListInArray<E> implements Stack<E> {
             throw new EmptyStackException();
         }
         return array.removeLast();
-       //TODO: Left as an exercise.//done
     }
 }

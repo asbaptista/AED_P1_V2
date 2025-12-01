@@ -15,6 +15,7 @@ import java.io.*;
  */
 public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     // --- Fields ---
 
@@ -53,7 +54,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
         this.head = null;
         this.tail = null;
         this.currentSize = 0;
-        //TODO: Left as an exercise.//done
     }
 
     // --- Status Checkers ---
@@ -66,7 +66,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
      */
     public boolean isEmpty() {
         return currentSize == 0;
-        //TODO: Left as an exercise.// done
     }
 
     /**
@@ -77,7 +76,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
      */
     public int size() {
         return currentSize;
-        //TODO: Left as an exercise.//done
     }
 
     // --- Iterators ---
@@ -121,7 +119,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
             head = newNode;
         }
         currentSize++;
-        //TODO: Left as an exercise. //done
     }
 
     /**
@@ -141,7 +138,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
             tail = newNode;
         }
         currentSize++;
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -175,7 +171,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
             current.setPrevious(newNode);
             currentSize++;
         }
-        //TODO: Left as an exercise.//done
     }
 
     // --- Get Operations ---
@@ -193,7 +188,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
         } else {
             return head.getElement();
         }
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -209,7 +203,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
         } else {
             return tail.getElement();
         }
-        //TODO: Left as an exercise.
     }
 
     /**
@@ -230,7 +223,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
             current = current.getNext();
         }
         return current.getElement();
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -253,7 +245,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
             index++;
         }
         return -1;
-        //TODO: Left as an exercise.//done
     }
 
     // --- Remove Operations ---
@@ -279,7 +270,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
         }
         currentSize--;
         return element;
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -303,7 +293,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
         }
         currentSize--;
         return element;
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -333,7 +322,6 @@ public class DoublyLinkedList<E> implements TwoWayList<E>, Serializable {
             current.getNext().setPrevious(current.getPrevious());
             currentSize--;
             return element;
-            //TODO: Left as an exercise.
         }
     }
 

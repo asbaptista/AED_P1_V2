@@ -8,9 +8,8 @@ import java.io.*;
  * @param <E> Generic Element
  *
  */
-class SinglyListNode<E> implements Serializable  {
+class SinglyListNode<E> {
 
-    private static final long serialVersionUID = 1L;
     /**
      * Serial Version UID of the Class
      */

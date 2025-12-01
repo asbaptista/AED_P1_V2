@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -11,6 +12,7 @@ import java.io.Serializable;
  */
 public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     //Load factors
     static final float IDEAL_LOAD_FACTOR =0.75f;
@@ -33,7 +35,6 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
             table[i] = new MapSinglyList<>();
         }
         this.maxSize = (int)(arraySize * MAX_LOAD_FACTOR);
-       //TODO: Left as exercise//done
     }
 
     // Returns the hash value of the specified key.
@@ -51,7 +52,6 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
     public V get(K key) {
         int index = hash(key);
         return table[index].get(key);
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -76,8 +76,6 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
             currentSize++;
         }
         return oldValue;
-
-        //TODO: Left as an exercise.//done
     }
 
     @SuppressWarnings("unchecked")
@@ -99,7 +97,6 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
             }
         }
 
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -118,7 +115,6 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
             currentSize--;
         }
         return oldValue;
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -131,6 +127,7 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
     }
 
 
+    @Serial
     private void writeObject(java.io.ObjectOutputStream out)
             throws java.io.IOException {
         out.defaultWriteObject();
@@ -146,20 +143,18 @@ public class SepChainHashTable<K,V> extends HashTable<K,V> implements Serializab
         out.writeObject(null); // End marker
     }
 
+    @Serial
     @SuppressWarnings("unchecked")
     private void readObject(java.io.ObjectInputStream in)
             throws java.io.IOException, ClassNotFoundException {
         in.defaultReadObject();
 
-        // 1. Ler o tamanho do array da tabela
         int tableLength = in.readInt();
         this.table =  new MapSinglyList[tableLength];
         for (int i = 0; i < tableLength; i++) {
             table[i] = new MapSinglyList<>();
         }
 
-        // 2. CORREÇÃO: Ler as chaves e valores que foram gravados
-        // O writeObject escreve 'null' no final como marcador.
         Object key;
         while ((key = in.readObject()) != null) {
             V value = (V) in.readObject();

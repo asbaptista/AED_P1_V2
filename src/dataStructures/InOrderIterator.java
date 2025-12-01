@@ -68,7 +68,6 @@ public class InOrderIterator<E> implements Iterator<E> {
             }
             next = parent;
         }
-        //TODO: Left as an exercise.//done
 
     }
 

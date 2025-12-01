@@ -9,12 +9,10 @@ import dataStructures.exceptions.NoSuchElementException;
  */
 class ValuesIterator<E> implements Iterator<E> {
     private Iterator<Map.Entry<?,E>> entryValuesIterator;
-    //TODO: Left as an exercise./done
 
 
     public ValuesIterator(Iterator<Map.Entry<?,E>> it) {
         this.entryValuesIterator = it;
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -26,7 +24,6 @@ class ValuesIterator<E> implements Iterator<E> {
     @Override
     public boolean hasNext() {
         return entryValuesIterator.hasNext();
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -41,7 +38,6 @@ class ValuesIterator<E> implements Iterator<E> {
             throw new NoSuchElementException();
         }
         return entryValuesIterator.next().value();
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -51,6 +47,5 @@ class ValuesIterator<E> implements Iterator<E> {
     @Override
     public void rewind() {
         entryValuesIterator.rewind();
-        //TODO: Left as an exercise.//done
     }
 }

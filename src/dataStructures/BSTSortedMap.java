@@ -73,7 +73,6 @@ public class BSTSortedMap<K extends Comparable<K>,V> extends BTree<Map.Entry<K,V
             }
         }
         return null;
-        //TODO: Left as an exercise.//done
     }
 
 
@@ -120,9 +119,6 @@ public class BSTSortedMap<K extends Comparable<K>,V> extends BTree<Map.Entry<K,V
         }
         currentSize++;
         return null;
-
-        //TODO: Left as an exercise.//done
-
     }
 
 
@@ -144,13 +140,12 @@ public class BSTSortedMap<K extends Comparable<K>,V> extends BTree<Map.Entry<K,V
             currentSize--;
             return returnValue;
         }
-        //TODO: Left as an exercise.
 
         return null;
     }
 
     private void removeNode(BTNode<Entry<K,V>> nodeToRemove) {
-        if (nodeToRemove.isLeaf()){  //caso1
+        if (nodeToRemove.isLeaf()){
             if(nodeToRemove.isRoot()){
                 root = null;
             } else {
@@ -161,7 +156,7 @@ public class BSTSortedMap<K extends Comparable<K>,V> extends BTree<Map.Entry<K,V
                     parent.setRightChild(null);
                 }
             }
-        } // caso2
+        }
         else  if ( nodeToRemove.getLeftChild() == null || nodeToRemove.getRightChild() == null) {
             BTNode<Entry<K,V>> child = (nodeToRemove.getLeftChild() != null) ?
                     (BTNode<Entry<K,V>>) nodeToRemove.getLeftChild() :
@@ -179,7 +174,7 @@ public class BSTSortedMap<K extends Comparable<K>,V> extends BTree<Map.Entry<K,V
                     parent.setRightChild(child);
                 }
             }
-        } // caso 3
+        }
         else  {
             BTNode<Entry<K,V>> successor = ((BTNode<Entry<K,V>>) nodeToRemove.getRightChild()).furtherLeftElement();
             nodeToRemove.setElement(successor.getElement());

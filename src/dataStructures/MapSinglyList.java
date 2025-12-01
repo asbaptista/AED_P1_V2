@@ -9,10 +9,7 @@ import java.io.*;
  * @param <K> Generic Key
  * @param <V> Generic Value
  */
-class MapSinglyList<K,V> implements Map<K, V> , Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+class MapSinglyList<K,V> implements Map<K, V> {
 
     private transient SinglyListNode<Entry<K,V>> head;
 
@@ -21,7 +18,6 @@ class MapSinglyList<K,V> implements Map<K, V> , Serializable {
     public MapSinglyList() {
         head=null;
         size=0;
-        //TODO: Left as exercise//done
     }
 
     /**
@@ -32,7 +28,6 @@ class MapSinglyList<K,V> implements Map<K, V> , Serializable {
   
     public boolean isEmpty() {
         return size==0;
-	//TODO: Left as exercise//done
     }
 
     /**
@@ -42,7 +37,6 @@ class MapSinglyList<K,V> implements Map<K, V> , Serializable {
      */
     @Override
     public int size() {
-	//TODO: Left as exercise//done
         return size;
     }
 
@@ -60,7 +54,6 @@ class MapSinglyList<K,V> implements Map<K, V> , Serializable {
         if (temp!=null) {
             return temp.getElement().value();
         }
-        //TODO: Left as exercise//done
         return null;
     }
     
@@ -88,7 +81,6 @@ class MapSinglyList<K,V> implements Map<K, V> , Serializable {
             size++;
             return null;
         }
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -120,8 +112,6 @@ class MapSinglyList<K,V> implements Map<K, V> , Serializable {
             }
             current = current.getNext();
         }
-
-        //TODO: Left as an exercise.//done
         return null;
     }
 
@@ -164,16 +154,6 @@ class MapSinglyList<K,V> implements Map<K, V> , Serializable {
             current = current.getNext();
         }
         return null;
-    }
-
-    @Serial
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject(); // Grava a 'list' automaticamente
-    }
-
-    @Serial
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject(); // Restaura a 'list'
     }
 
 }

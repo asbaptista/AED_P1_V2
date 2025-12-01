@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -11,6 +12,7 @@ import java.io.Serializable;
  */
 public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     //Load factors
     static final float IDEAL_LOAD_FACTOR =0.5f;
@@ -63,7 +65,6 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
                 return index; // Key found
             }
         }
-        //TODO: Left as an exercise.//done
         return NOT_FOUND; 
     }
 
@@ -82,7 +83,6 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
         if (index != NOT_FOUND) {
             return table[index].value();
         }
-        //TODO: Left as an exercise.//done
         
         return null;
     }
@@ -125,7 +125,6 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
 
         table[insertionIdx] = new Entry<>(key, value);
         currentSize++;
-        //TODO: Left as an exercise.//done
         return null;
     }
 
@@ -144,9 +143,6 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
                  put(entry.key(), entry.value());
              }
          }
-
-
- //TODO: Left as an exercise.
      }
 
    
@@ -171,9 +167,6 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
         currentSize--;
 
         return oldValue;
-
-        //TODO: Left as an exercise.//done
-        
     }
 
     /**
@@ -184,10 +177,10 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
     @Override
     public Iterator<Entry<K, V>> iterator() {
         return new FilterIterator<>(new ArrayIterator<>(table,table.length-1), m ->  m!=null && m!= REMOVED_CELL);
-         //TODO: Left as an exercise.//done
 
     }
 
+    @Serial
     private void writeObject(java.io.ObjectOutputStream out)
             throws java.io.IOException {
         out.defaultWriteObject();
@@ -201,6 +194,7 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
         out.writeObject(null); // End marker
     }
 
+    @Serial
     @SuppressWarnings("unchecked")
     private void readObject(java.io.ObjectInputStream in)
             throws java.io.IOException, ClassNotFoundException {

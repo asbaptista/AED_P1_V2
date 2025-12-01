@@ -25,7 +25,6 @@ abstract class BTree<E> extends Tree<E> {
             return null;
         }
         return ((BTNode<E>)root).furtherLeftElement();
-        //TODO: Left as an exercise.//done
 
     }
 
@@ -38,9 +37,7 @@ abstract class BTree<E> extends Tree<E> {
             return null;
         }
         return ((BTNode<E>)root).furtherRightElement();
-        //TODO: Left as an exercise.//done
 
     }
 
-    //new methods: Left as an exercise.
 }

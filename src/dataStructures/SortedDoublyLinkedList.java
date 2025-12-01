@@ -42,7 +42,6 @@ public class SortedDoublyLinkedList<E> implements SortedList<E> {
         this.head = null;
         this.tail = null;
         this.currentSize = 0;
-        //TODO: Left as an exercise.//done
         this.comparator = comparator;
     }
 
@@ -81,7 +80,6 @@ public class SortedDoublyLinkedList<E> implements SortedList<E> {
             throw new NoSuchElementException();
         }
         return head.getElement();
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -94,7 +92,6 @@ public class SortedDoublyLinkedList<E> implements SortedList<E> {
             throw new NoSuchElementException();
         }
         return tail.getElement();
-        //TODO: Left as an exercise.//done
          }
     /**
      * Returns the first occurrence of the element equals to the given element in the list.
@@ -108,7 +105,6 @@ public class SortedDoublyLinkedList<E> implements SortedList<E> {
             }
             current = current.getNext();
         }
-        //TODO: Left as an exercise.//done
         return null;
     }
 
@@ -120,7 +116,6 @@ public class SortedDoublyLinkedList<E> implements SortedList<E> {
      */
     public boolean contains(E element) {
         return get(element)!=null;
-        //TODO: Left as an exercise.//done
     }
 
     /**

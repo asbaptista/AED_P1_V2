@@ -8,10 +8,8 @@ import java.io.*;
  * @version 1.0
  * @param <E> Generic Element
  */
-class BTNode<E> implements Node<E>, Serializable {
+class BTNode<E> implements Node<E> {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
     // Element stored in the node.
     private transient E element;
 
@@ -152,7 +150,6 @@ class BTNode<E> implements Node<E>, Serializable {
             node = (BTNode<E>) node.getLeftChild();
         }
         return node;
-        //TODO: Left as an exercise.//done
     }
 
     /**
@@ -165,8 +162,6 @@ class BTNode<E> implements Node<E>, Serializable {
             node = (BTNode<E>) node.getRightChild();
         }
         return node;
-        //TODO: Left as an exercise.//done
     }
 
-    //new methods: Left as an exercise.
 }

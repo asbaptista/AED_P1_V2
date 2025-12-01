@@ -14,12 +14,10 @@ class SepChainHashTableIterator<K,V> implements Iterator<Map.Entry<K,V>> {
     private int currentBucketIndex;
     private Iterator<Map.Entry<K,V>> currentBucketIterator;
 
-    //TODO: Left as exercise
 
     public SepChainHashTableIterator(Map<K,V>[] table) {
         this.table = table;
         this.rewind();
-        //TODO: Left as exercise//done. talvez de so com o rewind, verificar dps se faciliia assim
     }
 
     /**
@@ -29,7 +27,6 @@ class SepChainHashTableIterator<K,V> implements Iterator<Map.Entry<K,V>> {
      * @return true iff the iteration has more elements
      */
     public boolean hasNext() {
-	//TODO: Left as exercise//done ?
         return currentBucketIterator != null;
     }
 
@@ -47,7 +44,6 @@ class SepChainHashTableIterator<K,V> implements Iterator<Map.Entry<K,V>> {
         findNextToReturn();
 
         return nextEntry;
-        //TODO: Left as exercise//done/
 
     }
 
@@ -59,13 +55,11 @@ class SepChainHashTableIterator<K,V> implements Iterator<Map.Entry<K,V>> {
         this.currentBucketIndex = -1;
         this.currentBucketIterator = null;
         findNextToReturn();
-        //TODO: Left as exercise//done
     }
 
     private void findNextToReturn() {
         if(currentBucketIterator != null && currentBucketIterator.hasNext()) {
             return;
-            //basicamente se o anterior ainda tiver p devolver
         }
         currentBucketIndex++;
 
@@ -76,7 +70,7 @@ class SepChainHashTableIterator<K,V> implements Iterator<Map.Entry<K,V>> {
             }
             currentBucketIndex++;
         }
-        currentBucketIterator = null; //n ha mais na table
+        currentBucketIterator = null;
 
     }
 }
