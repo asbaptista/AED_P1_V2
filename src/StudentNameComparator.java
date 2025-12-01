@@ -11,10 +11,6 @@ import java.io.Serializable;
  */
 class StudentNameComparator implements Comparator<Student>, Serializable {
 
-    /**
-     * Standard serial version UID for serialization.
-     */
-    private static final long serialVersionUID = 1L;
 
     /**
      * Compares two {@link Student} objects for order based on their names.

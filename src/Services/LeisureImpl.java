@@ -9,14 +9,9 @@ import java.io.Serializable;
  * Represents a leisure or cultural service (e.g., theater, cinema) that offers
  * a student discount. This class is serializable.
  */
-public class LeisureImpl extends ServiceAbs implements Leisure, Serializable {
+public class LeisureImpl extends ServiceAbs implements Leisure {
 
     // --- Fields ---
-
-    /**
-     * Standard serial version UID for serialization.
-     */
-    private static final long serialVersionUID = 1L;
 
     /**
      * The student discount percentage (e.g., 20 for 20%).

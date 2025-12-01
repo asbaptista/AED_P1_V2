@@ -19,9 +19,6 @@ import java.io.*;
  */
 public class ServicesCollectionImpl implements ServiceCollection, Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     // --- Fields ---
 
     /**

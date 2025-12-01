@@ -13,14 +13,9 @@ import java.io.Serializable;
  * registering visited locations, which stores **all** services visited,
  * with no restrictions. This class is serializable.
  */
-public class OutgoingImpl extends StudentAbs implements Outgoing, Serializable {
+public class OutgoingImpl extends StudentAbs implements Outgoing {
 
     // --- Fields ---
-
-    /**
-     * Standard serial version UID for serialization.
-     */
-    private static final long serialVersionUID = 1L;
 
     // --- Constructor ---
 

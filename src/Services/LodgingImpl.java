@@ -12,14 +12,9 @@ import java.io.Serializable;
  * Represents a lodging service (e.g., student residence, hostel) that provides rooms
  * and manages a list of student occupants. This class is serializable.
  */
-public class LodgingImpl extends ServiceAbs implements Lodging, Serializable {
+public class LodgingImpl extends ServiceAbs implements Lodging {
 
     // --- Fields ---
-
-    /**
-     * Standard serial version UID for serialization.
-     */
-    private static final long serialVersionUID = 1L;
 
     /**
      * The total number of rooms (capacity) in this lodging.

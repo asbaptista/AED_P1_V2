@@ -10,16 +10,7 @@ import java.io.*;
  */
 public class EvaluationImpl implements Evaluation, Serializable {
 
-
-
     // --- Fields ---
-
-    /**
-     * Standard serial version UID for serialization.
-     */
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     /**
      * The star rating assigned in this evaluation (e.g., 1-5).
      */

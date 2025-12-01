@@ -11,14 +11,10 @@ import java.io.*;
  * capacity (seats) and a list of current student occupants.
  * This class is serializable.
  */
-public class EatingImpl extends ServiceAbs implements Eating, Serializable {
+public class EatingImpl extends ServiceAbs implements Eating {
 
     // --- Fields ---
 
-    /**
-     * Standard serial version UID for serialization.
-     */
-    private static final long serialVersionUID = 1L;
 
     /**
      * The total number of seats (capacity) in this eating service.

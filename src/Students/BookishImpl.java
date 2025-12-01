@@ -13,15 +13,9 @@ import java.io.*;
  * registering visited locations, which only stores services of type {@link Leisure}
  *. This class is serializable.
  */
-public class BookishImpl extends StudentAbs implements Bookish, Serializable {
+public class BookishImpl extends StudentAbs implements Bookish {
 
     // --- Fields ---
-
-    /**
-     * Standard serial version UID for serialization.
-     */
-    private static final long serialVersionUID = 1L;
-
     // --- Constructor ---
 
     /**

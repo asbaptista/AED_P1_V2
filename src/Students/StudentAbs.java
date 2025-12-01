@@ -21,11 +21,6 @@ public class StudentAbs implements Student, Serializable {
     // --- Fields ---
 
     /**
-     * Standard serial version UID for serialization.
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * The student's full name.
      */
     protected String name;

@@ -14,14 +14,9 @@ import java.io.Serializable;
  * and making decisions based on price.
  * This class is serializable.
  */
-public class ThriftyImpl extends StudentAbs implements Thrifty, Serializable {
+public class ThriftyImpl extends StudentAbs implements Thrifty {
 
     // --- Fields ---
-
-    /**
-     * Standard serial version UID for serialization.
-     */
-    private static final long serialVersionUID = 1L;
 
     /**
      * Stores the cheapest {@link Eating} service this student has visited so far.

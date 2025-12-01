@@ -19,9 +19,6 @@ import java.io.*;
  */
 public class StudentsCollectionImpl implements StudentCollection, Serializable {
 
-
-    @Serial
-    private static final long serialVersionUID = 1L;
     // --- Fields ---
 
     /**

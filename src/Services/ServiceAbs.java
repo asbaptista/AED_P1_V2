@@ -14,10 +14,6 @@ public class ServiceAbs implements Service, Serializable {
 
     // --- Fields ---
 
-    /**
-     * Standard serial version UID for serialization.
-     */
-    private static final long serialVersionUID = 1L;
 
     /**
      * The official name of the service.

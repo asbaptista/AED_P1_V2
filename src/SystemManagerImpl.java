@@ -633,15 +633,9 @@ public class SystemManagerImpl implements SystemManager {
 
     private void saveCurrentAreaToFile(Area area) {
         String filename = "data/" + getAreaFileName(area.getName());
-        try {
-            File dataDir = new File("data");
-            if (!dataDir.exists()) {
-                dataDir.mkdirs();
-            }
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-                oos.writeObject(area);
-            }
-        } catch (IOException ignored) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(area);
+        } catch (Exception ignored) {
         }
 
     }
@@ -650,7 +644,7 @@ public class SystemManagerImpl implements SystemManager {
         String filename = "data/" + getAreaFileName(name);
         try (ObjectInputStream ois = new ObjectInputStream((new FileInputStream(filename)))) {
             return (Area) ois.readObject();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
             return null;
         }
     }
@@ -772,5 +766,6 @@ public class SystemManagerImpl implements SystemManager {
             case OUTGOING -> new OutgoingImpl(name, country, lodgingName);
             default -> null; // Should be unreachable if isStudentTypeValid is used
         };
+
     }
 }
