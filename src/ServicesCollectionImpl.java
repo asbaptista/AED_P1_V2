@@ -55,8 +55,8 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     public ServicesCollectionImpl() {
         this.servicesByInsertion = new DoublyLinkedList<>();
         this.servicesByName = new ClosedHashTable<>(); // em principio closed
-        this.rankingByStars = (List<Service>[]) new List[6];
-        for (int i = 0; i < 6; i++) {
+        this.rankingByStars = (List<Service>[]) new List[5];
+        for (int i = 0; i < 5; i++) {
             this.rankingByStars[i] = new DoublyLinkedList<>();
         }
         this.servicesByTypeAndStars = new SepChainHashTable<>(); // verificar se é closed ou open
@@ -96,7 +96,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         if (newStars == oldStars) {
             return;
         }
-        List<Service> oldList = rankingByStars[oldStars];
+        List<Service> oldList = rankingByStars[oldStars-1];
         if (oldList != null) {
             int index = oldList.indexOf(service);
             if (index != -1) {
@@ -108,7 +108,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);
 
         if(starsArray != null){
-            List<Service> oldTypeList = starsArray[oldStars];
+            List<Service> oldTypeList = starsArray[oldStars-1];
             if(oldTypeList != null) {
                 int index = oldTypeList.indexOf(service);
                 if (index != -1) {
@@ -128,7 +128,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     private void addServiceToRankingByStars(Service service) {
         int stars = service.getAvgStar();
-        rankingByStars[stars].addLast(service);
+        rankingByStars[stars-1].addLast(service);
 
     }
 
@@ -138,14 +138,14 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
 
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);
         if (starsArray == null) {
-            starsArray = (List<Service>[]) new List[6];
-            for (int i = 0; i < 6; i++) {
+            starsArray = (List<Service>[]) new List[5];
+            for (int i = 0; i < 5; i++) {
                 starsArray[i] = new DoublyLinkedList<>();
             }
             servicesByTypeAndStars.put(type, starsArray);
         }
 
-        List<Service> list = starsArray[stars];
+        List<Service> list = starsArray[stars-1];
 
         list.addLast(service);
     }
@@ -213,7 +213,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     public Iterator<Service> getServicesByStars() {
         List<Service> sortedList = new DoublyLinkedList<>();
         // Iterate from 5 stars down to 0
-        for (int stars = 5; stars >= 0; stars--) {
+        for (int stars = 4; stars >= 0; stars--) {
             List<Service> servicesWithStars = rankingByStars[stars];
             if (servicesWithStars != null) {
                 Iterator<Service> it = servicesWithStars.iterator();
@@ -238,7 +238,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     public Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars) {
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);
         if (starsArray != null) {
-            List<Service> list = starsArray[stars];
+            List<Service> list = starsArray[stars-1];
             if (list != null) {
                 return list.iterator();
             }
@@ -271,7 +271,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
 
         DoublyLinkedList<Service> sortedServices = new DoublyLinkedList<>();
 
-        for (int stars = 5; stars >= 0; stars--) {
+        for (int stars = 4; stars >= 0; stars--) {
             List<Service> list = starsArray[stars];
             if (list != null) {
                 Iterator<Service> it = list.iterator();
