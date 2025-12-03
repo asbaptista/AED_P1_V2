@@ -152,6 +152,6 @@ public enum Commands {
         }
 
         // No match found
-        throw new IllegalArgumentException("invalid");
+        return null;
     }
 }

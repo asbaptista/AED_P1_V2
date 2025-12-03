@@ -88,12 +88,12 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
             return;
         }
         List<Service> oldList = rankingByStars[oldStars-1];
-        if (oldList != null) {
-            int index = oldList.indexOf(service);
-            if (index != -1) {
-                oldList.remove(index);
-            }
+
+        int index = oldList.indexOf(service);
+        if (index != -1) {
+            oldList.remove(index);
         }
+
         addServiceToRankingByStars(service);
         ServiceType type = service.getType();
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);
@@ -101,9 +101,9 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         if(starsArray != null){
             List<Service> oldTypeList = starsArray[oldStars-1];
             if(oldTypeList != null) {
-                int index = oldTypeList.indexOf(service);
-                if (index != -1) {
-                    oldTypeList.remove(index);
+                int index2 = oldTypeList.indexOf(service);
+                if (index2 != -1) {
+                    oldTypeList.remove(index2);
                 }
             }
         }
@@ -198,30 +198,41 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public Iterator<Service> getServicesByStars() {
-        List<Service> sortedList = new DoublyLinkedList<>();
-        // Iterate from 5 stars down to 0
+        return getServiceIterator(rankingByStars);
+    }
+
+    @Override
+    public Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type) {
+
+        List<Service>[] starsArray = servicesByTypeAndStars.get(type);
+
+        return getServiceIterator(starsArray);
+    }
+
+    private Iterator<Service> getServiceIterator(List<Service>[] starsArray) {
+        List<Service> sortedServices = new DoublyLinkedList<>();
+
         for (int stars = 4; stars >= 0; stars--) {
-            List<Service> servicesWithStars = rankingByStars[stars];
-            if (servicesWithStars != null) {
-                Iterator<Service> it = servicesWithStars.iterator();
-                while (it.hasNext()) {
-                    sortedList.addLast(it.next());
-                }
+            List<Service> list = starsArray[stars];
+            Iterator<Service> it = list.iterator();
+            while (it.hasNext()) {
+                sortedServices.addLast(it.next());
             }
         }
-        return sortedList.iterator();
+        return sortedServices.iterator();
     }
+
 
     @Override
     public Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars) {
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);
-        if (starsArray != null) {
-            List<Service> list = starsArray[stars-1];
-            if (list != null) {
-                return list.iterator();
-            }
+
+        List<Service> list = starsArray[stars-1];
+        if (list != null) {
+            return list.iterator();
         }
-        return new DoublyLinkedList<Service>().iterator(); // Iterador vazio
+
+        return new DoublyLinkedList<Service>().iterator();
     }
 
     /**
@@ -237,30 +248,6 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
             service -> service.hasEvaluationWithTag(tag));
     }
 
-    @Override
-    public Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type) {
-
-        List<Service>[] starsArray = servicesByTypeAndStars.get(type);
-
-
-        if (starsArray == null) {
-            return new DoublyLinkedList<Service>().iterator();
-        }
-
-        DoublyLinkedList<Service> sortedServices = new DoublyLinkedList<>();
-
-        for (int stars = 4; stars >= 0; stars--) {
-            List<Service> list = starsArray[stars];
-            if (list != null) {
-                Iterator<Service> it = list.iterator();
-                while (it.hasNext()) {
-                    sortedServices.addLast(it.next());
-                }
-            }
-        }
-
-        return sortedServices.iterator();
-    }
 
 }
 

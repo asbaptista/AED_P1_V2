@@ -18,7 +18,7 @@ import dataStructures.*;
  */
 public class Main {
 
-    /**  
+    /**
      * Main method. Initializes the system and starts the command loop.
      *
      * @param args Command-line arguments (not used).
@@ -85,47 +85,6 @@ public class Main {
     }
 
 
-    /**
-     * Enumerates all valid application commands.
-     * Provides a parser to convert raw string input into a command.
-     */
-    public enum Commands {
-        BOUNDS,
-        SAVE,
-        LOAD,
-        SERVICE,
-        SERVICES,
-        STUDENT,
-        STUDENTS,
-        LEAVE,
-        GO,
-        MOVE,
-        USERS,
-        STAR,
-        WHERE,
-        VISITED,
-        RANKING,
-        RANKED,
-        TAG,
-        FIND,
-        HELP,
-        EXIT;
-
-        /**
-         * Parses a raw string into a {@code Commands} enum constant.
-         *
-         * @param command The raw command string from the user.
-         * @return The matching {@code Commands} constant, or {@code null} if no match.
-         */
-        public static Commands fromString(String command) {
-            for (Commands e : Commands.values()) {
-                if (e.name().equalsIgnoreCase(command.trim())) {
-                    return e;
-                }
-            }
-            return null;
-        }
-    }
 
     /**
      * Enumerates all user-facing strings (messages, errors, prompts).

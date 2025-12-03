@@ -54,7 +54,6 @@ public class SystemManagerImpl implements SystemManager {
             saveCurrentAreaToFile(currentArea);
         }
         currentArea = new AreaImpl(name, topLat, leftLong, bottomLat, rightLong);
-        saveCurrentAreaToFile(currentArea);
     }
 
     /**
@@ -72,6 +71,9 @@ public class SystemManagerImpl implements SystemManager {
             throw new BoundsNotFoundException();
         }
     }
+
+
+
 
     /**
      * {@inheritDoc}
@@ -119,7 +121,7 @@ public class SystemManagerImpl implements SystemManager {
             InvalidRoomPriceException, InvalidTicketPriceException, InvalidDiscountPriceException,
             InvalidCapacityException, ServiceAlreadyExistsException {
 
-        if (!validServiceType(type)) {
+        if (type==null) {
             throw new InvalidServiceTypeException();
         }
         if (!validLocation(lat, lon)) {
@@ -407,7 +409,7 @@ public class SystemManagerImpl implements SystemManager {
         if (student == null) {
             throw new StudentNotFoundException();
         }
-        if (!validServiceType(type)) {
+        if (type==null) {
             throw new InvalidServiceTypeException();
         }
 
@@ -453,7 +455,7 @@ public class SystemManagerImpl implements SystemManager {
     public Service findRelevantServiceForStudent(String studentName, ServiceType serviceType)
             throws StudentNotFoundException, InvalidServiceTypeException, NoServicesOfThisTypeException {
 
-        if (!validServiceType(serviceType)) {
+        if (serviceType==null) {
             throw new InvalidServiceTypeException();
         }
 
@@ -617,15 +619,7 @@ public class SystemManagerImpl implements SystemManager {
         return currentArea.isWithinBounds(lat, lon);
     }
 
-    /**
-     * Checks if the {@link ServiceType} is valid.
-     *
-     * @param type The ServiceType enum.
-     * @return true if the type is EATING, LODGING, or LEISURE.
-     */
-    private boolean validServiceType(ServiceType type) {
-        return type == ServiceType.EATING || type == ServiceType.LODGING || type == ServiceType.LEISURE;
-    }
+
 
     /**
      * Checks if a student with the given name already exists in the `currentArea`.
