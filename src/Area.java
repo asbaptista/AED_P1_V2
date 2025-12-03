@@ -1,9 +1,5 @@
-
-
 import Services.*;
-
 import Students.*;
-
 import dataStructures.*;
 
 
@@ -13,8 +9,6 @@ import dataStructures.*;
  * within a specific set of geographic boundaries.
  */
 public interface Area {
-
-    // --- Area Details & Bounds ---
 
     /**
      * Gets the name of the area.
@@ -61,8 +55,6 @@ public interface Area {
      */
     boolean isWithinBounds(long lat, long lon);
 
-
-    // --- Service Management ---
 
     /**
      * Adds a new service to the area.
@@ -136,9 +128,6 @@ public interface Area {
      * @return The {@link ServiceCollection} instance.
      */
     ServiceCollection getServicesCollection();
-
-
-    // --- Student Management ---
 
     /**
      * Adds a new student to the area.

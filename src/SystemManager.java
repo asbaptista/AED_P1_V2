@@ -71,8 +71,6 @@ public interface SystemManager {
     boolean equalBounds(long topLat, long leftLong, long bottomLat, long rightLong);
 
 
-    // --- Service Management ---
-
     /**
      * Adds a new service to the currently loaded area.
      *
@@ -129,12 +127,6 @@ public interface SystemManager {
      */
     Iterator<Service> getRankedServices();
 
-    /**
-     * Gets the total number of services in the current area.
-     *
-     * @return The count of services.
-     */
-    int getNumberOfServices();
 
     /**
      * Finds a service by its name.
@@ -144,8 +136,6 @@ public interface SystemManager {
      */
     Service getServiceByName(String name);
 
-
-    // --- Student Management ---
 
     /**
      * Adds a new student to the currently loaded area.
@@ -194,8 +184,6 @@ public interface SystemManager {
     Student getStudentByName(String name);
 
 
-    // --- Student & Service Interaction (Actions) ---
-
     /**
      * Moves a student to a new location (an Eating or Leisure service).
      *
@@ -228,8 +216,6 @@ public interface SystemManager {
             throws StudentNotFoundException, LodgingNotFoundException,
             LodgingIsFullException, StudentIsThriftyException, AlreadyStudentHomeException;
 
-
-    // --- System Queries (Reports) ---
 
     /**
      * Gets the current location (Service) of a specific student.
@@ -326,32 +312,6 @@ public interface SystemManager {
             throws StudentNotFoundException, InvalidServiceTypeException, NoServicesOfThisTypeException;
 
 
-    // --- Property Getters (Convenience) ---
-
-    /**
-     * Gets the top latitude of a given area.
-     * @param area The area.
-     * @return The top latitude.
-     */
-    long getTopLat(Area area);
-    /**
-     * Gets the left longitude of a given area.
-     * @param area The area.
-     * @return The left longitude.
-     */
-    long getLeftLong(Area area);
-    /**
-     * Gets the bottom latitude of a given area.
-     * @param area The area.
-     * @return The bottom latitude.
-     */
-    long getBottomLat(Area area);
-    /**
-     * Gets the right longitude of a given area.
-     * @param area The area.
-     * @return The right longitude.
-     */
-    long getRightLong(Area area);
     /**
      * Gets the name of a given area.
      * @param area The area.
@@ -404,8 +364,6 @@ public interface SystemManager {
     Service getStudentCurrentLocation(Student student);
 
 
-    // --- Utility Methods ---
-
     /**
      * Calculates the Manhattan distance between two sets of coordinates
      *.
@@ -418,6 +376,5 @@ public interface SystemManager {
      */
     long manhattanDistance(long lat1, long lon1, long lat2, long lon2);
 
-    boolean serviceHasTag(Service service, String tag);
 
 }

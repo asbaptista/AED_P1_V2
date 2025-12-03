@@ -12,9 +12,6 @@ import java.io.*;
  */
 public class ServiceAbs implements Service, Serializable {
 
-    // --- Fields ---
-
-
     /**
      * The official name of the service.
      */
@@ -61,10 +58,6 @@ public class ServiceAbs implements Service, Serializable {
      */
     private TwoWayList<Evaluation> evaluations;
 
-
-
-    // --- Constructor ---
-
     /**
      * Initializes a new service.
      * Sets all service attributes and automatically adds an initial 4-star review
@@ -87,13 +80,8 @@ public class ServiceAbs implements Service, Serializable {
         this.avgStar = 0.0;
         this.nEval = 0;
         this.evaluations = new DoublyLinkedList<>();
-
-        // A freshly created service is given 4 stars
         addReview(4, "Initial rating");
     }
-
-    // --- Getters ---
-
     /**
      * Gets the name of the service.
      *
@@ -167,16 +155,6 @@ public class ServiceAbs implements Service, Serializable {
     }
 
     /**
-     * Gets the total number of evaluations received.
-     *
-     * @return The total count of evaluations.
-     */
-    @Override
-    public int getNEval() {
-        return nEval;
-    }
-
-    /**
      * Gets the type of the service.
      *
      * @return The {@link ServiceType} of the service.
@@ -186,12 +164,6 @@ public class ServiceAbs implements Service, Serializable {
         return type;
     }
 
-    @Override
-    public Iterator<Evaluation> getEvaluations() {
-        return evaluations.iterator();
-    }
-
-    // --- State Updaters ---
 
     /**
      * Adds a new user evaluation (review) to this service.
@@ -217,13 +189,8 @@ public class ServiceAbs implements Service, Serializable {
      */
     @Override
     public void updateStars(int stars) {
-        // (avgStar * (nEval - 1)) gives the old total sum
-        // Adding 'stars' gives the new total sum
-        // Dividing by 'nEval' (which was pre-incremented in addReview) gives the new average
         avgStar = ((avgStar * (nEval - 1)) + stars) / nEval;
     }
-
-    // --- Public Methods ---
 
     /**
      * Checks if any evaluation for this service contains a specific tag (word).

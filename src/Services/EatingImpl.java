@@ -12,10 +12,6 @@ import java.io.*;
  * This class is serializable.
  */
 public class EatingImpl extends ServiceAbs implements Eating {
-
-    // --- Fields ---
-
-
     /**
      * The total number of seats (capacity) in this eating service.
      */
@@ -25,8 +21,6 @@ public class EatingImpl extends ServiceAbs implements Eating {
      * A list of {@link Student}s currently present (occupying) this service.
      */
     TwoWayList<Student> occupants;
-
-    // --- Constructor ---
 
     /**
      * Constructs a new Eating service.
@@ -43,8 +37,6 @@ public class EatingImpl extends ServiceAbs implements Eating {
         this.occupants = new DoublyLinkedList<>();
     }
 
-    // --- Getters ---
-
     /**
      * Gets the total capacity (number of seats) of the eating service.
      *
@@ -54,8 +46,6 @@ public class EatingImpl extends ServiceAbs implements Eating {
     public int getCapacity() {
         return seats;
     }
-
-    // --- Public Methods (from Eating interface) ---
 
     /**
      * Checks if the eating service currently has space for more occupants.

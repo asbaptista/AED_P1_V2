@@ -18,8 +18,6 @@ import java.io.*;
  */
 public class StudentAbs implements Student, Serializable {
 
-    // --- Fields ---
-
     /**
      * The student's full name.
      */
@@ -49,8 +47,6 @@ public class StudentAbs implements Student, Serializable {
     protected Map<Service, Boolean> visitedServicesSet;
 
 
-    // --- Constructor ---
-
     /**
      * Constructs a new abstract student.
      * <p>
@@ -68,12 +64,9 @@ public class StudentAbs implements Student, Serializable {
         this.current = home;
         this.visitedServices = new DoublyLinkedList<>();
         this.visitedServicesSet = new ClosedHashTable<>();
-
-
         home.addOccupant(this);
     }
 
-    // --- Getters (from Student interface) ---
 
     /**
      * Gets the student's concrete type (BOOKISH, OUTGOING, THRIFTY)
@@ -142,37 +135,24 @@ public class StudentAbs implements Student, Serializable {
         return visitedServices.iterator();
     }
 
-    // --- Actions (from Student interface) ---
 
-    /**
-     * Moves the student to a new service location.
-     * <p>
-     * This method manages occupant lists for Eating services, updates the
-     * student's `current` location, and notifies {@link Thrifty} students
-     * when they visit an {@link Eating} service.
-     * Finally, it calls the polymorphic {@link #registerVisit(Service)} method.
-     *
-     * @param service The {@link Service} the student is moving to.
-     */
     @Override
     public void goToLocation(Service service) {
-        // Remove from current location if it's an Eating service
         updateOccupancy(current, false);
 
-        // Update current location
         current = service;
 
-        // Add to new location if it's an Eating service
         updateOccupancy(service, true);
 
-        // Special check for Thrifty students visiting Eating services
         if (current instanceof Eating && this instanceof Thrifty) {
             ((Thrifty) this).visitEating((Eating) current);
         }
 
-        // Call the polymorphic hook method to register the visit
-        // (Subclasses like Bookish and Outgoing will override this)
-        this.registerVisit(service);
+        if (this instanceof Bookish) {
+            ((BookishImpl)this).registerVisit(service);
+        } else if (this instanceof Outgoing) {
+            ((OutgoingImpl)this).registerVisit(service);
+        }
     }
 
     /**
@@ -188,34 +168,26 @@ public class StudentAbs implements Student, Serializable {
      */
     @Override
     public void moveHome(Lodging newHome) {
-        // Remove from old home's occupant list
         if (home != null) {
             home.removeOccupant(this);
         }
 
-        // Check rules for different student types
         if (this instanceof Thrifty) {
-            // Thrifty students only move if the new home is cheaper
             if (((Thrifty) this).canMoveTo(newHome)) {
                 home = newHome;
                 ((Thrifty) this).updateCheapestLodging(newHome);
             }
         } else {
-            // Other students (Bookish, Outgoing) move unconditionally
             home = newHome;
         }
 
-        // If the student is not already at their new home, move them there.
         if (current != home) {
             goToLocation(newHome);
         }
 
-        // Add to the new home's occupant list
         newHome.addOccupant(this);
     }
 
-
-    // --- Helper Methods (from Student interface) ---
 
     /**
      * Finds the most relevant service based on the *default* criteria:
@@ -238,30 +210,12 @@ public class StudentAbs implements Student, Serializable {
             if (bestService == null) {
                 bestService = current;
             } else if (current.getAvgStar() > bestService.getAvgStar()) {
-                // Found a service with a better star rating
                 bestService = current;
             }
         }
         return bestService;
     }
 
-
-    // --- Protected Methods (Hooks for Subclasses) ---
-
-    /**
-     * A "hook" method for subclasses to implement visit registration logic.
-     * <p>
-     * The base implementation (used by {@link Thrifty}) does nothing.
-     * This method is overridden by {@link BookishImpl} and {@link OutgoingImpl}
-     * to store visits according to their specific rules.
-     *
-     * @param service The service that was just visited.
-     */
-    protected void registerVisit(Service service) {
-        // Default implementation: do nothing.
-    }
-
-    // --- Private Helper Methods ---
 
     /**
      * A private helper to manage adding/removing this student from the

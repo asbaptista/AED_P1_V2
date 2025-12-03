@@ -60,8 +60,7 @@ public class EvaluationImpl implements Evaluation, Serializable {
 
     /**
      * Checks if the evaluation's description contains a specific tag (word).
-     * This method performs a case-insensitive search for the tag as a standalone word
-     * using the KMP algorithm.
+     * This method performs a case-insensitive search for the tag as a standalone word.
      *
      * @param tag The tag (word) to search for.
      * @return true if the tag is found as a standalone word, false otherwise.
@@ -71,120 +70,58 @@ public class EvaluationImpl implements Evaluation, Serializable {
         char[] text = description.toCharArray();
         char[] pattern = trimWhitespace(tag.toCharArray());
 
-        // Convert pattern to lowercase for comparison
-        char[] lowerPattern = new char[pattern.length];
-        for (int k = 0; k < pattern.length; k++) {
-            lowerPattern[k] = toLowerCase(pattern[k]);
+        if (pattern.length == 0) {
+            return false;
         }
 
-        // Extract and search each word from the description
-        int n = text.length;
         int wordStart = 0;
-
-        for (int i = 0; i <= n; i++) {
-            // End of word: either whitespace or end of text
-            if (i == n || isWhitespace(text[i])) {
+        for (int i = 0; i <= text.length; i++) {
+            if (i == text.length || isWhitespace(text[i])) {
                 int wordLength = i - wordStart;
-
-                if (wordLength > 0) {
-                    // Extract current word and convert to lowercase
-                    char[] word = new char[wordLength];
-                    for (int k = 0; k < wordLength; k++) {
-                        word[k] = toLowerCase(text[wordStart + k]);
-                    }
-
-                    // Check if word matches pattern exactly
-                    if (word.length == lowerPattern.length && kmpSearch(word, lowerPattern)) {
-                        return true;
-                    }
+                if (wordLength == pattern.length && matchesWord(text, wordStart, pattern)) {
+                    return true;
                 }
-
-                // Move to start of next word (skip whitespace)
                 wordStart = i + 1;
             }
         }
-
         return false;
     }
 
     /**
-     * Performs KMP (Knuth-Morris-Pratt) search algorithm to find a pattern in text.
+     * Checks if a word in the text matches the pattern (case-insensitive).
      *
-     * @param text    The text to search in.
-     * @param pattern The pattern to search for.
-     * @return true if the pattern is found in the text, false otherwise.
+     * @param text      The text array.
+     * @param start     The start index of the word.
+     * @param pattern   The pattern to match.
+     * @return true if the word matches the pattern, false otherwise.
      */
-    public static boolean kmpSearch(char[] text, char[] pattern) {
-        int n = text.length;
-        int m = pattern.length;
-        int[] lps = LPS(pattern);
-        int i = 0, j = 0;
-        while (i < n) {
-            if (pattern[j] == text[i]) {
-                i++;
-                j++;
-            }
-            if (j == m) //found
-                return true;
-            if (i < n && pattern[j] != text[i]) {
-                if (j != 0)
-                    j = lps[j - 1]; //reuse suffix of P[0..j-1]
-                else
-                    i++;
-            }
-
-        }
-        return false;
-    }
-
-
-    private static int[] LPS(char[] pattern) {
-        int m = pattern.length;
-        int[] lps = new int[m];
-
-        int len = 0;
-        int i = 1;
-        lps[0] = 0;
-        while (i < m) {
-            if (pattern[i] == pattern[len]) {
-                len++;
-                lps[i] = len;
-                i++;
-            } else {
-                if (len != 0) {
-                    len = lps[len - 1];
-                } else {
-                    lps[i] = 0;
-                    i++;
-                }
+    private static boolean matchesWord(char[] text, int start, char[] pattern) {
+        for (int i = 0; i < pattern.length; i++) {
+            if (toLowerCase(text[start + i]) != toLowerCase(pattern[i])) {
+                return false;
             }
         }
-        return lps;
+        return true;
     }
+
 
     /**
      * Removes leading and trailing whitespace from a character array.
-     *
-     * @param chars The character array to trim.
-     * @return A new character array without leading/trailing whitespace.
      */
     private static char[] trimWhitespace(char[] chars) {
-        // Skip leading whitespace
         int start = 0;
         while (start < chars.length && isWhitespace(chars[start])) {
             start++;
         }
 
-        // Skip trailing whitespace
         int end = chars.length - 1;
         while (end >= start && isWhitespace(chars[end])) {
             end--;
         }
 
-        // Extract trimmed content
         int length = end - start + 1;
         if (length <= 0) {
-            return new char[0]; // Empty array
+            return new char[0];
         }
 
         char[] result = new char[length];
@@ -197,9 +134,6 @@ public class EvaluationImpl implements Evaluation, Serializable {
 
     /**
      * Converts a character to lowercase.
-     *
-     * @param c The character to convert.
-     * @return The lowercase version of the character.
      */
     private static char toLowerCase(char c) {
         if (c >= 'A' && c <= 'Z') {
@@ -210,9 +144,6 @@ public class EvaluationImpl implements Evaluation, Serializable {
 
     /**
      * Checks if a character is whitespace.
-     *
-     * @param c The character to check.
-     * @return true if the character is whitespace, false otherwise.
      */
     private static boolean isWhitespace(char c) {
         return c == ' ' || c == '\t' || c == '\n' || c == '\r';

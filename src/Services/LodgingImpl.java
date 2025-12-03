@@ -13,9 +13,6 @@ import java.io.Serializable;
  * and manages a list of student occupants. This class is serializable.
  */
 public class LodgingImpl extends ServiceAbs implements Lodging {
-
-    // --- Fields ---
-
     /**
      * The total number of rooms (capacity) in this lodging.
      */
@@ -30,8 +27,6 @@ public class LodgingImpl extends ServiceAbs implements Lodging {
      * A list of {@link Student}s currently residing (occupying) this lodging.
      */
     TwoWayList<Student> occupants;
-
-    // --- Constructor ---
 
     /**
      * Constructs a new Lodging service.
@@ -48,8 +43,6 @@ public class LodgingImpl extends ServiceAbs implements Lodging {
         this.occupants = new DoublyLinkedList<>();
         this.occupiedRooms = 0;
     }
-
-    // --- Public Methods (from Lodging interface) ---
 
     /**
      * Checks if the lodging is at full capacity.

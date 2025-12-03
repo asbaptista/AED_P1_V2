@@ -59,8 +59,6 @@ public interface Student {
     Iterator<Service> getVisitedIterator();
 
 
-    // --- Actions ---
-
     /**
      * Moves the student to a new service location (e.g., Eating or Leisure).
      * This method is responsible for updating the student's current location
@@ -78,8 +76,6 @@ public interface Student {
      */
     void moveHome(Lodging newHome);
 
-
-    // --- Helper Methods ---
 
     /**
      * Finds the "most relevant" service from a given list, based on this

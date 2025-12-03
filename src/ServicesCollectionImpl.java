@@ -1,4 +1,3 @@
-import Services.Evaluation;
 import Services.Service;
 import Services.ServiceType;
 import dataStructures.*;
@@ -19,7 +18,6 @@ import java.io.*;
  */
 public class ServicesCollectionImpl implements ServiceCollection, Serializable {
 
-    // --- Fields ---
 
     /**
      * Standard serial version UID for serialization.
@@ -42,12 +40,6 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     private  Map<ServiceType, List<Service>[]> servicesByTypeAndStars;
 
 
-
-
-
-
-    // --- Constructor ---
-
     /**
      * Constructs a new, empty service collection.
      * Initializes the insertion-order list and the star-ranking map with buckets for each rating (0-5).
@@ -62,7 +54,6 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         this.servicesByTypeAndStars = new SepChainHashTable<>(); // verificar se é closed ou open
     }
 
-    // --- State Modifiers ---
 
     /**
      * Adds a new service to the collection.
@@ -151,9 +142,6 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     }
 
 
-
-    // --- Querying & Searching ---
-
     /**
      * Finds a service by its name using a case-insensitive linear search.
      * <p>
@@ -164,7 +152,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public Service findByName(String name) {
-        return servicesByName.get(name.toLowerCase()); // confirmar os lowerCase, aqui e em cima
+        return servicesByName.get(name.toLowerCase());
     }
 
     /**
@@ -188,7 +176,6 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         return servicesByInsertion.size();
     }
 
-    // --- Iterators & Retrieval ---
 
     /**
      * Gets an iterator over all services, in their original order of registration
@@ -225,15 +212,6 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         return sortedList.iterator();
     }
 
-    /**
-     * Gets the raw list of services in their insertion order.
-     *
-     * @return The {@link DoublyLinkedList} containing all services in insertion order.
-     */
-    @Override
-    public DoublyLinkedList<Service> getServicesByInsertion() {
-        return (DoublyLinkedList<Service>) servicesByInsertion;
-    }
     @Override
     public Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars) {
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);

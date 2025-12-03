@@ -1,9 +1,6 @@
 package Students;
-
 import Services.*;
 import dataStructures.Iterator;
-
-import java.io.Serializable;
 
 /**
  * Implementation of the {@link Thrifty} student type.
@@ -16,7 +13,6 @@ import java.io.Serializable;
  */
 public class ThriftyImpl extends StudentAbs implements Thrifty {
 
-    // --- Fields ---
 
     /**
      * Stores the cheapest {@link Eating} service this student has visited so far.
@@ -29,7 +25,6 @@ public class ThriftyImpl extends StudentAbs implements Thrifty {
      */
     private Lodging cheapestLodging;
 
-    // --- Constructor ---
 
     /**
      * Constructs a new Thrifty student.
@@ -45,29 +40,7 @@ public class ThriftyImpl extends StudentAbs implements Thrifty {
         this.cheapestEating = null;
     }
 
-    // --- Getters (from Thrifty interface) ---
 
-    /**
-     * Gets the cheapest {@link Eating} service this student has visited so far.
-     *
-     * @return The cheapest {@link Eating} service, or null if none have been visited.
-     */
-    @Override
-    public Eating getCheapestEating() {
-        return cheapestEating;
-    }
-
-    /**
-     * Gets the cheapest {@link Lodging} service this student is aware of.
-     *
-     * @return The cheapest {@link Lodging} service known.
-     */
-    @Override
-    public Lodging getCheapestLodging() {
-        return cheapestLodging;
-    }
-
-    // --- State Updaters (from Thrifty interface) ---
 
     /**
      * Called when the student visits an {@link Eating} service.
@@ -124,8 +97,6 @@ public class ThriftyImpl extends StudentAbs implements Thrifty {
     public boolean isDistracted(Eating eating) {
         return cheapestEating != null && eating.getPrice() > cheapestEating.getPrice();
     }
-
-    // --- Overridden Business Logic (from Student interface) ---
 
     /**
      * Finds the most relevant service for a Thrifty student: the one

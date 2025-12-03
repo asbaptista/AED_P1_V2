@@ -12,10 +12,6 @@ import java.io.*;
  * within that area. This class is serializable.
  */
 public class AreaImpl implements Area, Serializable {
-//    @Serial
-//    private static final long serialVersionUID = 1L;
-
-    // --- Fields ---
 
     /**
      * Standard serial version UID for serialization.
@@ -56,7 +52,6 @@ public class AreaImpl implements Area, Serializable {
      */
     ServicesCollectionImpl services;
 
-    // --- Constructor ---
 
     /**
      * Constructs a new Area.
@@ -77,7 +72,6 @@ public class AreaImpl implements Area, Serializable {
         this.services = new ServicesCollectionImpl();
     }
 
-    // --- Area Details & Bounds ---
 
     /**
      * Gets the name of the area.
@@ -143,7 +137,6 @@ public class AreaImpl implements Area, Serializable {
                 lon >= leftLong && lon <= rightLong;
     }
 
-    // --- Service Management ---
 
     /**
      * Adds a new service to the area's service collection.
@@ -245,8 +238,6 @@ public class AreaImpl implements Area, Serializable {
         return services.getServicesByTypeAndStars(type, stars);
     }
 
-    // --- Student Management ---
-
     /**
      * Adds a new student to the area's student collection.
      *
@@ -311,28 +302,4 @@ public class AreaImpl implements Area, Serializable {
         return services.getServicesByTypeOrderedByStars(type);
     }
 
-
-//    @Serial
-//    private void writeObject(ObjectOutputStream out) throws IOException {
-//        out.writeObject(name);
-//        out.writeLong(topLat);
-//        out.writeLong(leftLong);
-//        out.writeLong(bottomLat);
-//        out.writeLong(rightLong);
-//
-//        out.writeObject(students);
-//        out.writeObject(services);
-//    }
-//
-//    @Serial
-//    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-//        this.name = (String) in.readObject();
-//        this.topLat = in.readLong();
-//        this.leftLong = in.readLong();
-//        this.bottomLat = in.readLong();
-//        this.rightLong = in.readLong();
-//
-//        this.students = (StudentsCollectionImpl) in.readObject();
-//        this.services = (ServicesCollectionImpl) in.readObject();
-//    }
 }

@@ -6,11 +6,6 @@ import Students.Student;
 import Students.StudentType;
 import dataStructures.*;
 
-
-// rankingByStars, listInarray com doubly linked la dentro
-// teste
-
-
 /**
  * Main entry point for the "Home Away From Home" application.
  * This class is responsible for:
@@ -35,7 +30,7 @@ public class Main {
 
         do {
             command = scanner.next();
-            Commands cmd = Commands.fromString(command, scanner);
+            Commands cmd = Commands.fromString(command);
 
             boolean hasArea;
             try {
@@ -51,7 +46,6 @@ public class Main {
             }
 
             if (!hasArea) {
-                // Only these commands are allowed when no bounds are defined
                 switch (cmd) {
                     case EXIT -> handleExit(manager);
                     case BOUNDS -> handleBounds(scanner, manager);
@@ -61,7 +55,6 @@ public class Main {
                     default -> System.out.println(Message.SYSTEM_BOUNDS_NOT_DEFINED);
                 }
             } else {
-                // All commands are allowed when bounds are defined
                 switch (cmd) {
                     case EXIT -> handleExit(manager);
                     case BOUNDS -> handleBounds(scanner, manager);
@@ -91,7 +84,6 @@ public class Main {
 
     }
 
-    // --- Private Enums for Commands and Messages ---
 
     /**
      * Enumerates all valid application commands.
@@ -123,10 +115,9 @@ public class Main {
          * Parses a raw string into a {@code Commands} enum constant.
          *
          * @param command The raw command string from the user.
-         * @param scanner The scanner (for potential future use, e.g., consuming extra tokens).
          * @return The matching {@code Commands} constant, or {@code null} if no match.
          */
-        public static Commands fromString(String command, Scanner scanner) {
+        public static Commands fromString(String command) {
             for (Commands e : Commands.values()) {
                 if (e.name().equalsIgnoreCase(command.trim())) {
                     return e;
@@ -141,12 +132,9 @@ public class Main {
      * This centralizes all application text for easy maintenance and localization.
      */
     private enum Message {
-        // --- General Messages ---
         UNKNOWN_COMMAND("Unknown command. Type help to see available commands."),
         SYSTEM_BOUNDS_NOT_DEFINED("System bounds not defined."),
         EXIT("Bye!"),
-
-        // --- Help Text ---
         HELP_TEXT("""
                 bounds - Defines the new geographic bounding rectangle
                 save - Saves the current geographic bounding rectangle to a text file
@@ -169,7 +157,6 @@ public class Main {
                 help - Shows the available commands
                 exit - Terminates the execution of the program"""),
 
-        // --- Area Command Messages ---
         AREA_CREATED("%s created."),
         INVALID_BOUNDS("Invalid bounds."),
         BOUNDS_ALREADY_EXISTS("Bounds already exists. Please load it!"),
@@ -177,7 +164,6 @@ public class Main {
         AREA_LOADED("%s loaded."),
         BOUNDS_NOT_FOUND("Bounds %s does not exists."),
 
-        // --- Service Command Messages ---
         SERVICE_ADDED("%s %s added."),
         INVALID_SERVICE_TYPE("Invalid service type!"),
         INVALID_LOCATION("Invalid location!"),
@@ -189,7 +175,6 @@ public class Main {
         SERVICE_ALREADY_EXISTS("%s already exists!"),
         NO_SERVICES("No services yet!"),
 
-        // --- Student Command Messages ---
         STUDENT_ADDED("%s added."),
         INVALID_STUDENT_TYPE("Invalid student type!"),
         LODGING_NOT_FOUND("lodging %s does not exist!%n"),
@@ -200,7 +185,6 @@ public class Main {
         STUDENT_LEFT("%s has left."),
         STUDENT_NOT_FOUND("%s does not exist!%n"),
 
-        // --- Action Command Messages ---
         STUDENT_GO_OK("%s is now at %s.%n"),
         STUDENT_GO_DISTRACTED("%s is now at %s. %s is distracted!%n"),
         UNKNOWN_SERVICE("Unknown %s!%n"),
@@ -217,7 +201,6 @@ public class Main {
         STUDENT_IS_THRIFTY("%s is thrifty!%n"),
         NO_VISITED_LOCATIONS("%s has not visited any locations!%n"),
 
-        // --- Review/Ranking Command Messages ---
         EVALUATION_REGISTERED("Your evaluation has been registered!"),
         SERVICE_NOT_FOUND("%s does not exist!%n"),
         INVALID_EVALUATION("Invalid evaluation!"),
@@ -274,8 +257,6 @@ public class Main {
     }
 
 
-    // --- Command Handlers ---
-
     /**
      * Handles the 'exit' command.
      * Saves the current area (if loaded) and prints a goodbye message.
@@ -285,7 +266,7 @@ public class Main {
     private static void handleExit(SystemManager manager) {
         try {
             manager.saveArea();
-        } catch (Exception e) {}
+        } catch (Exception ignored) {}
         Message.EXIT.print();
     }
 
@@ -373,12 +354,6 @@ public class Main {
         String name = sc.nextLine().trim();
 
         try {
-            // A null 'type' will be caught by the manager's validServiceType check
-            // or throw a NullPointerException, which is acceptable if we assume
-            // InvalidServiceTypeException handles it.
-            // Let's add an explicit check for a cleaner error.
-
-
             manager.addService(type, name, lat, lon, price, value);
             System.out.println(Message.SERVICE_ADDED.format(type.toString(), name));
         } catch (InvalidServiceTypeException e) {

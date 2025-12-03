@@ -29,7 +29,6 @@ public class ByStarsComparator implements Comparator<Service>, Serializable {
      */
     @Override
     public int compare(Service service1, Service service2) {
-        // Compares service2 to service1 to achieve descending order (highest stars first)
         return Integer.compare(service2.getAvgStar(), service1.getAvgStar());
     }
 }

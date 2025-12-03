@@ -6,12 +6,4 @@ package Services;
  * related to student discounts on ticket prices.
  */
 public interface Leisure extends Service {
-
-    /**
-     * Calculates and returns the final price for a student after
-     * applying the student discount.
-     *
-     * @return The discounted ticket price.
-     */
-    int checkDiscountedPrice();
 }

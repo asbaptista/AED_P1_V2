@@ -1,5 +1,7 @@
 package Students;
 
+import Services.Service;
+
 /**
  * A marker interface for "Outgoing" students.
  * <p>
@@ -10,5 +12,5 @@ package Students;
  *.
  */
 public interface Outgoing extends Student {
-    // This is a marker interface and does not declare new methods.
+    void registerVisit(Service service);
 }

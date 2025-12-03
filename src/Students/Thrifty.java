@@ -13,7 +13,6 @@ import Services.Lodging;
  */
 public interface Thrifty extends Student {
 
-    // --- Price/Move Checks ---
 
     /**
      * Checks if a move to a new home (lodging) is acceptable.
@@ -37,8 +36,6 @@ public interface Thrifty extends Student {
     boolean isDistracted(Eating eating);
 
 
-    // --- State Updaters ---
-
     /**
      * Called when the student visits an {@link Eating} service.
      * Used to track and update the cheapest eating service known to the student.
@@ -55,21 +52,4 @@ public interface Thrifty extends Student {
      */
     void updateCheapestLodging(Lodging lodging);
 
-
-    // --- Getters ---
-
-    /**
-     * Gets the cheapest {@link Eating} service this student has visited so far.
-     *
-     * @return The cheapest {@link Eating} service, or null if none visited.
-     */
-    Eating getCheapestEating();
-
-    /**
-     * Gets the cheapest {@link Lodging} service this student is aware of
-     * (usually their current home).
-     *
-     * @return The cheapest {@link Lodging} service known.
-     */
-    Lodging getCheapestLodging();
 }

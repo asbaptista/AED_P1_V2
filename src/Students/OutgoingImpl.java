@@ -14,11 +14,6 @@ import java.io.Serializable;
  * with no restrictions. This class is serializable.
  */
 public class OutgoingImpl extends StudentAbs implements Outgoing {
-
-    // --- Fields ---
-
-    // --- Constructor ---
-
     /**
      * Constructs a new Outgoing student.
      * <p>
@@ -35,8 +30,6 @@ public class OutgoingImpl extends StudentAbs implements Outgoing {
         this.visitedServices.addLast(home);
     }
 
-    // --- Overridden Protected Methods ---
-
     /**
      * Registers any service as visited.
      * <p>
@@ -48,7 +41,7 @@ public class OutgoingImpl extends StudentAbs implements Outgoing {
      * @param service The service the student has just visited.
      */
     @Override
-    protected void registerVisit(Service service) {
+    public void registerVisit(Service service) {
         if (visitedServicesSet. get(service) == null) {
             visitedServices. addLast(service);
             visitedServicesSet.put(service, true);

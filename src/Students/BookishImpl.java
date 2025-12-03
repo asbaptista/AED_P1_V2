@@ -14,10 +14,6 @@ import java.io.*;
  *. This class is serializable.
  */
 public class BookishImpl extends StudentAbs implements Bookish {
-
-    // --- Fields ---
-    // --- Constructor ---
-
     /**
      * Constructs a new Bookish student.
      *
@@ -29,7 +25,6 @@ public class BookishImpl extends StudentAbs implements Bookish {
         super(name, country, home);
     }
 
-    // --- Overridden Protected Methods ---
 
     /**
      * Registers a service as visited, but only if it is a {@link Leisure} service.
@@ -41,7 +36,7 @@ public class BookishImpl extends StudentAbs implements Bookish {
      * @param service The service the student has just visited.
      */
     @Override
-    protected void registerVisit(Service service) {
+    public void registerVisit(Service service) {
         if (service instanceof Leisure) {
             if (visitedServicesSet.get(service) == null) {
                 visitedServices.addLast(service);

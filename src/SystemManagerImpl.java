@@ -4,8 +4,6 @@ import Services.ServiceType;
 import Students.Student;
 import Students.*;
 import dataStructures.*;
-
-import java.io.File;
 import java.io.*;
 
 import static Students.StudentType.THRIFTY;
@@ -20,7 +18,6 @@ import static Students.StudentType.THRIFTY;
  */
 public class SystemManagerImpl implements SystemManager {
 
-    // --- Fields ---
 
     /**
      * The currently active {@link Area} being managed by the system.
@@ -111,7 +108,6 @@ public class SystemManagerImpl implements SystemManager {
                 currentArea.getRightLong() == rightLong;
     }
 
-    // --- Service Management ---
 
     /**
      * {@inheritDoc}
@@ -164,7 +160,6 @@ public class SystemManagerImpl implements SystemManager {
             throw new ServiceNotFoundException();
         }
 
-        // Check if the star rating changes to trigger a ranking update
         int oldAvgStar = service.getAvgStar();
         service.addReview(rating, comment);
         int newAvgStar = service.getAvgStar();
@@ -193,15 +188,6 @@ public class SystemManagerImpl implements SystemManager {
         return currentArea.getRankedServices();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getNumberOfServices() {
-        return currentArea.getNumberOfServices();
-    }
-
-    // --- Student Management ---
 
     /**
      * {@inheritDoc}
@@ -262,7 +248,6 @@ public class SystemManagerImpl implements SystemManager {
         currentArea.removeStudent(name);
     }
 
-    // --- Student & Service Interaction (Actions) ---
 
     /**
      * {@inheritDoc}
@@ -324,7 +309,6 @@ public class SystemManagerImpl implements SystemManager {
         student.moveHome(lodging);
     }
 
-    // --- System Queries (Reports) ---
 
     /**
      * {@inheritDoc}
@@ -433,19 +417,16 @@ public class SystemManagerImpl implements SystemManager {
             throw new InvalidServiceTypeException();
         }
 
-        // Check if any services of this type exist (single pass)
         FilterIterator<Service> filteredByType = new FilterIterator<>(currentArea.getServices(), s -> s.getType() == type);
         if (!filteredByType.hasNext()) {
             throw new NoServicesOfThisTypeException();
         }
 
-        // Use the optimized index to get services by type and stars directly (O(1) lookup)
         Iterator<Service> filteredByTypeStars = currentArea.getServicesByTypeAndStars(type, stars);
         if (!filteredByTypeStars.hasNext()) {
             throw new NoTypeServicesWithStarsException();
         }
 
-        // Find the closest services
         List<Service> closestServices = new DoublyLinkedList<>();
         long minDistance = Long.MAX_VALUE;
 
@@ -458,17 +439,14 @@ public class SystemManagerImpl implements SystemManager {
                     service.getLongitude());
 
             if (currentDistance < minDistance) {
-                // Found a closer one — clear the list and keep only this one
                 closestServices = new DoublyLinkedList<>();
                 closestServices.addLast(service);
                 minDistance = currentDistance;
             } else if (currentDistance == minDistance) {
-                // Another service at the same distance — add it too
                 closestServices.addLast(service);
             }
         }
 
-        // Return an iterator with only the closest services
         return closestServices.iterator();
     }
 
@@ -498,40 +476,6 @@ public class SystemManagerImpl implements SystemManager {
 
 
         return student.findMostRelevant(typeServicesIterator);
-    }
-
-    // --- Property Getters (Convenience) ---
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public long getTopLat(Area area) {
-        return area.getTopLat();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public long getLeftLong(Area area) {
-        return area.getLeftLong();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public long getBottomLat(Area area) {
-        return area.getBottomLat();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public long getRightLong(Area area) {
-        return area.getRightLong();
     }
 
     /**
@@ -617,8 +561,6 @@ public class SystemManagerImpl implements SystemManager {
         return currentArea.getStudent(name);
     }
 
-    // --- Utility Methods ---
-
     /**
      * {@inheritDoc}
      */
@@ -627,11 +569,11 @@ public class SystemManagerImpl implements SystemManager {
         return Math.abs(lat1 - lat2) + Math.abs(lon1 - lon2);
     }
 
-    // --- Private Helper Methods ---
-
-    // --- Private File I/O Helpers ---
-
     private void saveCurrentAreaToFile(Area area) {
+        File dataDir = new File("data");
+        if (!dataDir.exists()) {
+            dataDir.mkdirs();
+        }
         String filename = "data/" + getAreaFileName(area.getName());
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(area);
@@ -660,10 +602,6 @@ public class SystemManagerImpl implements SystemManager {
         return name.toLowerCase().replace(" ", "_") + ".ser";
     }
 
-
-
-
-    // --- Private Validation Helpers ---
 
     /**
      * Checks if the given coordinates form a valid bounding box.
@@ -716,19 +654,6 @@ public class SystemManagerImpl implements SystemManager {
         return (type == THRIFTY || type == StudentType.OUTGOING || type == StudentType.BOOKISH);
     }
 
-    /**
-     * Checks if a service has a specific tag.
-     *
-     * @param service The service to check.
-     * @param tag     The tag to search for.
-     * @return true if the service has the tag, false otherwise.
-     */
-    public boolean serviceHasTag(Service service, String tag) {
-        return service.hasEvaluationWithTag(tag);
-    }
-
-
-    // --- Private Factory Helpers ---
 
     /**
      * Factory method to create a new {@link Service} instance based on its type.

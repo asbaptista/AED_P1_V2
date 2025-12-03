@@ -13,8 +13,6 @@ import dataStructures.Iterator;
  */
 public interface ServiceCollection {
 
-    // --- State Modifiers ---
-
     /**
      * Adds a new service to the collection.
      * The implementation is responsible for adding the service to
@@ -32,8 +30,6 @@ public interface ServiceCollection {
      * @param service The service whose ranking needs to be updated.
      */
 
-
-    // --- Querying & Searching ---
 
     void updateRankingByStars(Service service, int oldStars);
 
@@ -62,8 +58,6 @@ public interface ServiceCollection {
     int size();
 
 
-    // --- Iterators & Retrieval ---
-
     /**
      * Gets an iterator over all services, in their original order of registration
      * (insertion order).
@@ -80,16 +74,6 @@ public interface ServiceCollection {
      */
     Iterator<Service> getServicesByStars();
 
-    /**
-     * Gets the raw list of services in their insertion order.
-     * <p>
-     * Note: This method may be for internal use by implementations (e.g., for serialization)
-     * and returns the concrete list type.
-     *
-     * @return The {@link DoublyLinkedList} containing all services in insertion order.
-     */
-    DoublyLinkedList<Service> getServicesByInsertion();
-
     Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars);
 
     /**
@@ -100,10 +84,6 @@ public interface ServiceCollection {
      * @return An {@link Iterator} of services that have this tag, in insertion order.
      */
     Iterator<Service> getServicesByTag(String tag);
-
-
-
-
 
     Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type);
 }

@@ -1,5 +1,7 @@
 package Students;
 
+import Services.Service;
+
 /**
  * A marker interface for "Bookish" students.
  * <p>
@@ -9,5 +11,5 @@ package Students;
  * places they have visited.
  */
 public interface Bookish extends Student {
-    // This is a marker interface and does not declare new methods.
+    void registerVisit(Service service);
 }

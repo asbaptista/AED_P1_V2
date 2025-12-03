@@ -19,7 +19,6 @@ import java.io.*;
  */
 public class StudentsCollectionImpl implements StudentCollection, Serializable {
 
-    // --- Fields ---
 
     /**
      * Standard serial version UID for serialization.
@@ -36,8 +35,6 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     private Map<String, List<Student>> studentsByCountry;
 
 
-    // --- Constructor ---
-
     /**
      * Constructs a new, empty student collection.
      * Initializes both the insertion-order list and the name-sorted list,
@@ -47,8 +44,6 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
         this.studentsByName = new AVLSortedMap<>();
         this.studentsByCountry = new SepChainHashTable<>();
     }
-
-    // --- State Modifiers ---
 
     /**
      * Adds a new student to the collection.
@@ -104,7 +99,6 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
 
     }
 
-    // --- Querying & Searching ---
 
     /**
      * Finds a student by their name using a case-insensitive linear search.
@@ -119,7 +113,6 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
         return studentsByName.get(name.toLowerCase());
     }
 
-    // --- Iterators & Retrieval ---
 
     /**
      * Gets an iterator over all students in the collection,
@@ -147,7 +140,7 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
         if (list != null) {
             return list.iterator();
         }
-        return new DoublyLinkedList<Student>().iterator(); // empty iterator
+        return new DoublyLinkedList<Student>().iterator();
 
     }
 

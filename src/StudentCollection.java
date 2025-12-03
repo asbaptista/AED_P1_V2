@@ -13,8 +13,6 @@ import java.io.Serializable;
  */
 public interface StudentCollection  {
 
-    // --- State Modifiers ---
-
     /**
      * Adds a new student to the collection.
      * The implementation is responsible for adding the student to
@@ -45,7 +43,6 @@ public interface StudentCollection  {
     Student findByName(String name);
 
 
-    // --- Iterators & Retrieval ---
 
     /**
      * Gets an iterator over all students in the collection,

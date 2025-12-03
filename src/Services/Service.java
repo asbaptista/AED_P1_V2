@@ -7,8 +7,6 @@ package Services;
  */
 public interface Service {
 
-    // --- Getters ---
-
     /**
      * Gets the official name of the service.
      *
@@ -61,29 +59,11 @@ public interface Service {
     int getAvgStar();
 
     /**
-     * Gets the total number of evaluations (reviews) this service has received.
-     *
-     * @return The total count of evaluations.
-     */
-    int getNEval();
-
-    /**
      * Gets the type of the service.
      *
      * @return The {@link ServiceType} enum (EATING, LODGING, or LEISURE).
      */
     Services.ServiceType getType();
-
-    /**
-     * Gets an iterator over all evaluations for this service.
-     * Used for tag re-indexing during deserialization.
-     *
-     * @return An iterator over all evaluations.
-     */
-    dataStructures.Iterator<Evaluation> getEvaluations();
-
-
-    // --- State Updaters ---
 
     /**
      * Adds a new user evaluation (review) to this service.
@@ -100,8 +80,6 @@ public interface Service {
      */
     void updateStars(int stars);
 
-
-    // --- Public Methods ---
 
     /**
      * Checks if any evaluation for this service contains a specific tag (word).

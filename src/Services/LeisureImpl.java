@@ -10,15 +10,10 @@ import java.io.Serializable;
  * a student discount. This class is serializable.
  */
 public class LeisureImpl extends ServiceAbs implements Leisure {
-
-    // --- Fields ---
-
     /**
      * The student discount percentage (e.g., 20 for 20%).
      */
     int discount;
-
-    // --- Constructor ---
 
     /**
      * Constructs a new Leisure service.
@@ -31,23 +26,8 @@ public class LeisureImpl extends ServiceAbs implements Leisure {
      * @param discount The student discount percentage (0-100).
      */
     public LeisureImpl(String name, long lat, long lon, int price, int discount) {
-        // --- LOGIC REVERTED TO YOUR ORIGINAL ---
-        // The base class stores the final discounted price as its 'price'.
         super(name, lat, lon, price - (price * discount / 100), Services.ServiceType.LEISURE, discount);
         this.discount = discount;
     }
 
-    // --- Public Methods (from Leisure interface) ---
-
-    /**
-     * Calculates the final price for a student after applying the discount.
-     * Uses integer arithmetic.
-     *
-     * @return The price after the student discount is applied.
-     */
-    @Override
-    public int checkDiscountedPrice() {
-        // getPrice() retrieves the discounted price from ServiceAbs
-        return getPrice() - (getPrice() * discount / 100);
-    }
 }
