@@ -67,10 +67,8 @@ public class SystemManagerImpl implements SystemManager {
             saveCurrentAreaToFile(currentArea);
         }
 
-        Area loadedArea = loadAreaFromFile(name);
-        if (loadedArea != null) {
-            currentArea = loadedArea;
-        } else {
+        currentArea = loadAreaFromFile(name);
+        if (currentArea == null) {
             throw new BoundsNotFoundException();
         }
     }
@@ -93,7 +91,8 @@ public class SystemManagerImpl implements SystemManager {
     public Area getCurrentArea() throws NoAreaLoadedException {
         if (currentArea == null) {
             throw new NoAreaLoadedException();
-        } else return currentArea;
+        }
+        return currentArea;
     }
 
     /**
@@ -152,10 +151,10 @@ public class SystemManagerImpl implements SystemManager {
     @Override
     public void addReviewToService(String serviceName, int rating, String comment)
             throws ServiceNotFoundException, InvalidStarsException {
-        Service service = currentArea.getService(serviceName);
         if (rating < 1 || rating > 5) {
             throw new InvalidStarsException();
         }
+        Service service = currentArea.getService(serviceName);
         if (service == null) {
             throw new ServiceNotFoundException();
         }
@@ -256,25 +255,23 @@ public class SystemManagerImpl implements SystemManager {
     public void goToLocation(String studentName, String serviceName)
             throws StudentNotFoundException, ServiceNotFoundException,
             AlreadyThereException, EatingIsFullException, NotValidServiceException {
-
-        if (!currentArea.containsService(serviceName)) {
+        Service service = currentArea.getService(serviceName);
+        if (service == null) {
             throw new ServiceNotFoundException();
         }
         Student student = currentArea.getStudent(studentName);
         if (student == null) {
             throw new StudentNotFoundException();
         }
-        Service service = currentArea.getService(serviceName);
+
         if (service instanceof Lodging) {
             throw new NotValidServiceException();
         }
         if (student.getCurrent().getName().equals(serviceName)) {
             throw new AlreadyThereException();
         }
-        if (service instanceof Eating eating) {
-            if (!eating.hasCapacity()) {
-                throw new EatingIsFullException();
-            }
+        if (service instanceof Eating eating && !eating.hasCapacity()) {
+            throw new EatingIsFullException();
         }
         student.goToLocation(service);
     }
@@ -329,9 +326,9 @@ public class SystemManagerImpl implements SystemManager {
     public boolean isStudentDistracted(String studentName, String serviceName) {
         Student student = currentArea.getStudent(studentName);
         Service service = currentArea.getService(serviceName);
-        if (student instanceof Thrifty && service instanceof Eating eatingService) {
-            return ((Thrifty) student).isDistracted(eatingService);
-        } else return false;
+        return student instanceof Thrifty thrifty
+                && service instanceof Eating eating
+                && thrifty.isDistracted(eating);
     }
 
     /**
@@ -385,9 +382,6 @@ public class SystemManagerImpl implements SystemManager {
         return it;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     /**
      * {@inheritDoc}
      * Optimized implementation using the tagMap for O(1) lookup instead of O(n*m) iteration.
@@ -579,7 +573,6 @@ public class SystemManagerImpl implements SystemManager {
             oos.writeObject(area);
         } catch (Exception ignored) {
         }
-
     }
 
     private Area loadAreaFromFile(String name) {
@@ -621,7 +614,7 @@ public class SystemManagerImpl implements SystemManager {
      * @return true if the location is valid, false otherwise.
      */
     private boolean validLocation(long lat, long lon) {
-        return (currentArea.isWithinBounds(lat, lon));
+        return currentArea.isWithinBounds(lat, lon);
     }
 
     /**
@@ -631,7 +624,7 @@ public class SystemManagerImpl implements SystemManager {
      * @return true if the type is EATING, LODGING, or LEISURE.
      */
     private boolean validServiceType(ServiceType type) {
-        return (type == ServiceType.EATING || type == ServiceType.LODGING || type == ServiceType.LEISURE);
+        return type == ServiceType.EATING || type == ServiceType.LODGING || type == ServiceType.LEISURE;
     }
 
     /**
@@ -651,7 +644,7 @@ public class SystemManagerImpl implements SystemManager {
      * @return true if the type is THRIFTY, OUTGOING, or BOOKISH.
      */
     private boolean isStudentTypeValid(StudentType type) {
-        return (type == THRIFTY || type == StudentType.OUTGOING || type == StudentType.BOOKISH);
+        return type == THRIFTY || type == StudentType.OUTGOING || type == StudentType.BOOKISH;
     }
 
 
@@ -681,15 +674,14 @@ public class SystemManagerImpl implements SystemManager {
      * @param type        The {@link StudentType} enum.
      * @param name        The name of the student.
      * @param country     The student's country.
-     * @param lodgingName The student's home lodging.
+     * @param lodging The student's home lodging.
      * @return A new {@link Student} (e.g., BookishImpl, ThriftyImpl).
      */
-    private Student createStudentByType(StudentType type, String name, String country, Lodging lodgingName) {
+    private Student createStudentByType(StudentType type, String name, String country, Lodging lodging) {
         return switch (type) {
-            case BOOKISH -> new BookishImpl(name, country, lodgingName);
-            case THRIFTY -> new ThriftyImpl(name, country, lodgingName);
-            case OUTGOING -> new OutgoingImpl(name, country, lodgingName);
-            default -> null; // Should be unreachable if isStudentTypeValid is used
+            case BOOKISH -> new BookishImpl(name, country, lodging);
+            case THRIFTY -> new ThriftyImpl(name, country, lodging);
+            case OUTGOING -> new OutgoingImpl(name, country, lodging);
         };
 
     }

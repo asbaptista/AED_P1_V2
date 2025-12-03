@@ -12,11 +12,6 @@ import java.io.*;
  * within that area. This class is serializable.
  */
 public class AreaImpl implements Area, Serializable {
-
-    /**
-     * Standard serial version UID for serialization.
-     */
-
     /**
      * The name of the geographic area.
      */
