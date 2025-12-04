@@ -413,8 +413,7 @@ public class SystemManagerImpl implements SystemManager {
             throw new InvalidServiceTypeException();
         }
 
-        FilterIterator<Service> filteredByType = new FilterIterator<>(currentArea.getServices(), s -> s.getType() == type);
-        if (!filteredByType.hasNext()) {
+        if (!currentArea. hasServicesOfType(type)) {
             throw new NoServicesOfThisTypeException();
         }
 
@@ -563,6 +562,11 @@ public class SystemManagerImpl implements SystemManager {
     @Override
     public long manhattanDistance(long lat1, long lon1, long lat2, long lon2) {
         return Math.abs(lat1 - lat2) + Math.abs(lon1 - lon2);
+    }
+
+    @Override
+    public boolean hasAreaLoaded() {
+        return currentArea!= null;
     }
 
     private void saveCurrentAreaToFile(Area area) {

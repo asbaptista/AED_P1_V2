@@ -86,4 +86,6 @@ public interface ServiceCollection {
     Iterator<Service> getServicesByTag(String tag);
 
     Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type);
+
+    boolean hasServicesOfType(ServiceType type);
 }

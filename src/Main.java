@@ -32,13 +32,7 @@ public class Main {
             command = scanner.next();
             Commands cmd = Commands.fromString(command);
 
-            boolean hasArea;
-            try {
-                manager.getCurrentArea();
-                hasArea = true;
-            } catch (NoAreaLoadedException e) {
-                hasArea = false;
-            }
+            boolean hasArea = manager.hasAreaLoaded();
 
             if (cmd == null && hasArea) {
                 System.out.println(Message.UNKNOWN_COMMAND);

@@ -209,6 +209,20 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         return getServiceIterator(starsArray);
     }
 
+    @Override
+    public boolean hasServicesOfType(ServiceType type) {
+        List<Service>[] starsArray = servicesByTypeAndStars. get(type);
+        if (starsArray == null) {
+            return false;
+        }
+        for (int i = 0; i < 5; i++) {
+            if (starsArray[i] != null && !starsArray[i].isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private Iterator<Service> getServiceIterator(List<Service>[] starsArray) {
         List<Service> sortedServices = new DoublyLinkedList<>();
 

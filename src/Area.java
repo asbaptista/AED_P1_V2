@@ -170,4 +170,7 @@ public interface Area {
 
 
     Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type);
+
+    boolean hasServicesOfType(ServiceType type);
+
 }

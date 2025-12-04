@@ -297,4 +297,8 @@ public class AreaImpl implements Area, Serializable {
         return services.getServicesByTypeOrderedByStars(type);
     }
 
+    @Override
+    public boolean hasServicesOfType(ServiceType type) {
+        return services.hasServicesOfType(type);    }
+
 }
