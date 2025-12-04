@@ -1,7 +1,9 @@
 import Exceptions.*;
 import Services.Service;
+import Services.ServiceReadOnly;
 import Services.ServiceType;
 import Students.Student;
+import Students.StudentReadOnly;
 import Students.StudentType;
 import dataStructures.Iterator;
 import dataStructures.TwoWayIterator;
@@ -104,7 +106,7 @@ public interface SystemManager {
      * @return An {@link Iterator} of {@link Service}s.
      * @throws NoServicesException if there are no services in the area.
      */
-    Iterator<Service> listServices() throws NoServicesException;
+    Iterator<?  extends ServiceReadOnly> listServices() throws NoServicesException;
 
     /**
      * Adds a user review (rating and comment) to a specific service.
@@ -125,7 +127,7 @@ public interface SystemManager {
      *
      * @return A sorted {@link Iterator} of {@link Service}s.
      */
-    Iterator<Service> getRankedServices();
+    Iterator<?  extends ServiceReadOnly> getRankedServices();
 
 
     /**
@@ -134,7 +136,7 @@ public interface SystemManager {
      * @param name The name of the service to find (case-insensitive).
      * @return The {@link Service} object, or {@code null} if not found.
      */
-    Service getServiceByName(String name);
+    ServiceReadOnly getServiceByName(String name);
 
 
     /**
@@ -165,7 +167,7 @@ public interface SystemManager {
      * @param filter The filter string ("all" or a country name).
      * @return An {@link Iterator} of {@link Student}s.
      */
-    Iterator<Student> listStudents(String filter);
+    Iterator<? extends StudentReadOnly> listStudents(String filter);
 
     /**
      * Removes a student from the system.
@@ -181,7 +183,7 @@ public interface SystemManager {
      * @param name The name of the student to find (case-insensitive).
      * @return The {@link Student} object, or {@code null} if not found.
      */
-    Student getStudentByName(String name);
+    StudentReadOnly getStudentByName(String name);
 
 
     /**
@@ -224,7 +226,7 @@ public interface SystemManager {
      * @return The {@link Service} where the student is currently located.
      * @throws StudentNotFoundException if the student does not exist.
      */
-    Service whereIsStudent(String studentName) throws StudentNotFoundException;
+    ServiceReadOnly whereIsStudent(String studentName) throws StudentNotFoundException;
 
     /**
      * Checks if a student (assumed Thrifty) is "distracted" by visiting
@@ -248,7 +250,7 @@ public interface SystemManager {
      * store locations).
      * @throws NoVisitedLocationsException if the student has not stored any visits.
      */
-    Iterator<Service> listVisitedLocations(String studentName)
+    Iterator<? extends ServiceReadOnly> listVisitedLocations(String studentName)
             throws StudentNotFoundException, StudentIsThriftyException,
             NoVisitedLocationsException;
 
@@ -263,7 +265,7 @@ public interface SystemManager {
      * @throws ServiceNotFoundException               if the service does not exist.
      * @throws ServiceDoesNotControlEntryExitException if the service is not Eating or Lodging.
      */
-    TwoWayIterator<Student> listUsersInService(String order, String serviceName)
+    TwoWayIterator<? extends StudentReadOnly> listUsersInService(String order, String serviceName)
             throws InvalidOrderException, ServiceNotFoundException,
             ServiceDoesNotControlEntryExitException;
 
@@ -273,7 +275,7 @@ public interface SystemManager {
      * @param tag The tag to search for (case-insensitive).
      * @return An {@link Iterator} of {@link Service}s that have the tag.
      */
-    Iterator<Service> listServicesWithTag(String tag);
+    Iterator<?  extends ServiceReadOnly> listServicesWithTag(String tag);
 
     /**
      * Finds the service(s) of a given type and star rating that are closest
@@ -290,7 +292,7 @@ public interface SystemManager {
      * @throws InvalidServiceTypeException     (Should not be thrown if using Enum).
      * @throws NoServicesOfThisTypeException   if no services match the type.
      */
-    Iterator<Service> getRankedServicesByTypeAndStars(ServiceType type, int stars, String studentName)
+    Iterator<? extends ServiceReadOnly> getRankedServicesByTypeAndStars(ServiceType type, int stars, String studentName)
             throws InvalidStarsException, StudentNotFoundException,
             NoTypeServicesWithStarsException, InvalidServiceTypeException, NoServicesOfThisTypeException;
 
@@ -308,7 +310,7 @@ public interface SystemManager {
      * @throws InvalidServiceTypeException   (Should not be thrown if using Enum).
      * @throws NoServicesOfThisTypeException if no services of that type exist.
      */
-    Service findRelevantServiceForStudent(String studentName, ServiceType serviceType)
+    ServiceReadOnly findRelevantServiceForStudent(String studentName, ServiceType serviceType)
             throws StudentNotFoundException, InvalidServiceTypeException, NoServicesOfThisTypeException;
 
 
@@ -324,44 +326,44 @@ public interface SystemManager {
      * @param service The service.
      * @return The service's name.
      */
-    String getServiceName(Service service);
+    String getServiceName(ServiceReadOnly service);
     /**
      * Gets the type of a given service.
      * @param service The service.
      * @return The service's {@link ServiceType}.
      */
-    ServiceType getServiceType(Service service);
+    ServiceType getServiceType(ServiceReadOnly service);
     /**
      * Gets the latitude of a given service.
      * @param service The service.
      * @return The service's latitude.
      */
-    long getServiceLatitude(Service service);
+    long getServiceLatitude(ServiceReadOnly service);
     /**
      * Gets the longitude of a given service.
      * @param service The service.
      * @return The service's longitude.
      */
-    long getServiceLongitude(Service service);
+    long getServiceLongitude(ServiceReadOnly service);
 
     /**
      * Gets the name of a given student.
      * @param student The student.
      * @return The student's name.
      */
-    String getStudentName(Student student);
+    String getStudentName(StudentReadOnly student);
     /**
      * Gets the type of a given student.
      * @param student The student.
      * @return The student's {@link StudentType}.
      */
-    StudentType getStudentType(Student student);
+    StudentType getStudentType(StudentReadOnly student);
     /**
      * Gets the current location of a given student.
      * @param student The student.
      * @return The {@link Service} where the student is.
      */
-    Service getStudentCurrentLocation(Student student);
+    ServiceReadOnly getStudentCurrentLocation(StudentReadOnly student);
 
 
     /**

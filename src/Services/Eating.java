@@ -9,15 +9,8 @@ import dataStructures.TwoWayIterator;
  * It extends the base {@link Service} interface, adding functionalities
  * for managing student capacity and tracking current occupants (e.g., in a canteen).
  */
-public interface Eating extends Service {
+public interface Eating extends EatingReadOnly,Service {
 
-    /**
-     * Checks if the eating service currently has space for more occupants.
-     *
-     * @return true if the current occupant count is less than the total capacity, false otherwise.
-     *
-     */
-    boolean hasCapacity();
 
     /**
      * Adds a student to the list of current occupants.
@@ -49,5 +42,6 @@ public interface Eating extends Service {
      * @return A {@link TwoWayIterator} of {@link Student}s.
      *
      */
+    @Override
     TwoWayIterator<Student> getOccupantsIterator();
 }

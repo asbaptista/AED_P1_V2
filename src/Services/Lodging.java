@@ -9,14 +9,8 @@ import dataStructures.TwoWayIterator;
  * It extends the base {@link Service} interface, adding functionalities
  * for managing student occupancy (e.g., in a student residence).
  */
-public interface Lodging extends Service {
+public interface Lodging extends LodgingReadOnly, Service {
 
-    /**
-     * Checks if the lodging service is at its full capacity.
-     *
-     * @return true if no more occupants can be added, false otherwise.
-     */
-    boolean isFull();
 
     /**
      * Adds a student to the list of occupants currently residing in this lodging.
@@ -38,6 +32,7 @@ public interface Lodging extends Service {
      *
      * @return A {@link TwoWayIterator} of {@link Student}s.
      */
+    @Override
     TwoWayIterator<Student> getOccupantsIterator();
 
 }

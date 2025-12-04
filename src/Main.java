@@ -3,6 +3,7 @@ import java.util.Scanner;
 import Services.*;
 import Services.ServiceType;
 import Students.Student;
+import Students.StudentReadOnly;
 import Students.StudentType;
 import dataStructures.*;
 
@@ -339,7 +340,7 @@ public class Main {
      * @param manager The {@link SystemManager} instance.
      */
     private static void handleServices(SystemManager manager) {
-        Iterator<Service> iterator;
+        Iterator<? extends ServiceReadOnly> iterator;
         try {
             iterator = manager.listServices();
         } catch (NoServicesException e) {
@@ -347,7 +348,7 @@ public class Main {
             return;
         }
         while (iterator.hasNext()) {
-            Service service = iterator.next();
+            ServiceReadOnly service = iterator.next();
             System.out.println(manager.getServiceName(service) + ": " + manager.getServiceType(service) + " " + "(" + manager.getServiceLatitude(service) + ", " + manager.getServiceLongitude(service) + ").");
         }
     }
@@ -378,7 +379,7 @@ public class Main {
         } catch (LodgingIsFullException e) {
             Message.LODGING_IS_FULL.printf(lodgingName);
         } catch (StudentAlreadyExistsException e) {
-            Student student = manager.getStudentByName(name);
+            StudentReadOnly student = manager.getStudentByName(name);
             Message.STUDENT_ALREADY_EXISTS.printf(manager.getStudentName(student));
         }
     }
@@ -392,14 +393,14 @@ public class Main {
      */
     private static void handleStudents(Scanner sc, SystemManager manager) {
         String filter = sc.nextLine().trim();
-        Iterator<Student> iterator = manager.listStudents(filter);
+        Iterator<? extends StudentReadOnly> iterator = manager.listStudents(filter);
         if (!iterator.hasNext() && filter.equals("all")) {
             Message.NO_STUDENTS.print();
         } else if (!iterator.hasNext()) {
             Message.NO_STUDENTS_FROM.printf(filter);
         } else {
             while (iterator.hasNext()) {
-                Student student = iterator.next();
+                StudentReadOnly student = iterator.next();
                 System.out.println(manager.getStudentName(student) + ": " + manager.getStudentType(student).toString() + " at " + manager.getStudentCurrentLocation(student).getName() + ".");
             }
         }
@@ -414,7 +415,7 @@ public class Main {
      */
     private static void handleLeave(SystemManager manager, Scanner sc) {
         String studentName = sc.nextLine().trim();
-        Student student = manager.getStudentByName(studentName);
+        StudentReadOnly student = manager.getStudentByName(studentName);
         try {
             manager.removeStudent(studentName);
             System.out.println(Message.STUDENT_LEFT.format(student.getName()));
@@ -433,8 +434,8 @@ public class Main {
     private static void handleGo(SystemManager manager, Scanner sc) {
         String studentName = sc.nextLine().trim();
         String serviceName = sc.nextLine().trim();
-        Student student = manager.getStudentByName(studentName);
-        Service service = manager.getServiceByName(serviceName);
+        StudentReadOnly student = manager.getStudentByName(studentName);
+        ServiceReadOnly service = manager.getServiceByName(serviceName);
         try {
             manager.goToLocation(studentName, serviceName);
             if (manager.isStudentDistracted(studentName, serviceName)) {
@@ -465,9 +466,9 @@ public class Main {
     private static void handleMove(Scanner sc, SystemManager manager) {
         String studentName = sc.nextLine().trim();
         String lodgingName = sc.nextLine().trim();
-        Service service = manager.getServiceByName(lodgingName);
+        ServiceReadOnly service = manager.getServiceByName(lodgingName);
         try {
-            Student student = manager.getStudentByName(studentName);
+            StudentReadOnly student = manager.getStudentByName(studentName);
             manager.moveStudentHome(studentName, lodgingName);
             Message.STUDENT_MOVE_OK.printf(manager.getServiceName(service), manager.getStudentName(student), student.getName());
         } catch (StudentNotFoundException e) {
@@ -477,7 +478,7 @@ public class Main {
         } catch (LodgingIsFullException e) {
             Message.LODGING_IS_FULL.printf(lodgingName);
         } catch (AlreadyStudentHomeException e) {
-            Student student = manager.getStudentByName(studentName);
+            StudentReadOnly student = manager.getStudentByName(studentName);
             Message.ALREADY_STUDENT_HOME.printf(manager.getStudentName(student));
         } catch (StudentIsThriftyException e) {
             Message.MOVE_NOT_ACCEPTABLE.printf(studentName);
@@ -494,22 +495,22 @@ public class Main {
     private static void handleUsers(Scanner sc, SystemManager manager) {
         String order = sc.next();
         String serviceName = sc.nextLine().trim();
-        Service service = manager.getServiceByName(serviceName);
+        ServiceReadOnly service = manager.getServiceByName(serviceName);
 
-        TwoWayIterator<Student> it;
+        TwoWayIterator<? extends StudentReadOnly> it;
         try {
             it = manager.listUsersInService(order, serviceName);
             boolean printed = false;
 
             if (">".equals(order)) {
                 while (it.hasNext()) {
-                    Student student = it.next();
+                    StudentReadOnly student = it.next();
                     System.out.println(manager.getStudentName(student) + ": " + manager.getStudentType(student).toString());
                     printed = true;
                 }
             } else { // "<"
                 while (it.hasPrevious()) {
-                    Student student = it.previous();
+                    StudentReadOnly student = it.previous();
                     System.out.println(manager.getStudentName(student) + ": " + manager.getStudentType(student).toString());
                     printed = true;
                 }
@@ -536,8 +537,8 @@ public class Main {
     private static void handleWhere(Scanner sc, SystemManager manager) {
         String studentName = sc.nextLine().trim();
         try {
-            Service service = manager.whereIsStudent(studentName);
-            Student student = manager.getStudentByName(studentName);
+            ServiceReadOnly service = manager.whereIsStudent(studentName);
+            StudentReadOnly student = manager.getStudentByName(studentName);
             Message.STUDENT_LOCATION.printf(manager.getStudentName(student), service.getName(), service.getType(), service.getLatitude(), service.getLongitude());
         } catch (StudentNotFoundException e) {
             Message.STUDENT_NOT_FOUND.printf(studentName);
@@ -554,12 +555,12 @@ public class Main {
      */
     private static void handleVisited(Scanner sc, SystemManager manager) {
         String studentName = sc.nextLine().trim();
-        Student student = manager.getStudentByName(studentName);
-        Iterator<Service> it;
+        StudentReadOnly student = manager.getStudentByName(studentName);
+        Iterator<? extends ServiceReadOnly> it;
         try {
             it = manager.listVisitedLocations(studentName);
             while (it.hasNext()) {
-                Service service = it.next();
+                ServiceReadOnly service = it.next();
                 System.out.println(service.getName());
             }
         } catch (StudentNotFoundException e) {
@@ -599,13 +600,13 @@ public class Main {
      * @param manager The {@link SystemManager} instance.
      */
     private static void handleRanking(SystemManager manager) {
-        Iterator<Service> it = manager.getRankedServices();
+        Iterator<? extends ServiceReadOnly> it = manager.getRankedServices();
         if (!it.hasNext()) {
             Message.NO_SERVICES_IN_SYSTEM.print();
         } else {
             Message.RANKING_HEADER.print();
             while (it.hasNext()) {
-                Service service = it.next();
+                ServiceReadOnly service = it.next();
                 System.out.printf("%s: %d%n", service.getName(), service.getAvgStar());
             }
         }
@@ -623,13 +624,13 @@ public class Main {
         ServiceType type = ServiceType.fromString(typeStr);
         int stars = sc.nextInt();
         String studentName = sc.nextLine().trim();
-        Iterator<Service> it;
+        Iterator<? extends ServiceReadOnly> it;
         try {
 
             it = manager.getRankedServicesByTypeAndStars(type, stars, studentName);
             Message.RANKED_HEADER.printf(type.toString(), stars);
             while (it.hasNext()) {
-                Service service = it.next();
+                ServiceReadOnly service = it.next();
                 System.out.printf("%s%n", service.getName());
             }
         } catch (InvalidServiceTypeException e) {
@@ -654,12 +655,12 @@ public class Main {
      */
     private static void handleTag(Scanner sc, SystemManager manager) {
         String tag = sc.nextLine();
-        Iterator<Service> it = manager.listServicesWithTag(tag);
+        Iterator<? extends ServiceReadOnly> it = manager.listServicesWithTag(tag);
         if (!it.hasNext()) {
             Message.NO_SERVICES_WITH_TAG.print();
         } else {
             while (it.hasNext()) {
-                Service service = it.next();
+                ServiceReadOnly service = it.next();
                 System.out.println(manager.getServiceType(service) + " " + manager.getServiceName(service));
             }
         }
@@ -679,7 +680,7 @@ public class Main {
 
         try {
 
-            Service service = manager.findRelevantServiceForStudent(studentName, type);
+            ServiceReadOnly service = manager.findRelevantServiceForStudent(studentName, type);
             System.out.println(manager.getServiceName(service));
         } catch (StudentNotFoundException e) {
             Message.STUDENT_NOT_FOUND.printf(studentName);

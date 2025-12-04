@@ -156,7 +156,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public Iterator<Service> listServices() throws NoServicesException {
+    public Iterator<? extends ServiceReadOnly> listServices() throws NoServicesException {
         if (currentArea.getNumberOfServices() == 0) {
             throw new NoServicesException();
         }
@@ -167,7 +167,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public Iterator<Service> getRankedServices() {
+    public Iterator<? extends ServiceReadOnly> getRankedServices() {
         return currentArea.getRankedServices();
     }
 
@@ -200,7 +200,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public Iterator<Student> listStudents(String filter) {
+    public Iterator<? extends StudentReadOnly> listStudents(String filter) {
         if (filter.equalsIgnoreCase("all")) {
             return currentArea.listAllStudents();
         } else {
@@ -268,7 +268,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public Service whereIsStudent(String studentName) throws StudentNotFoundException {
+    public ServiceReadOnly whereIsStudent(String studentName) throws StudentNotFoundException {
         Student student = currentArea.getStudent(studentName);
         if (student == null) {
             throw new StudentNotFoundException();
@@ -292,9 +292,8 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public Iterator<Service> listVisitedLocations(String studentName)
-            throws StudentNotFoundException, StudentIsThriftyException,
-            NoVisitedLocationsException {
+    public Iterator<? extends ServiceReadOnly> listVisitedLocations(String studentName)
+            throws StudentNotFoundException, StudentIsThriftyException, NoVisitedLocationsException {
 
         Student student = currentArea.getStudent(studentName);
         if (student == null) {
@@ -314,7 +313,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public TwoWayIterator<Student> listUsersInService(String order, String serviceName)
+    public TwoWayIterator< ? extends StudentReadOnly> listUsersInService(String order, String serviceName)
             throws InvalidOrderException, ServiceNotFoundException, ServiceDoesNotControlEntryExitException {
 
         if (!">".equals(order) && !"<".equals(order)) {
@@ -344,7 +343,7 @@ public class SystemManagerImpl implements SystemManager {
      * Optimized implementation using the tagMap for O(1) lookup instead of O(n*m) iteration.
      */
     @Override
-    public Iterator<Service> listServicesWithTag(String tag) {
+    public Iterator<? extends ServiceReadOnly> listServicesWithTag(String tag) {
         return currentArea.getServicesCollection().getServicesByTag(tag);
     }
 
@@ -353,7 +352,7 @@ public class SystemManagerImpl implements SystemManager {
      * Optimized implementation using the servicesByTypeAndStars index for O(1) lookup.
      */
     @Override
-    public Iterator<Service> getRankedServicesByTypeAndStars(ServiceType type, int stars, String studentName)
+    public Iterator<? extends ServiceReadOnly> getRankedServicesByTypeAndStars(ServiceType type, int stars, String studentName)
             throws InvalidStarsException, StudentNotFoundException, NoTypeServicesWithStarsException,
             InvalidServiceTypeException, NoServicesOfThisTypeException {
 
@@ -406,7 +405,7 @@ public class SystemManagerImpl implements SystemManager {
      * ({@link Student#findMostRelevant(Iterator)}).
      */
     @Override
-    public Service findRelevantServiceForStudent(String studentName, ServiceType serviceType)
+    public ServiceReadOnly findRelevantServiceForStudent(String studentName, ServiceType serviceType)
             throws StudentNotFoundException, InvalidServiceTypeException, NoServicesOfThisTypeException {
 
         if (serviceType==null) {
@@ -440,7 +439,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public String getServiceName(Service service) {
+    public String getServiceName(ServiceReadOnly service) {
         return service.getName();
     }
 
@@ -448,7 +447,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public ServiceType getServiceType(Service service) {
+    public ServiceType getServiceType(ServiceReadOnly service) {
         return service.getType();
     }
 
@@ -456,7 +455,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public long getServiceLatitude(Service service) {
+    public long getServiceLatitude(ServiceReadOnly service) {
         return service.getLatitude();
     }
 
@@ -464,7 +463,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public long getServiceLongitude(Service service) {
+    public long getServiceLongitude(ServiceReadOnly service) {
         return service.getLongitude();
     }
 
@@ -472,7 +471,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public String getStudentName(Student student) {
+    public String getStudentName(StudentReadOnly student) {
         return student.getName();
     }
 
@@ -480,7 +479,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public StudentType getStudentType(Student student) {
+    public StudentType getStudentType(StudentReadOnly student) {
         return student.getType();
     }
 
@@ -488,7 +487,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public Service getStudentCurrentLocation(Student student) {
+    public ServiceReadOnly getStudentCurrentLocation(StudentReadOnly student) {
         return student.getCurrent();
     }
 
@@ -499,7 +498,7 @@ public class SystemManagerImpl implements SystemManager {
      * @param name The name of the service to find (case-insensitive).
      * @return The {@link Service} object, or {@code null} if not found.
      */
-    public Service getServiceByName(String name) {
+    public ServiceReadOnly getServiceByName(String name) {
         return currentArea.getService(name);
     }
 
@@ -507,7 +506,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public Student getStudentByName(String name) {
+    public StudentReadOnly getStudentByName(String name) {
         return currentArea.getStudent(name);
     }
 

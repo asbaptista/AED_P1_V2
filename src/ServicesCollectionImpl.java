@@ -202,15 +202,14 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public Iterator<Service> getServicesByStars() {
-        return getServiceIterator(rankingByStars);
+        return new BucketsIterator<>(rankingByStars);
     }
 
     @Override
     public Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type) {
-
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);
 
-        return getServiceIterator(starsArray);
+        return new BucketsIterator<>(starsArray);
     }
 
     @Override
