@@ -86,9 +86,11 @@ public class LodgingImpl extends ServiceAbs implements Lodging {
      */
     @Override
     public void removeOccupant(Student student) {
-        // Note: indexOf(student) is O(N). This operation is O(N).
-        occupants.remove(occupants.indexOf(student));
-        occupiedRooms--;
+        int index = occupants.indexOf(student);
+        if (index != -1) {
+            occupants.remove(index);
+            occupiedRooms--;
+        }
     }
 
     /**

@@ -132,11 +132,26 @@ public class ThriftyImpl extends StudentAbs implements Thrifty {
     public void moveHome(Lodging newHome)
             throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException {
 
-        if (! canMoveTo(newHome)) {
-            throw new StudentIsThriftyException();
+        if (home == newHome) {
+            throw new AlreadyStudentHomeException();
         }
 
-        super.moveHome(newHome);
+        if (!canMoveTo(newHome)) {
+            throw new StudentIsThriftyException();
+        }
+        if (home != null) {
+            home.removeOccupant(this);
+        }
+        home = newHome;
+
+        if (current != home) {
+            if (current instanceof Eating) {
+                ((Eating) current).removeOccupant(this);
+            }
+            current = home;
+        }
+
+        newHome.addOccupant(this);
 
         updateCheapestLodging(newHome);
     }

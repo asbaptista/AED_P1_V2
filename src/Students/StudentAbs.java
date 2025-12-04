@@ -181,21 +181,29 @@ public class StudentAbs implements Student, Serializable {
         if (home == newHome) {
             throw new AlreadyStudentHomeException();
         }
+        if (newHome.isFull()) {
+            throw new LodgingIsFullException();
+        }
 
         if (home != null) {
-            home.removeOccupant(this);
+            home. removeOccupant(this);
         }
 
         home = newHome;
 
         if (current != home) {
             if (current instanceof Eating) {
-                ((Eating) current). removeOccupant(this);
+                ((Eating) current).removeOccupant(this);
             }
             current = home;
         }
 
         newHome.addOccupant(this);
+        if (this instanceof Bookish) {
+            ((BookishImpl) this).registerVisit(newHome);
+        } else if (this instanceof Outgoing) {
+            ((OutgoingImpl) this). registerVisit(newHome);
+        }
     }
 
 

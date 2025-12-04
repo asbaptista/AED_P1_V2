@@ -74,12 +74,10 @@ public class EatingImpl extends ServiceAbs implements Eating {
      */
     @Override
     public void addOccupant(Student student) throws EatingIsFullException {
-        if (! hasCapacity()) {
+        if (!hasCapacity()) {
             throw new EatingIsFullException();
         }
-        if (hasCapacity()) {
-            occupants.addLast(student);
-        }
+        occupants.addLast(student);
     }
 
     /**
@@ -89,8 +87,10 @@ public class EatingImpl extends ServiceAbs implements Eating {
      */
     @Override
     public void removeOccupant(Student student) {
-        // Note: This operation is O(N) due to the list search (indexOf).
-        occupants.remove(occupants.indexOf(student));
+        int index = occupants. indexOf(student);
+        if (index != -1) {
+            occupants.remove(index);
+        }
     }
 
     /**
