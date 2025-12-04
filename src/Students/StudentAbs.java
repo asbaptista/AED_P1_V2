@@ -17,7 +17,7 @@ import java.io.*;
  * and a "hook" method (`registerVisit`) for subclasses to implement custom
  * visit-tracking logic. This class is serializable.
  */
-public class StudentAbs implements Student, Serializable {
+public abstract class StudentAbs implements Student, Serializable {
 
     /**
      * The student's full name.
@@ -45,7 +45,15 @@ public class StudentAbs implements Student, Serializable {
      */
     protected TwoWayList<Service> visitedServices;
 
+    /**
+     * A set for quick lookup of visited services to avoid duplicates.
+     */
     protected Map<Service, Boolean> visitedServicesSet;
+
+    /**
+     * The type of the student (BOOKISH, OUTGOING, or THRIFTY).
+     */
+    protected StudentType type;
 
 
     /**
@@ -57,12 +65,14 @@ public class StudentAbs implements Student, Serializable {
      * @param name    The student's name.
      * @param country The student's country of origin.
      * @param home    The {@link Lodging} service where the student will reside.
+     * @param type    The {@link StudentType} (BOOKISH, OUTGOING, or THRIFTY).
      */
-    public StudentAbs(String name, String country, Lodging home) throws LodgingIsFullException {
+    public StudentAbs(String name, String country, Lodging home, StudentType type) throws LodgingIsFullException {
         this.name = name;
         this.country = country;
         this.home = home;
         this.current = home;
+        this.type = type;
         this.visitedServices = new DoublyLinkedList<>();
         this.visitedServicesSet = new ClosedHashTable<>();
         home.addOccupant(this);
@@ -70,20 +80,13 @@ public class StudentAbs implements Student, Serializable {
 
 
     /**
-     * Gets the student's concrete type (BOOKISH, OUTGOING, THRIFTY)
-     * by checking the instance's class.
+     * Gets the student's concrete type (BOOKISH, OUTGOING, THRIFTY).
      *
      * @return The {@link StudentType} enum.
      */
     @Override
     public StudentType getType() {
-        if (this instanceof Bookish) {
-            return StudentType.BOOKISH;
-        } else if (this instanceof Outgoing) {
-            return StudentType.OUTGOING;
-        } else {
-            return StudentType.THRIFTY;
-        }
+        return type;
     }
 
     /**
@@ -137,6 +140,16 @@ public class StudentAbs implements Student, Serializable {
     }
 
 
+    /**
+     * Moves the student to a new {@link Service} location.
+     * Handles updating occupancy lists for Eating services
+     * and invokes type-specific visit registration.
+     *
+     * @param service The new {@link Service} to move to.
+     * @throws AlreadyThereException       if the student is already at that service.
+     * @throws NotValidServiceException    if the service is not valid for visiting (e.g., Lodging).
+     * @throws EatingIsFullException       if the Eating service is at capacity.
+     */
     @Override
     public void goToLocation(Service service) throws AlreadyThereException, NotValidServiceException, EatingIsFullException {
 
@@ -148,20 +161,14 @@ public class StudentAbs implements Student, Serializable {
         }
 
         updateOccupancy(current, false);
-
         current = service;
-
         updateOccupancy(service, true);
 
         if (current instanceof Eating && this instanceof Thrifty) {
             ((Thrifty) this).visitEating((Eating) current);
         }
 
-        if (this instanceof Bookish) {
-            ((BookishImpl)this).registerVisit(service);
-        } else if (this instanceof Outgoing) {
-            ((OutgoingImpl)this).registerVisit(service);
-        }
+        registerVisit(service);
     }
 
     /**
@@ -184,10 +191,13 @@ public class StudentAbs implements Student, Serializable {
             throw new LodgingIsFullException();
         }
 
-        if (home != null) {
-            home. removeOccupant(this);
+        if (this instanceof Thrifty) {
+            if (!((Thrifty) this).canMoveTo(newHome)) {
+                throw new StudentIsThriftyException();
+            }
         }
 
+        home.removeOccupant(this);
         home = newHome;
 
         if (current != home) {
@@ -198,10 +208,11 @@ public class StudentAbs implements Student, Serializable {
         }
 
         newHome.addOccupant(this);
-        if (this instanceof Bookish) {
-            ((BookishImpl) this).registerVisit(newHome);
-        } else if (this instanceof Outgoing) {
-            ((OutgoingImpl) this). registerVisit(newHome);
+
+        if (this instanceof Thrifty) {
+            ((Thrifty) this).updateCheapestLodging(newHome);
+        } else {
+            registerVisit(newHome);
         }
     }
 
@@ -252,4 +263,12 @@ public class StudentAbs implements Student, Serializable {
             }
         }
     }
+
+    /**
+     * Registers a service as visited according to the student type's rules.
+     * This is a template method that each concrete student type must implement.
+     *
+     * @param service The service the student has visited.
+     */
+    protected abstract void registerVisit(Service service);
 }

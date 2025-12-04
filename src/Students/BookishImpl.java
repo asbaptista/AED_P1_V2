@@ -4,7 +4,6 @@ import Exceptions.LodgingIsFullException;
 import Services.Leisure;
 import Services.Lodging;
 import Services.Service;
-import java.io.*;
 
 /**
  * Implementation of the {@link Bookish} student type.
@@ -23,9 +22,8 @@ public class BookishImpl extends StudentAbs implements Bookish {
      * @param home    The {@link Lodging} service where the student resides.
      */
     public BookishImpl(String name, String country, Lodging home) throws LodgingIsFullException {
-        super(name, country, home);
+        super(name, country, home, StudentType.BOOKISH);
     }
-
 
     /**
      * Registers a service as visited, but only if it is a {@link Leisure} service.

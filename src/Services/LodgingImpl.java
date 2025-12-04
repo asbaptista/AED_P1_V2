@@ -8,8 +8,6 @@ import dataStructures.DoublyLinkedList;
 import dataStructures.TwoWayIterator;
 import dataStructures.TwoWayList;
 
-import java.io.Serializable;
-
 /**
  * Implementation of the {@link Lodging} service.
  * Represents a lodging service (e.g., student residence, hostel) that provides rooms
@@ -21,10 +19,6 @@ public class LodgingImpl extends ServiceAbs implements Lodging {
      */
     int rooms;
 
-    /**
-     * The current number of occupied rooms.
-     */
-    int occupiedRooms;
 
     /**
      * A list of {@link Student}s currently residing (occupying) this lodging.
@@ -50,7 +44,6 @@ public class LodgingImpl extends ServiceAbs implements Lodging {
         }
         this.rooms = rooms;
         this.occupants = new DoublyLinkedList<>();
-        this.occupiedRooms = 0;
     }
 
     /**
@@ -61,7 +54,7 @@ public class LodgingImpl extends ServiceAbs implements Lodging {
      */
     @Override
     public boolean isFull() {
-        return occupiedRooms >= rooms;
+        return occupants.size() == rooms;
     }
 
     /**
@@ -76,7 +69,6 @@ public class LodgingImpl extends ServiceAbs implements Lodging {
             throw new LodgingIsFullException();
         }
         occupants.addLast(student);
-        occupiedRooms++;
     }
 
     /**
@@ -89,7 +81,6 @@ public class LodgingImpl extends ServiceAbs implements Lodging {
         int index = occupants.indexOf(student);
         if (index != -1) {
             occupants.remove(index);
-            occupiedRooms--;
         }
     }
 

@@ -1,7 +1,6 @@
 package Services;
 
 import dataStructures.*;
-
 import java.io.*;
 
 /**
@@ -10,7 +9,7 @@ import java.io.*;
  * and management of user evaluations (reviews and star ratings).
  * This class is serializable.
  */
-public class ServiceAbs implements Service, Serializable {
+public abstract class ServiceAbs implements Service, Serializable {
 
     /**
      * The official name of the service.
@@ -43,10 +42,6 @@ public class ServiceAbs implements Service, Serializable {
      */
     int value;
 
-    /**
-     * The total number of evaluations this service has received.
-     */
-    int nEval;
 
     /**
      * The type of the service (e.g., EATING, LODGING, LEISURE).
@@ -76,9 +71,8 @@ public class ServiceAbs implements Service, Serializable {
         this.lon = lon;
         this.price = price;
         this.type = type;
-        this.value = value;
         this.avgStar = 0.0;
-        this.nEval = 0;
+        this.value = value;
         this.evaluations = new DoublyLinkedList<>();
         addReview(4, "");
     }
@@ -92,29 +86,9 @@ public class ServiceAbs implements Service, Serializable {
         return name;
     }
 
-    /**
-     * Gets the latitude coordinate of the service.
-     *
-     * @return The service's latitude.
-     */
-    @Override
-    public long getLat() {
-        return lat;
-    }
-
-    /**
-     * Gets the longitude coordinate of the service.
-     *
-     * @return The service's longitude.
-     */
-    @Override
-    public long getLon() {
-        return lon;
-    }
 
     /**
      * Gets the latitude coordinate of the service.
-     * (Alias for {@link #getLat()}).
      *
      * @return The service's latitude.
      */
@@ -125,7 +99,6 @@ public class ServiceAbs implements Service, Serializable {
 
     /**
      * Gets the longitude coordinate of the service.
-     * (Alias for {@link #getLon()}).
      *
      * @return The service's longitude.
      */
@@ -177,7 +150,6 @@ public class ServiceAbs implements Service, Serializable {
     public void addReview(int rating, String comment) {
         Evaluation evaluation = new EvaluationImpl(rating, comment.toLowerCase());
         evaluations.addLast(evaluation);
-        nEval++;
         updateStars(rating);
     }
 
@@ -189,7 +161,8 @@ public class ServiceAbs implements Service, Serializable {
      */
     @Override
     public void updateStars(int stars) {
-        avgStar = ((avgStar * (nEval - 1)) + stars) / nEval;
+        int totalEvaluations = evaluations.size();
+        avgStar = ((avgStar * (totalEvaluations - 1)) + stars) / totalEvaluations;
     }
 
     /**
@@ -203,8 +176,7 @@ public class ServiceAbs implements Service, Serializable {
     public boolean hasEvaluationWithTag(String tag) {
         Iterator<Evaluation> it = evaluations.iterator();
         while (it.hasNext()) {
-            Evaluation eval = it.next();
-            if (eval.containsTag(tag)) {
+            if (it.next().containsTag(tag)) {
                 return true;
             }
         }

@@ -4,8 +4,6 @@ import Exceptions.LodgingIsFullException;
 import Services.Lodging;
 import Services.Service;
 
-import java.io.Serializable;
-
 /**
  * Implementation of the {@link Outgoing} student type.
  * <p>
@@ -26,9 +24,10 @@ public class OutgoingImpl extends StudentAbs implements Outgoing {
      * @param home    The {@link Lodging} service where the student resides.
      */
     public OutgoingImpl(String name, String country, Lodging home) throws LodgingIsFullException {
-        super(name, country, home);
-        this.visitedServices.addLast(home); // verificar se precisa de estar aqui
+        super(name, country, home, StudentType.OUTGOING);
+        this.visitedServices.addLast(home);
     }
+
 
     /**
      * Registers any service as visited.

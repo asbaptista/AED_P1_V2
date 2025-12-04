@@ -1,7 +1,5 @@
 package Students;
-import Exceptions.AlreadyStudentHomeException;
 import Exceptions.LodgingIsFullException;
-import Exceptions.StudentIsThriftyException;
 import Services.*;
 import dataStructures.Iterator;
 
@@ -38,12 +36,21 @@ public class ThriftyImpl extends StudentAbs implements Thrifty {
      * @param home    The {@link Lodging} service where the student resides.
      */
     public ThriftyImpl(String name, String country, Lodging home) throws LodgingIsFullException {
-        super(name, country, home);
+        super(name, country, home, StudentType.THRIFTY);
         this.cheapestLodging = home;
         this.cheapestEating = null;
     }
 
 
+    /**
+     * Registers a service as visited. Thrifty students don't track visited services
+     * in the general list (they only track cheapest eating/lodging).
+     *
+     * @param service The service the student has visited.
+     */
+    @Override
+    protected void registerVisit(Service service) {
+    }
 
     /**
      * Called when the student visits an {@link Eating} service.
@@ -128,40 +135,4 @@ public class ThriftyImpl extends StudentAbs implements Thrifty {
         return cheapestService;
     }
 
-    /**
-     * Changes the student's permanent home to a new {@link Lodging}.
-     * For Thrifty students, the move is only allowed if the new home is cheaper.
-     *
-     * @param newHome The new {@link Lodging} service to set as home.
-     * @throws AlreadyStudentHomeException if the student already lives there.
-     * @throws StudentIsThriftyException if the new home is not cheaper.
-     * @throws LodgingIsFullException if the new lodging is at capacity.
-     */
-    @Override
-    public void moveHome(Lodging newHome)
-            throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException {
-
-        if (home == newHome) {
-            throw new AlreadyStudentHomeException();
-        }
-
-        if (!canMoveTo(newHome)) {
-            throw new StudentIsThriftyException();
-        }
-        if (home != null) {
-            home.removeOccupant(this);
-        }
-        home = newHome;
-
-        if (current != home) {
-            if (current instanceof Eating) {
-                ((Eating) current).removeOccupant(this);
-            }
-            current = home;
-        }
-
-        newHome.addOccupant(this);
-
-        updateCheapestLodging(newHome);
-    }
 }

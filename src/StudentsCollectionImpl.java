@@ -49,13 +49,22 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
      * @param student The {@link Student} to add.
      */
     @Override
-    public void addStudent(Student student)throws StudentAlreadyExistsException {
-
+    public void addStudent(Student student) throws StudentAlreadyExistsException {
         if (findByName(student.getName()) != null) {
             throw new StudentAlreadyExistsException();
         }
-        studentsByName.put(student.getName().toLowerCase(), student);
 
+        studentsByName.put(student.getName().toLowerCase(), student);
+        addStudentToCountryMap(student);
+    }
+
+    /**
+     * Helper method to add a student to the country map.
+     * Gets or creates the list for the student's country.
+     *
+     * @param student The student to add.
+     */
+    private void addStudentToCountryMap(Student student) {
         String country = student.getCountry().toLowerCase();
         List<Student> countryList = studentsByCountry.get(country);
 
@@ -63,8 +72,8 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
             countryList = new DoublyLinkedList<>();
             studentsByCountry.put(country, countryList);
         }
-        countryList.addLast(student);
 
+        countryList.addLast(student);
     }
 
     /**
@@ -78,24 +87,32 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
      */
     @Override
     public void removeStudent(String name) {
-        String lowerName = name.toLowerCase(); // por enquanto fica assim , dps confirmar
-
-        Student student = studentsByName.remove(lowerName);
+        Student student = studentsByName.remove(name.toLowerCase());
 
         if (student != null) {
-            String country = student.getCountry().toLowerCase();
-            List<Student> countryList = studentsByCountry.get(country);
-            if (countryList != null) {
-                int index = countryList.indexOf(student);
-                countryList.remove(index);
-
-                if (countryList.isEmpty()) {
-                    studentsByCountry.remove(country);
-                }
-            }
-
+            removeStudentFromCountryMap(student);
         }
+    }
 
+    /**
+     * Helper method to remove a student from the country map.
+     * Removes the student from their country's list and cleans up
+     * the country entry if the list becomes empty.
+     *
+     * @param student The student to remove.
+     */
+    private void removeStudentFromCountryMap(Student student) {
+        String country = student.getCountry().toLowerCase();
+        List<Student> countryList = studentsByCountry.get(country);
+
+        if (countryList != null) {
+            int index = countryList.indexOf(student);
+            countryList.remove(index);
+
+            if (countryList.isEmpty()) {
+                studentsByCountry.remove(country);
+            }
+        }
     }
 
 
@@ -134,9 +151,11 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     @Override
     public Iterator<Student> listStudentsByCountry(String country) {
         List<Student> list = studentsByCountry.get(country.toLowerCase());
+
         if (list != null) {
             return list.iterator();
         }
+
         return new DoublyLinkedList<Student>().iterator();
 
     }

@@ -51,16 +51,5 @@ public interface Thrifty extends Student {
      */
     void updateCheapestLodging(Lodging lodging);
 
-    /**
-     * Changes the student's permanent home to a new {@link Lodging}.
-     * Overridden to add Thrifty-specific validation.
-     *
-     * @param newHome The new {@link Lodging} service to set as home.
-     * @throws AlreadyStudentHomeException if the student already lives there.
-     * @throws LodgingIsFullException if the new lodging is at capacity.
-     * @throws StudentIsThriftyException if the new home is not cheaper.
-     */
-    @Override
-    void moveHome(Lodging newHome) throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException;
 
 }

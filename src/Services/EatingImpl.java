@@ -85,7 +85,7 @@ public class EatingImpl extends ServiceAbs implements Eating {
      */
     @Override
     public void removeOccupant(Student student) {
-        int index = occupants. indexOf(student);
+        int index = occupants.indexOf(student);
         if (index != -1) {
             occupants.remove(index);
         }
@@ -99,15 +99,6 @@ public class EatingImpl extends ServiceAbs implements Eating {
     @Override
     public TwoWayIterator<Student> getOccupantsIterator() {
         return occupants.twoWayiterator();
-    }
-
-    /**
-     * Checks if the eating service is currently full.
-     *
-     * @return true if at capacity, false otherwise.
-     */
-    public boolean isFull() {
-        return !hasCapacity();
     }
 
 }

@@ -19,26 +19,10 @@ public interface ServiceReadOnly {
      *
      * @return The service's latitude.
      */
-    long getLat();
-
-    /**
-     * Gets the longitude coordinate of the service.
-     *
-     * @return The service's longitude.
-     */
-    long getLon();
-
-    /**
-     * Gets the latitude coordinate of the service.
-     * (Alias for {@link #getLat()}).
-     *
-     * @return The service's latitude.
-     */
     long getLatitude();
 
     /**
      * Gets the longitude coordinate of the service.
-     * (Alias for {@link #getLon()}).
      *
      * @return The service's longitude.
      */

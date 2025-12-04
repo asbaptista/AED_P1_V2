@@ -30,11 +30,5 @@ public interface EatingReadOnly extends ServiceReadOnly {
      */
     TwoWayIterator<? extends StudentReadOnly> getOccupantsIterator();
 
-    /**
-     * Checks if the eating service is currently full.
-     *
-     * @return true if at capacity, false otherwise.
-     */
-    boolean isFull();
 
 }

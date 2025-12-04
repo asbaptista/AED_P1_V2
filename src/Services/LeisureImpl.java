@@ -2,9 +2,6 @@ package Services;
 
 import Exceptions.InvalidDiscountPriceException;
 import Exceptions.InvalidTicketPriceException;
-import Students.Student;
-
-import java.io.Serializable;
 
 /**
  * Implementation of the {@link Leisure} service.

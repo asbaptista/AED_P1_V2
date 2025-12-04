@@ -48,15 +48,25 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      * Constructs a new, empty service collection.
      * Initializes the insertion-order list and the star-ranking map with buckets for each rating (0-5).
      */
-    @SuppressWarnings("unchecked")
     public ServicesCollectionImpl() {
         this.servicesByInsertion = new DoublyLinkedList<>();
         this.servicesByName = new ClosedHashTable<>();
-        this.rankingByStars = (List<Service>[]) new List[5];
-        for (int i = 0; i < 5; i++) {
-            this.rankingByStars[i] = new DoublyLinkedList<>();
-        }
+        this.rankingByStars = createStarsArray();
         this.servicesByTypeAndStars = new SepChainHashTable<>();
+    }
+
+    /**
+     * Helper method to create and initialize a stars array.
+     *
+     * @return A new array of lists for star ratings (1-5).
+     */
+    private List<Service>[] createStarsArray() {
+        @SuppressWarnings("unchecked")
+        List<Service>[] array = (List<Service>[]) new List[5];
+        for (int i = 0; i < 5; i++) {
+            array[i] = new DoublyLinkedList<>();
+        }
+        return array;
     }
 
 
@@ -95,28 +105,32 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         if (newStars == oldStars) {
             return;
         }
-        List<Service> oldList = rankingByStars[oldStars-1];
 
-        int index = oldList.indexOf(service);
-        if (index != -1) {
-            oldList.remove(index);
-        }
-
+        removeServiceFromList(rankingByStars[oldStars - 1], service);
         addServiceToRankingByStars(service);
+
         ServiceType type = service.getType();
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);
 
-        if(starsArray != null){
-            List<Service> oldTypeList = starsArray[oldStars-1];
-            if(oldTypeList != null) {
-                int index2 = oldTypeList.indexOf(service);
-                if (index2 != -1) {
-                    oldTypeList.remove(index2);
-                }
-            }
+        if (starsArray != null) {
+            removeServiceFromList(starsArray[oldStars - 1], service);
         }
         addServiceToTypeStarsMap(service);
+    }
 
+    /**
+     * Helper method to remove a service from a list if it exists.
+     *
+     * @param list The list to remove from.
+     * @param service The service to remove.
+     */
+    private void removeServiceFromList(List<Service> list, Service service) {
+        if (list != null) {
+            int index = list.indexOf(service);
+            if (index != -1) {
+                list.remove(index);
+            }
+        }
     }
 
     /**
@@ -127,7 +141,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     private void addServiceToRankingByStars(Service service) {
         int stars = service.getAvgStar();
-        rankingByStars[stars-1].addLast(service);
+        rankingByStars[stars - 1].addLast(service);
 
     }
 
@@ -138,23 +152,17 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      *
      * @param service The service to add.
      */
-    @SuppressWarnings("unchecked")
     private void addServiceToTypeStarsMap(Service service) {
         ServiceType type = service.getType();
         int stars = service.getAvgStar();
 
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);
         if (starsArray == null) {
-            starsArray = (List<Service>[]) new List[5];
-            for (int i = 0; i < 5; i++) {
-                starsArray[i] = new DoublyLinkedList<>();
-            }
+            starsArray = createStarsArray();
             servicesByTypeAndStars.put(type, starsArray);
         }
 
-        List<Service> list = starsArray[stars-1];
-
-        list.addLast(service);
+        starsArray[stars - 1].addLast(service);
     }
 
 
@@ -239,12 +247,12 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      */
     @Override
     public boolean hasServicesOfType(ServiceType type) {
-        List<Service>[] starsArray = servicesByTypeAndStars. get(type);
+        List<Service>[] starsArray = servicesByTypeAndStars.get(type);
         if (starsArray == null) {
             return false;
         }
-        for (int i = 0; i < 5; i++) {
-            if (starsArray[i] != null && !starsArray[i].isEmpty()) {
+        for (List<Service> list : starsArray) {
+            if (list != null) {
                 return true;
             }
         }
@@ -262,9 +270,8 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     public Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars) {
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);
 
-        List<Service> list = starsArray[stars-1];
-        if (list != null) {
-            return list.iterator();
+        if (starsArray != null && starsArray[stars - 1] != null) {
+            return starsArray[stars - 1].iterator();
         }
 
         return new DoublyLinkedList<Service>().iterator();
