@@ -51,12 +51,12 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
     @SuppressWarnings("unchecked")
     public ServicesCollectionImpl() {
         this.servicesByInsertion = new DoublyLinkedList<>();
-        this.servicesByName = new ClosedHashTable<>(); // em principio closed
+        this.servicesByName = new ClosedHashTable<>();
         this.rankingByStars = (List<Service>[]) new List[5];
         for (int i = 0; i < 5; i++) {
             this.rankingByStars[i] = new DoublyLinkedList<>();
         }
-        this.servicesByTypeAndStars = new SepChainHashTable<>(); // verificar se é closed ou open
+        this.servicesByTypeAndStars = new SepChainHashTable<>();
     }
 
 
@@ -131,6 +131,13 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
 
     }
 
+    /**
+     * Helper method to add a service to the servicesByTypeAndStars map.
+     * Gets or creates the star rating array for the service's type,
+     * then adds the service to the appropriate star bucket.
+     *
+     * @param service The service to add.
+     */
     @SuppressWarnings("unchecked")
     private void addServiceToTypeStarsMap(Service service) {
         ServiceType type = service.getType();
@@ -210,6 +217,13 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         return new BucketsIterator<>(rankingByStars);
     }
 
+    /**
+     * Gets an iterator over services of a specific type, sorted by their average star rating
+     * in descending order (highest stars first).
+     *
+     * @param type The service type to filter by.
+     * @return An {@link Iterator} of services of the given type, ordered by stars.
+     */
     @Override
     public Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type) {
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);
@@ -217,6 +231,12 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         return new BucketsIterator<>(starsArray);
     }
 
+    /**
+     * Checks if there are any services of a specific type in the collection.
+     *
+     * @param type The service type to check.
+     * @return {@code true} if at least one service of this type exists, {@code false} otherwise.
+     */
     @Override
     public boolean hasServicesOfType(ServiceType type) {
         List<Service>[] starsArray = servicesByTypeAndStars. get(type);
