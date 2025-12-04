@@ -1,3 +1,4 @@
+import Exceptions.ServiceAlreadyExistsException;
 import Services.Service;
 import Services.ServiceType;
 import dataStructures.DoublyLinkedList;
@@ -20,7 +21,7 @@ public interface ServiceCollection {
      *
      * @param service The {@link Service} to add.
      */
-    void add(Service service);
+    void add(Service service)throws ServiceAlreadyExistsException;
 
     /**
      * Updates the position of a service within the star-based ranking.

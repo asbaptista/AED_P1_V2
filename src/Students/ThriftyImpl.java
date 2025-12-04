@@ -1,4 +1,7 @@
 package Students;
+import Exceptions.AlreadyStudentHomeException;
+import Exceptions.LodgingIsFullException;
+import Exceptions.StudentIsThriftyException;
 import Services.*;
 import dataStructures.Iterator;
 
@@ -34,7 +37,7 @@ public class ThriftyImpl extends StudentAbs implements Thrifty {
      * @param country The student's country of origin.
      * @param home    The {@link Lodging} service where the student resides.
      */
-    public ThriftyImpl(String name, String country, Lodging home) {
+    public ThriftyImpl(String name, String country, Lodging home) throws LodgingIsFullException {
         super(name, country, home);
         this.cheapestLodging = home;
         this.cheapestEating = null;
@@ -123,5 +126,18 @@ public class ThriftyImpl extends StudentAbs implements Thrifty {
             }
         }
         return cheapestService;
+    }
+
+    @Override
+    public void moveHome(Lodging newHome)
+            throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException {
+
+        if (! canMoveTo(newHome)) {
+            throw new StudentIsThriftyException();
+        }
+
+        super.moveHome(newHome);
+
+        updateCheapestLodging(newHome);
     }
 }

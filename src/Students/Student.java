@@ -1,5 +1,6 @@
 package Students;
 
+import Exceptions.*;
 import Services.Lodging;
 import Services.Service;
 import dataStructures.Iterator;
@@ -66,7 +67,7 @@ public interface Student {
      *
      * @param service The {@link Service} the student is moving to.
      */
-    void goToLocation(Service service);
+    void goToLocation(Service service) throws AlreadyThereException, NotValidServiceException, EatingIsFullException;
 
     /**
      * Changes the student's designated home to a new lodging.
@@ -74,7 +75,7 @@ public interface Student {
      *
      * @param newHome The new {@link Lodging} service to set as home.
      */
-    void moveHome(Lodging newHome);
+    void moveHome(Lodging newHome)throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException;
 
 
     /**

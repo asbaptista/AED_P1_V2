@@ -1,5 +1,8 @@
 package Services;
 
+import Exceptions.InvalidCapacityException;
+import Exceptions.InvalidRoomPriceException;
+import Exceptions.LodgingIsFullException;
 import Students.Student;
 import dataStructures.DoublyLinkedList;
 import dataStructures.TwoWayIterator;
@@ -37,8 +40,14 @@ public class LodgingImpl extends ServiceAbs implements Lodging {
      * @param price The monthly price per room.
      * @param rooms The total number of rooms (capacity) available.
      */
-    public LodgingImpl(String name, long lat, long lon, int price, int rooms) {
+    public LodgingImpl(String name, long lat, long lon, int price, int rooms) throws InvalidRoomPriceException, InvalidCapacityException {
         super(name, lat, lon, price, Services.ServiceType.LODGING, rooms);
+        if (price <= 0) {
+            throw new InvalidRoomPriceException();
+        }
+        if (rooms <= 0) {
+            throw new InvalidCapacityException();
+        }
         this.rooms = rooms;
         this.occupants = new DoublyLinkedList<>();
         this.occupiedRooms = 0;
@@ -62,7 +71,10 @@ public class LodgingImpl extends ServiceAbs implements Lodging {
      * @param student The {@link Student} to add as an occupant.
      */
     @Override
-    public void addOccupant(Student student) {
+    public void addOccupant(Student student) throws LodgingIsFullException {
+        if (isFull()) {
+            throw new LodgingIsFullException();
+        }
         occupants.addLast(student);
         occupiedRooms++;
     }

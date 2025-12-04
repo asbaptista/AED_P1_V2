@@ -1,5 +1,6 @@
 package Services;
 
+import Exceptions.EatingIsFullException;
 import Students.Student;
 import dataStructures.TwoWayIterator;
 
@@ -25,7 +26,7 @@ public interface Eating extends Service {
      *
      * @param student The {@link Student} to be added as an occupant.
      */
-    void addOccupant(Student student);
+    void addOccupant(Student student) throws EatingIsFullException;
 
     /**
      * Removes a student from the list of current occupants.

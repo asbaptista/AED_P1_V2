@@ -1,5 +1,8 @@
 package Services;
 
+import Exceptions.EatingIsFullException;
+import Exceptions.InvalidCapacityException;
+import Exceptions.InvalidMenuPriceException;
 import Students.Student;
 import dataStructures.*;
 
@@ -31,8 +34,14 @@ public class EatingImpl extends ServiceAbs implements Eating {
      * @param price The price (e.g., student menu price).
      * @param seats The total number of seats (capacity).
      */
-    public EatingImpl(String name, long lat, long lon, int price, int seats) {
+    public EatingImpl(String name, long lat, long lon, int price, int seats)throws InvalidMenuPriceException, InvalidCapacityException {
         super(name, lat, lon, price, Services.ServiceType.EATING, seats);
+        if (price <= 0) {
+            throw new InvalidMenuPriceException();
+        }
+        if (seats <= 0) {
+            throw new InvalidCapacityException();
+        }
         this.seats = seats;
         this.occupants = new DoublyLinkedList<>();
     }
@@ -64,7 +73,10 @@ public class EatingImpl extends ServiceAbs implements Eating {
      * @param student The {@link Student} to add as an occupant.
      */
     @Override
-    public void addOccupant(Student student) {
+    public void addOccupant(Student student) throws EatingIsFullException {
+        if (! hasCapacity()) {
+            throw new EatingIsFullException();
+        }
         if (hasCapacity()) {
             occupants.addLast(student);
         }

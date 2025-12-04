@@ -116,10 +116,7 @@ public class SystemManagerImpl implements SystemManager {
      * to the current area.
      */
     @Override
-    public void addService(ServiceType type, String name, long lat, long lon, int price, int value)
-            throws InvalidServiceTypeException, InvalidLocationException, InvalidMenuPriceException,
-            InvalidRoomPriceException, InvalidTicketPriceException, InvalidDiscountPriceException,
-            InvalidCapacityException, ServiceAlreadyExistsException {
+    public void addService(ServiceType type, String name, long lat, long lon, int price, int value) throws InvalidServiceTypeException, InvalidLocationException, InvalidMenuPriceException, InvalidRoomPriceException, InvalidTicketPriceException, InvalidDiscountPriceException, InvalidCapacityException, ServiceAlreadyExistsException {
 
         if (type==null) {
             throw new InvalidServiceTypeException();
@@ -127,22 +124,7 @@ public class SystemManagerImpl implements SystemManager {
         if (!validLocation(lat, lon)) {
             throw new InvalidLocationException();
         }
-        if (price <= 0) {
-            switch (type) {
-                case EATING -> throw new InvalidMenuPriceException();
-                case LODGING -> throw new InvalidRoomPriceException();
-                case LEISURE -> throw new InvalidTicketPriceException();
-            }
-        }
-        if (!(0 <= value && value <= 100) && type == ServiceType.LEISURE) {
-            throw new InvalidDiscountPriceException();
-        }
-        if (value <= 0 && (type == ServiceType.LODGING || type == ServiceType.EATING)) {
-            throw new InvalidCapacityException();
-        }
-        if (currentArea.containsService(name)) {
-            throw new ServiceAlreadyExistsException();
-        }
+
         Service service = createService(name, lat, lon, price, type, value);
         currentArea.addService(service);
     }
@@ -196,25 +178,20 @@ public class SystemManagerImpl implements SystemManager {
      * to the current area.
      */
     @Override
-    public void addStudent(StudentType type, String name, String country, String lodgingName)
-            throws SystemBoundsNotDefinedException, InvalidStudentTypeException,
-            LodgingNotFoundException, StudentAlreadyExistsException, LodgingIsFullException {
+    public void addStudent(StudentType type, String name, String country, String lodgingName) throws SystemBoundsNotDefinedException, InvalidStudentTypeException, LodgingNotFoundException, StudentAlreadyExistsException, LodgingIsFullException {
+
         if (currentArea == null) {
             throw new SystemBoundsNotDefinedException();
         }
         Service lodging = currentArea.getService(lodgingName);
-        if (!(lodging instanceof Lodging)) {//lodging == null
+        if (!(lodging instanceof Lodging)) {
             throw new LodgingNotFoundException();
         }
-        if (((Lodging) lodging).isFull()) {
-            throw new LodgingIsFullException();
-        }
+
         if (!isStudentTypeValid(type)) {
             throw new InvalidStudentTypeException();
         }
-        if (studentAlreadyExists(name)) {
-            throw new StudentAlreadyExistsException();
-        }
+
         Student student = createStudentByType(type, name, country, (Lodging) lodging);
         currentArea.addStudent(student);
     }
@@ -254,9 +231,8 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public void goToLocation(String studentName, String serviceName)
-            throws StudentNotFoundException, ServiceNotFoundException,
-            AlreadyThereException, EatingIsFullException, NotValidServiceException {
+    public void goToLocation(String studentName, String serviceName) throws StudentNotFoundException, ServiceNotFoundException, AlreadyThereException, EatingIsFullException, NotValidServiceException {
+
         Service service = currentArea.getService(serviceName);
         if (service == null) {
             throw new ServiceNotFoundException();
@@ -266,15 +242,6 @@ public class SystemManagerImpl implements SystemManager {
             throw new StudentNotFoundException();
         }
 
-        if (service instanceof Lodging) {
-            throw new NotValidServiceException();
-        }
-        if (student.getCurrent().getName().equals(serviceName)) {
-            throw new AlreadyThereException();
-        }
-        if (service instanceof Eating eating && !eating.hasCapacity()) {
-            throw new EatingIsFullException();
-        }
         student.goToLocation(service);
     }
 
@@ -282,9 +249,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public void moveStudentHome(String studentName, String lodgingName)
-            throws StudentNotFoundException, LodgingNotFoundException,
-            LodgingIsFullException, StudentIsThriftyException, AlreadyStudentHomeException {
+    public void moveStudentHome(String studentName, String lodgingName) throws StudentNotFoundException, LodgingNotFoundException, LodgingIsFullException, StudentIsThriftyException, AlreadyStudentHomeException {
 
         Service service = currentArea.getService(lodgingName);
         if (!(service instanceof Lodging lodging)) {
@@ -294,17 +259,7 @@ public class SystemManagerImpl implements SystemManager {
         if (student == null) {
             throw new StudentNotFoundException();
         }
-        if (student.getHome() == lodging) {
-            throw new AlreadyStudentHomeException();
-        }
-        if (lodging.isFull()) {
-            throw new LodgingIsFullException();
-        }
-        if (student instanceof Thrifty thrifty) {
-            if (!thrifty.canMoveTo(lodging)) {
-                throw new StudentIsThriftyException();
-            }
-        }
+
         student.moveHome(lodging);
     }
 
@@ -625,15 +580,6 @@ public class SystemManagerImpl implements SystemManager {
 
 
 
-    /**
-     * Checks if a student with the given name already exists in the `currentArea`.
-     *
-     * @param name The name to check.
-     * @return true if the student exists, false otherwise.
-     */
-    private boolean studentAlreadyExists(String name) {
-        return currentArea.getStudent(name) != null;
-    }
 
     /**
      * Checks if the {@link StudentType} is valid.
@@ -657,12 +603,12 @@ public class SystemManagerImpl implements SystemManager {
      * @param value The value (capacity or discount).
      * @return A new {@link Service} (e.g., EatingImpl, LodgingImpl).
      */
-    private Service createService(String name, long lat, long lon, int price, ServiceType type, int value) {
+    private Service createService(String name, long lat, long lon, int price, ServiceType type, int value) throws InvalidMenuPriceException, InvalidRoomPriceException, InvalidTicketPriceException,
+            InvalidCapacityException, InvalidDiscountPriceException{
         return switch (type) {
             case EATING -> new EatingImpl(name, lat, lon, price, value);
             case LODGING -> new LodgingImpl(name, lat, lon, price, value);
             case LEISURE -> new LeisureImpl(name, lat, lon, price, value);
-            default -> null; // Should be unreachable if validServiceType is used
         };
     }
 
@@ -675,7 +621,7 @@ public class SystemManagerImpl implements SystemManager {
      * @param lodging The student's home lodging.
      * @return A new {@link Student} (e.g., BookishImpl, ThriftyImpl).
      */
-    private Student createStudentByType(StudentType type, String name, String country, Lodging lodging) {
+    private Student createStudentByType(StudentType type, String name, String country, Lodging lodging)throws LodgingIsFullException {
         return switch (type) {
             case BOOKISH -> new BookishImpl(name, country, lodging);
             case THRIFTY -> new ThriftyImpl(name, country, lodging);

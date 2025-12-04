@@ -1,5 +1,6 @@
 package Students;
 
+import Exceptions.LodgingIsFullException;
 import Services.Lodging;
 import Services.Service;
 
@@ -24,10 +25,9 @@ public class OutgoingImpl extends StudentAbs implements Outgoing {
      * @param country The student's country of origin.
      * @param home    The {@link Lodging} service where the student resides.
      */
-    public OutgoingImpl(String name, String country, Lodging home) {
+    public OutgoingImpl(String name, String country, Lodging home) throws LodgingIsFullException {
         super(name, country, home);
-        // Outgoing students register their home as the first visited location.
-        this.visitedServices.addLast(home);
+        this.visitedServices.addLast(home); // verificar se precisa de estar aqui
     }
 
     /**

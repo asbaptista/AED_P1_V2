@@ -1,3 +1,4 @@
+import Exceptions.StudentAlreadyExistsException;
 import Students.Student;
 import dataStructures.Iterator;
 
@@ -20,7 +21,7 @@ public interface StudentCollection  {
      *
      * @param student The {@link Student} to add.
      */
-    void addStudent(Student student);
+    void addStudent(Student student)throws StudentAlreadyExistsException;
 
     /**
      * Removes a student from the collection, identified by their name.

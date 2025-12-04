@@ -1,3 +1,5 @@
+import Exceptions.ServiceAlreadyExistsException;
+import Exceptions.StudentAlreadyExistsException;
 import Services.*;
 import Students.*;
 import dataStructures.*;
@@ -61,7 +63,7 @@ public interface Area {
      *
      * @param service The {@link Service} to add.
      */
-    void addService(Service service);
+    void addService(Service service)throws ServiceAlreadyExistsException;
 
     /**
      * Finds and returns a service by its name.
@@ -134,7 +136,7 @@ public interface Area {
      *
      * @param student The {@link Student} to add.
      */
-    void addStudent(Student student);
+    void addStudent(Student student)throws StudentAlreadyExistsException;
 
     /**
      * Finds and returns a student by their name.

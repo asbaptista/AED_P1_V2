@@ -1,3 +1,5 @@
+import Exceptions.ServiceAlreadyExistsException;
+import Exceptions.StudentAlreadyExistsException;
 import Services.Service;
 import Services.ServiceType;
 import Students.Student;
@@ -139,7 +141,7 @@ public class AreaImpl implements Area, Serializable {
      * @param service The {@link Service} to add.
      */
     @Override
-    public void addService(Service service) {
+    public void addService(Service service)throws ServiceAlreadyExistsException {
         services.add(service);
     }
 
@@ -239,7 +241,7 @@ public class AreaImpl implements Area, Serializable {
      * @param student The {@link Student} to add.
      */
     @Override
-    public void addStudent(Student student) {
+    public void addStudent(Student student)throws StudentAlreadyExistsException {
         students.addStudent(student);
     }
 

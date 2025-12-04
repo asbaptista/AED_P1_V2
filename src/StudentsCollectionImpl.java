@@ -1,3 +1,4 @@
+import Exceptions.StudentAlreadyExistsException;
 import Students.Student;
 import dataStructures.*;
 import java.io.*;
@@ -11,7 +12,6 @@ import java.io.*;
  * <li>A {@link TwoWayList} (`studentsByInsertion`) to store students in their original
  * **registration order**.</li>
  * <li>A {@link SortedList} (`studentsByName`) to store students sorted
- * **alphabetically by name** using a {@link StudentNameComparator}
  *.</li>
  * </ol>
  * This class is serializable and uses custom `writeObject` and `readObject`
@@ -38,7 +38,6 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
     /**
      * Constructs a new, empty student collection.
      * Initializes both the insertion-order list and the name-sorted list,
-     * providing the {@link StudentNameComparator} to the latter.
      */
     public StudentsCollectionImpl() {
         this.studentsByName = new AVLSortedMap<>();
@@ -54,10 +53,14 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
      * @param student The {@link Student} to add.
      */
     @Override
-    public void addStudent(Student student) {
-        studentsByName.put(student.getName().toLowerCase(), student); // dps confirmar o toLoweCase;
+    public void addStudent(Student student)throws StudentAlreadyExistsException {
 
-        String country = student.getCountry().toLowerCase(); // dps confirmar o toLoweCase;
+        if (findByName(student.getName()) != null) {
+            throw new StudentAlreadyExistsException();
+        }
+        studentsByName.put(student.getName().toLowerCase(), student);
+
+        String country = student.getCountry().toLowerCase();
         List<Student> countryList = studentsByCountry.get(country);
 
         if (countryList == null) {

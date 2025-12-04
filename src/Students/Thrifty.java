@@ -1,5 +1,8 @@
 package Students;
 
+import Exceptions.AlreadyStudentHomeException;
+import Exceptions.LodgingIsFullException;
+import Exceptions.StudentIsThriftyException;
 import Services.Eating;
 import Services.Lodging;
 
@@ -51,5 +54,8 @@ public interface Thrifty extends Student {
      * @param lodging The new cheapest {@link Lodging} service.
      */
     void updateCheapestLodging(Lodging lodging);
+
+    @Override
+    void moveHome(Lodging newHome) throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException;
 
 }

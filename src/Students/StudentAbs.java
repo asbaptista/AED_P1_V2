@@ -1,5 +1,6 @@
 package Students;
 
+import Exceptions.*;
 import Services.*;
 import dataStructures.*;
 
@@ -57,7 +58,7 @@ public class StudentAbs implements Student, Serializable {
      * @param country The student's country of origin.
      * @param home    The {@link Lodging} service where the student will reside.
      */
-    public StudentAbs(String name, String country, Lodging home) {
+    public StudentAbs(String name, String country, Lodging home) throws LodgingIsFullException {
         this.name = name;
         this.country = country;
         this.home = home;
@@ -137,7 +138,15 @@ public class StudentAbs implements Student, Serializable {
 
 
     @Override
-    public void goToLocation(Service service) {
+    public void goToLocation(Service service) throws AlreadyThereException, NotValidServiceException, EatingIsFullException {
+
+        if (service instanceof Lodging) {
+            throw new NotValidServiceException();
+        }
+        if (current.getName().equalsIgnoreCase(service.getName())) {
+            throw new AlreadyThereException();
+        }
+
         updateOccupancy(current, false);
 
         current = service;
@@ -167,22 +176,23 @@ public class StudentAbs implements Student, Serializable {
      * @param newHome The new {@link Lodging} service to set as home.
      */
     @Override
-    public void moveHome(Lodging newHome) {
+    public void moveHome(Lodging newHome) throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException {
+
+        if (home == newHome) {
+            throw new AlreadyStudentHomeException();
+        }
+
         if (home != null) {
             home.removeOccupant(this);
         }
 
-        if (this instanceof Thrifty) {
-            if (((Thrifty) this).canMoveTo(newHome)) {
-                home = newHome;
-                ((Thrifty) this).updateCheapestLodging(newHome);
-            }
-        } else {
-            home = newHome;
-        }
+        home = newHome;
 
         if (current != home) {
-            goToLocation(newHome);
+            if (current instanceof Eating) {
+                ((Eating) current). removeOccupant(this);
+            }
+            current = home;
         }
 
         newHome.addOccupant(this);
@@ -226,7 +236,7 @@ public class StudentAbs implements Student, Serializable {
      * @param service The service to update.
      * @param add     true to add the student, false to remove them.
      */
-    private void updateOccupancy(Service service, boolean add) {
+    private void updateOccupancy(Service service, boolean add) throws EatingIsFullException{
         if (service instanceof Eating) {
             if (add) {
                 ((Eating) service).addOccupant(this);

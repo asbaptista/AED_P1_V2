@@ -1,3 +1,4 @@
+import Exceptions.ServiceAlreadyExistsException;
 import Services.Service;
 import Services.ServiceType;
 import dataStructures.*;
@@ -63,7 +64,10 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
      * @param service The {@link Service} to add.
      */
     @Override
-    public void add(Service service) {
+    public void add(Service service)throws ServiceAlreadyExistsException {
+        if (contains(service.getName())) {
+            throw new ServiceAlreadyExistsException();
+        }
         servicesByInsertion.addLast(service);
         servicesByName.put(service.getName().toLowerCase(),service);
         addServiceToRankingByStars(service);

@@ -1,5 +1,6 @@
 package Students;
 
+import Exceptions.LodgingIsFullException;
 import Services.Leisure;
 import Services.Lodging;
 import Services.Service;
@@ -21,7 +22,7 @@ public class BookishImpl extends StudentAbs implements Bookish {
      * @param country The student's country of origin.
      * @param home    The {@link Lodging} service where the student resides.
      */
-    public BookishImpl(String name, String country, Lodging home) {
+    public BookishImpl(String name, String country, Lodging home) throws LodgingIsFullException {
         super(name, country, home);
     }
 
