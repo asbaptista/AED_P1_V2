@@ -128,6 +128,7 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
         return null;
     }
 
+     @SuppressWarnings("unchecked")
      private void rehash(){
          Entry<K,V>[] oldTable = table;
          int newCapacity = HashTable.nextPrime(table.length * 2);
@@ -156,6 +157,7 @@ public class ClosedHashTable<K,V> extends HashTable<K,V> implements Serializable
      * or null if the dictionary does not an entry with that key
      */
     @Override
+    @SuppressWarnings("unchecked")
     public V remove(K key) {
         int index = searchLinearProving(key);
 

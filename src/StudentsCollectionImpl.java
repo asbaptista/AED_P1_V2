@@ -19,20 +19,16 @@ import java.io.*;
  */
 public class StudentsCollectionImpl implements StudentCollection, Serializable {
 
+    /**
+     * Map of students, automatically sorted alphabetically by name.
+     */
+    private final SortedMap<String, Student> studentsByName;
 
     /**
-     * Standard serial version UID for serialization.
+     * Map of students grouped by country.
+     * Key: country name (lowercase), Value: List of students from that country.
      */
-
-    /**
-     * List of students, automatically sorted alphabetically by name.
-     */
-    private  SortedMap<String, Student> studentsByName;
-
-    /**
-     * List of students, maintained in their original insertion order.
-     */
-    private Map<String, List<Student>> studentsByCountry;
+    private final Map<String, List<Student>> studentsByCountry;
 
 
     /**
@@ -130,12 +126,10 @@ public class StudentsCollectionImpl implements StudentCollection, Serializable {
 
     /**
      * Gets an iterator over all students from a specific country,
-     * in their original order of registration (insertion order)
-     *.
+     * in their original order of registration (insertion order).
      *
      * @param country The country name to filter by.
-     * @return A {@link FilterIterator} of {@link Student}s from that country,
-     * in registration order.
+     * @return An {@link Iterator} of {@link Student}s from that country.
      */
     @Override
     public Iterator<Student> listStudentsByCountry(String country) {

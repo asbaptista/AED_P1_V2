@@ -26,8 +26,6 @@ public interface Evaluation {
      * The implementing method is responsible for the comparison logic
      * (e.g., case-sensitivity, splitting by whitespace).
      *
-     _
-     _
      * @param tag The tag (word) to search for.
      * @return true if the tag is found, false otherwise.
      */

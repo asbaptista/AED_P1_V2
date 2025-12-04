@@ -10,12 +10,10 @@ import Services.Lodging;
  * Interface defining the specific contract for "Thrifty" students.
  * <p>
  * This interface extends {@link Student} and adds functionalities
- * specific to a student whose main concern is saving money
- *. This includes tracking the cheapest
- * services and making decisions based on price.
+ * specific to a student whose main concern is saving money.
+ * This includes tracking the cheapest services and making decisions based on price.
  */
 public interface Thrifty extends Student {
-
 
     /**
      * Checks if a move to a new home (lodging) is acceptable.
@@ -30,14 +28,12 @@ public interface Thrifty extends Student {
     /**
      * Checks if the student is "distracted" by the price of an eating service.
      * This happens if the student visits an eating service that is more
-     * expensive than the cheapest one they have visited so far
-     *.
+     * expensive than the cheapest one they have visited so far.
      *
      * @param eating The {@link Eating} service the student is visiting.
      * @return true if the service is more expensive than the known cheapest, false otherwise.
      */
     boolean isDistracted(Eating eating);
-
 
     /**
      * Called when the student visits an {@link Eating} service.
@@ -55,6 +51,15 @@ public interface Thrifty extends Student {
      */
     void updateCheapestLodging(Lodging lodging);
 
+    /**
+     * Changes the student's permanent home to a new {@link Lodging}.
+     * Overridden to add Thrifty-specific validation.
+     *
+     * @param newHome The new {@link Lodging} service to set as home.
+     * @throws AlreadyStudentHomeException if the student already lives there.
+     * @throws LodgingIsFullException if the new lodging is at capacity.
+     * @throws StudentIsThriftyException if the new home is not cheaper.
+     */
     @Override
     void moveHome(Lodging newHome) throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException;
 

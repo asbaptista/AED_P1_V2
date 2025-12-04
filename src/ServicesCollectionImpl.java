@@ -19,32 +19,36 @@ import java.io.*;
  */
 public class ServicesCollectionImpl implements ServiceCollection, Serializable {
 
-
-    /**
-     * Standard serial version UID for serialization.
-     */
     /**
      * List of services, maintained in their original insertion order.
      */
-    private  List<Service> servicesByInsertion;
-
-    private  Map<String, Service> servicesByName;
-
+    private final List<Service> servicesByInsertion;
 
     /**
-     * Map of services grouped by average star rating.
-     * Key: avgStars (0-5), Value: List of services with that rating.
-     * This allows O(1) updates instead of O(n) with SortedList.
+     * Map for fast name-based lookups.
+     * Key: service name (lowercase), Value: Service object.
      */
-    private  List<Service>[] rankingByStars;
+    private final Map<String, Service> servicesByName;
 
-    private  Map<ServiceType, List<Service>[]> servicesByTypeAndStars;
+    /**
+     * Array of services grouped by average star rating.
+     * Index 0 = 1 star, Index 1 = 2 stars, ..., Index 4 = 5 stars.
+     * Each index contains a list of services with that rating.
+     */
+    private final List<Service>[] rankingByStars;
+
+    /**
+     * Map grouping services by type and star rating.
+     * Key: ServiceType, Value: Array of lists (same structure as rankingByStars).
+     */
+    private final Map<ServiceType, List<Service>[]> servicesByTypeAndStars;
 
 
     /**
      * Constructs a new, empty service collection.
      * Initializes the insertion-order list and the star-ranking map with buckets for each rating (0-5).
      */
+    @SuppressWarnings("unchecked")
     public ServicesCollectionImpl() {
         this.servicesByInsertion = new DoublyLinkedList<>();
         this.servicesByName = new ClosedHashTable<>(); // em principio closed
@@ -127,6 +131,7 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
 
     }
 
+    @SuppressWarnings("unchecked")
     private void addServiceToTypeStarsMap(Service service) {
         ServiceType type = service.getType();
         int stars = service.getAvgStar();
@@ -226,20 +231,13 @@ public class ServicesCollectionImpl implements ServiceCollection, Serializable {
         return false;
     }
 
-    private Iterator<Service> getServiceIterator(List<Service>[] starsArray) {
-        List<Service> sortedServices = new DoublyLinkedList<>();
-
-        for (int stars = 4; stars >= 0; stars--) {
-            List<Service> list = starsArray[stars];
-            Iterator<Service> it = list.iterator();
-            while (it.hasNext()) {
-                sortedServices.addLast(it.next());
-            }
-        }
-        return sortedServices.iterator();
-    }
-
-
+    /**
+     * Gets an iterator over services of a specific type with a specific star rating.
+     *
+     * @param type The service type to filter by.
+     * @param stars The star rating to filter by (1-5).
+     * @return An {@link Iterator} of matching services.
+     */
     @Override
     public Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars) {
         List<Service>[] starsArray = servicesByTypeAndStars.get(type);

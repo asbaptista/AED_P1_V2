@@ -14,10 +14,9 @@ public interface Eating extends EatingReadOnly,Service {
 
     /**
      * Adds a student to the list of current occupants.
-     * This method assumes a check for {@link #hasCapacity()} has been made externally.
-     *
      *
      * @param student The {@link Student} to be added as an occupant.
+     * @throws EatingIsFullException if the eating service is at capacity.
      */
     void addOccupant(Student student) throws EatingIsFullException;
 
@@ -34,6 +33,14 @@ public interface Eating extends EatingReadOnly,Service {
      * @return The total seating capacity.
      */
     int getCapacity();
+
+    /**
+     * Checks if the eating service currently has space for more occupants.
+     *
+     * @return true if not at capacity, false otherwise.
+     */
+    @Override
+    boolean hasCapacity();
 
     /**
      * Gets a two-way iterator over the list of current occupants.

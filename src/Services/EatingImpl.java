@@ -6,8 +6,6 @@ import Exceptions.InvalidMenuPriceException;
 import Students.Student;
 import dataStructures.*;
 
-import java.io.*;
-
 /**
  * Implementation of the {@link Eating} service.
  * Represents an eating service (e.g., canteen, restaurant) that manages
@@ -103,7 +101,13 @@ public class EatingImpl extends ServiceAbs implements Eating {
         return occupants.twoWayiterator();
     }
 
-
-
+    /**
+     * Checks if the eating service is currently full.
+     *
+     * @return true if at capacity, false otherwise.
+     */
+    public boolean isFull() {
+        return !hasCapacity();
+    }
 
 }

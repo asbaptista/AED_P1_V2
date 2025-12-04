@@ -16,6 +16,7 @@ public interface Lodging extends LodgingReadOnly, Service {
      * Adds a student to the list of occupants currently residing in this lodging.
      *
      * @param student The {@link Student} to be added as an occupant.
+     * @throws LodgingIsFullException if the lodging is at capacity.
      */
     void addOccupant(Student student) throws LodgingIsFullException;
 
@@ -25,6 +26,14 @@ public interface Lodging extends LodgingReadOnly, Service {
      * @param student The {@link Student} to be removed from the occupants list.
      */
     void removeOccupant(Student student);
+
+    /**
+     * Checks if the lodging is at full capacity.
+     *
+     * @return true if full, false otherwise.
+     */
+    @Override
+    boolean isFull();
 
     /**
      * Gets a two-way iterator over the list of current occupants.

@@ -2,8 +2,6 @@ import Exceptions.StudentAlreadyExistsException;
 import Students.Student;
 import dataStructures.Iterator;
 
-import java.io.Serializable;
-
 /**
  * Interface for a collection that manages all {@link Student} objects.
  * <p>
@@ -55,8 +53,7 @@ public interface StudentCollection  {
 
     /**
      * Gets an iterator over all students from a specific country,
-     * in their original order of registration (insertion order)
-     *.
+     * in their original order of registration (insertion order).
      *
      * @param country The country name to filter by.
      * @return An {@link Iterator} of {@link Student}s from that country.

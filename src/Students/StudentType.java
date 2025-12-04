@@ -2,19 +2,16 @@ package Students;
 
 /**
  * Enumeration of the different student types available in the system.
- * Each type defines a specific behavior and set of preferences
- *.
+ * Each type defines a specific behavior and set of preferences.
  */
 public enum StudentType {
     /**
-     * A student primarily interested in leisure and cultural services
-     *.
+     * A student primarily interested in leisure and cultural services.
      */
     BOOKISH,
 
     /**
-     * A student interested in eating out and visiting all types of locations
-     *.
+     * A student interested in eating out and visiting all types of locations.
      */
     OUTGOING,
 

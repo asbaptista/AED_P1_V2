@@ -1,7 +1,6 @@
 import Exceptions.ServiceAlreadyExistsException;
 import Exceptions.StudentAlreadyExistsException;
 import Services.Service;
-import Services.ServiceReadOnly;
 import Services.ServiceType;
 import Students.Student;
 import dataStructures.*;
@@ -294,7 +293,12 @@ public class AreaImpl implements Area, Serializable {
         return students.listStudentsByCountry(filter);
     }
 
-
+    /**
+     * Gets an iterator over services of a specific type ordered by star rating.
+     *
+     * @param type The service type to filter by.
+     * @return An {@link Iterator} of {@link Service}s sorted by stars.
+     */
     @Override
     public Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type) {
         return services.getServicesByTypeOrderedByStars(type);

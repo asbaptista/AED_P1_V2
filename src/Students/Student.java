@@ -9,25 +9,27 @@ import dataStructures.Iterator;
  * Interface defining the contract for all Student types in the system.
  * It outlines the core functionalities, including retrieving student details,
  * managing their location, handling visits, and determining service preferences.
+ * Extends {@link StudentReadOnly} to provide mutable operations.
  */
 public interface Student extends StudentReadOnly {
 
     /**
-     * {@inheritDoc}
-     * <p>
+     * Gets the student's designated home (residence).
      * Overridden to return mutable Lodging type for internal operations.
+     *
+     * @return The {@link Lodging} service set as home.
      */
     @Override
-    Lodging getHome(); // n deve serprecido
+    Lodging getHome();
 
     /**
-     * {@inheritDoc}
-     * <p>
+     * Gets the service the student is currently visiting.
      * Overridden to return mutable Service type for internal operations.
+     *
+     * @return The {@link Service} of the student's current location.
      */
     @Override
     Service getCurrent();
-
 
     /**
      * Moves the student to a new service location (e.g., Eating or Leisure).
@@ -35,6 +37,9 @@ public interface Student extends StudentReadOnly {
      * and triggering visit registration if applicable.
      *
      * @param service The {@link Service} the student is moving to.
+     * @throws AlreadyThereException if the student is already at the service.
+     * @throws NotValidServiceException if the service type is not valid for movement.
+     * @throws EatingIsFullException if the service is an Eating service at capacity.
      */
     void goToLocation(Service service) throws AlreadyThereException, NotValidServiceException, EatingIsFullException;
 
@@ -43,9 +48,11 @@ public interface Student extends StudentReadOnly {
      * This also moves the student to the new home location.
      *
      * @param newHome The new {@link Lodging} service to set as home.
+     * @throws AlreadyStudentHomeException if the student already lives there.
+     * @throws LodgingIsFullException if the new lodging is at capacity.
+     * @throws StudentIsThriftyException if a Thrifty student tries to move to a more expensive lodging.
      */
-    void moveHome(Lodging newHome)throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException;
-
+    void moveHome(Lodging newHome) throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException;
 
     /**
      * Finds the "most relevant" service from a given list, based on this
@@ -59,6 +66,12 @@ public interface Student extends StudentReadOnly {
      */
     Service findMostRelevant(Iterator<Service> services);
 
+    /**
+     * Gets an iterator over the services this student has visited and stored.
+     * Overridden to return mutable Service type for internal operations.
+     *
+     * @return An {@link Iterator} of {@link Service} objects.
+     */
     @Override
     Iterator<Service> getVisitedIterator();
 }

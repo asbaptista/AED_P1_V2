@@ -518,25 +518,38 @@ public class SystemManagerImpl implements SystemManager {
         return Math.abs(lat1 - lat2) + Math.abs(lon1 - lon2);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasAreaLoaded() {
-        return currentArea!= null;
+        return currentArea != null;
     }
 
+    // --- Private Helper Methods ---
+
+    /**
+     * Saves the given area to a serialized file.
+     * The filename is generated based on the area's name.
+     *
+     * @param area The area to save.
+     */
     private void saveCurrentAreaToFile(Area area) {
-        File dataDir = new File("data");
-        if (!dataDir.exists()) {
-            dataDir.mkdirs();
-        }
-        String filename = "data/" + getAreaFileName(area.getName());
+        String filename = getAreaFileName(area.getName());
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(area);
         } catch (Exception ignored) {
         }
     }
 
+    /**
+     * Loads an area from a serialized file.
+     *
+     * @param name The name of the area to load.
+     * @return The loaded {@link Area} object, or {@code null} if the file doesn't exist or an error occurs.
+     */
     private Area loadAreaFromFile(String name) {
-        String filename = "data/" + getAreaFileName(name);
+        String filename = getAreaFileName(name);
         try (ObjectInputStream ois = new ObjectInputStream((new FileInputStream(filename)))) {
             return (Area) ois.readObject();
         } catch (Exception ignored) {
@@ -559,6 +572,10 @@ public class SystemManagerImpl implements SystemManager {
     /**
      * Checks if the given coordinates form a valid bounding box.
      *
+     * @param topLat    The top latitude.
+     * @param leftLong  The left longitude.
+     * @param bottomLat The bottom latitude.
+     * @param rightLong The right longitude.
      * @return true if top > bottom and left < right, false otherwise.
      */
     private boolean areBoundsValid(long topLat, long leftLong, long bottomLat, long rightLong) {
@@ -600,7 +617,12 @@ public class SystemManagerImpl implements SystemManager {
      * @param price The price.
      * @param type  The {@link ServiceType} enum.
      * @param value The value (capacity or discount).
-     * @return A new {@link Service} (e.g., EatingImpl, LodgingImpl).
+     * @return A new {@link Service} (e.g., EatingImpl, LodgingImpl, LeisureImpl).
+     * @throws InvalidMenuPriceException     if the menu price is invalid.
+     * @throws InvalidRoomPriceException     if the room price is invalid.
+     * @throws InvalidTicketPriceException   if the ticket price is invalid.
+     * @throws InvalidCapacityException      if the capacity is invalid.
+     * @throws InvalidDiscountPriceException if the discount price is invalid.
      */
     private Service createService(String name, long lat, long lon, int price, ServiceType type, int value) throws InvalidMenuPriceException, InvalidRoomPriceException, InvalidTicketPriceException,
             InvalidCapacityException, InvalidDiscountPriceException{
@@ -614,13 +636,14 @@ public class SystemManagerImpl implements SystemManager {
     /**
      * Factory method to create a new {@link Student} instance based on its type.
      *
-     * @param type        The {@link StudentType} enum.
-     * @param name        The name of the student.
-     * @param country     The student's country.
+     * @param type The {@link StudentType} enum.
+     * @param name The name of the student.
+     * @param country The student's country.
      * @param lodging The student's home lodging.
-     * @return A new {@link Student} (e.g., BookishImpl, ThriftyImpl).
+     * @return A new {@link Student} (e.g., BookishImpl, ThriftyImpl, OutgoingImpl).
+     * @throws LodgingIsFullException if the lodging is at capacity.
      */
-    private Student createStudentByType(StudentType type, String name, String country, Lodging lodging)throws LodgingIsFullException {
+    private Student createStudentByType(StudentType type, String name, String country, Lodging lodging) throws LodgingIsFullException {
         return switch (type) {
             case BOOKISH -> new BookishImpl(name, country, lodging);
             case THRIFTY -> new ThriftyImpl(name, country, lodging);

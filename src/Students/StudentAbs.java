@@ -166,14 +166,13 @@ public class StudentAbs implements Student, Serializable {
 
     /**
      * Changes the student's permanent home to a new {@link Lodging}.
-     * <p>
-     * This method handles removing the student from their old home's occupant list.
-     * For {@link Thrifty} students, it first checks if the move is permissible
-     * (i.e., if the new home is cheaper).
-     * If the move is successful, the student is also moved to the new home
-     * and added as an occupant.
+     * Handles removing the student from their old home's occupant list,
+     * moving them to the new home, and adding them as an occupant.
      *
      * @param newHome The new {@link Lodging} service to set as home.
+     * @throws AlreadyStudentHomeException if the student already lives there.
+     * @throws LodgingIsFullException if the new lodging is at capacity.
+     * @throws StudentIsThriftyException if a Thrifty student tries to move to a more expensive lodging.
      */
     @Override
     public void moveHome(Lodging newHome) throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException {
@@ -236,15 +235,15 @@ public class StudentAbs implements Student, Serializable {
 
 
     /**
-     * A private helper to manage adding/removing this student from the
+     * Helper method to manage adding/removing this student from the
      * occupant list of {@link Eating} services.
-     * <p>
-     * Occupancy for {@link Lodging} is handled separately in `moveHome`.
+     * Occupancy for {@link Lodging} is handled separately in moveHome.
      *
      * @param service The service to update.
-     * @param add     true to add the student, false to remove them.
+     * @param add true to add the student, false to remove them.
+     * @throws EatingIsFullException if adding to a full Eating service.
      */
-    private void updateOccupancy(Service service, boolean add) throws EatingIsFullException{
+    private void updateOccupancy(Service service, boolean add) throws EatingIsFullException {
         if (service instanceof Eating) {
             if (add) {
                 ((Eating) service).addOccupant(this);

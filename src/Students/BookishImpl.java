@@ -29,9 +29,6 @@ public class BookishImpl extends StudentAbs implements Bookish {
 
     /**
      * Registers a service as visited, but only if it is a {@link Leisure} service.
-     * <p>
-     * This overrides the default behavior from {@link StudentAbs} to implement
-     * the specific rule for Bookish students.
      * The service is only added if it hasn't been visited before (no duplicates).
      *
      * @param service The service the student has just visited.

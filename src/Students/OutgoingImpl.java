@@ -32,18 +32,15 @@ public class OutgoingImpl extends StudentAbs implements Outgoing {
 
     /**
      * Registers any service as visited.
-     * <p>
-     * This overrides the default behavior from {@link StudentAbs} to implement
-     * the specific rule for Outgoing students: they store every service they visit
-     *.
+     * Outgoing students store every service they visit.
      * The service is only added if it hasn't been visited before (no duplicates).
      *
      * @param service The service the student has just visited.
      */
     @Override
     public void registerVisit(Service service) {
-        if (visitedServicesSet. get(service) == null) {
-            visitedServices. addLast(service);
+        if (visitedServicesSet.get(service) == null) {
+            visitedServices.addLast(service);
             visitedServicesSet.put(service, true);
         }
     }

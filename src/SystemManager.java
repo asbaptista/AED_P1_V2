@@ -367,8 +367,7 @@ public interface SystemManager {
 
 
     /**
-     * Calculates the Manhattan distance between two sets of coordinates
-     *.
+     * Calculates the Manhattan distance between two sets of coordinates.
      *
      * @param lat1 Latitude of point 1.
      * @param lon1 Longitude of point 1.
@@ -378,6 +377,10 @@ public interface SystemManager {
      */
     long manhattanDistance(long lat1, long lon1, long lat2, long lon2);
 
-
+    /**
+     * Checks if an area is currently loaded.
+     *
+     * @return true if an area is loaded, false otherwise.
+     */
     boolean hasAreaLoaded();
 }

@@ -56,7 +56,7 @@ public class ServiceAbs implements Service, Serializable {
     /**
      * A list of all {@link Evaluation} objects submitted for this service.
      */
-    private TwoWayList<Evaluation> evaluations;
+    private final TwoWayList<Evaluation> evaluations;
 
     /**
      * Initializes a new service.
@@ -80,7 +80,7 @@ public class ServiceAbs implements Service, Serializable {
         this.avgStar = 0.0;
         this.nEval = 0;
         this.evaluations = new DoublyLinkedList<>();
-        addReview(4, "Initial rating");
+        addReview(4, "");
     }
     /**
      * Gets the name of the service.
@@ -175,7 +175,7 @@ public class ServiceAbs implements Service, Serializable {
      */
     @Override
     public void addReview(int rating, String comment) {
-        Evaluation evaluation = new EvaluationImpl(rating, comment);
+        Evaluation evaluation = new EvaluationImpl(rating, comment.toLowerCase());
         evaluations.addLast(evaluation);
         nEval++;
         updateStars(rating);

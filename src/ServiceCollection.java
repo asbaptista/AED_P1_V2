@@ -1,7 +1,6 @@
 import Exceptions.ServiceAlreadyExistsException;
 import Services.Service;
 import Services.ServiceType;
-import dataStructures.DoublyLinkedList;
 import dataStructures.Iterator;
 
 /**
@@ -75,6 +74,13 @@ public interface ServiceCollection {
      */
     Iterator<Service> getServicesByStars();
 
+    /**
+     * Gets an iterator over services of a specific type with a specific star rating.
+     *
+     * @param type The service type to filter by.
+     * @param stars The star rating to filter by.
+     * @return An {@link Iterator} of {@link Service}s matching the criteria.
+     */
     Iterator<Service> getServicesByTypeAndStars(ServiceType type, int stars);
 
     /**
@@ -86,7 +92,19 @@ public interface ServiceCollection {
      */
     Iterator<Service> getServicesByTag(String tag);
 
+    /**
+     * Gets an iterator over services of a specific type ordered by star rating.
+     *
+     * @param type The service type to filter by.
+     * @return An {@link Iterator} of {@link Service}s sorted by stars.
+     */
     Iterator<Service> getServicesByTypeOrderedByStars(ServiceType type);
 
+    /**
+     * Checks if the collection has services of a specific type.
+     *
+     * @param type The service type to check.
+     * @return true if services of this type exist, false otherwise.
+     */
     boolean hasServicesOfType(ServiceType type);
 }

@@ -60,7 +60,7 @@ public class EvaluationImpl implements Evaluation, Serializable {
 
     /**
      * Checks if the evaluation's description contains a specific tag (word).
-     * This method performs a case-insensitive search for the tag as a standalone word.
+     * This method performs a search for the tag as a standalone word using KMP algorithm.
      *
      * @param tag The tag (word) to search for.
      * @return true if the tag is found as a standalone word, false otherwise.
@@ -68,79 +68,85 @@ public class EvaluationImpl implements Evaluation, Serializable {
     @Override
     public boolean containsTag(String tag) {
         char[] text = description.toCharArray();
-        char[] pattern = trimWhitespace(tag.toCharArray());
+        char[] pattern = tag.toCharArray();
 
-        if (pattern.length == 0) {
-            return false;
-        }
+        int[] lps = LPS(pattern);
+        return kmpSearchWord(text, pattern, lps);
+    }
 
-        int wordStart = 0;
-        for (int i = 0; i <= text.length; i++) {
-            if (i == text.length || isWhitespace(text[i])) {
-                int wordLength = i - wordStart;
-                if (wordLength == pattern.length && matchesWord(text, wordStart, pattern)) {
+    /**
+     * KMP search that matches complete words only (bounded by whitespace).
+     *
+     * @param text    The text to search in.
+     * @param pattern The pattern to search for.
+     * @param lps     The LPS array for the pattern.
+     * @return true if pattern is found as a complete word, false otherwise.
+     */
+    private static boolean kmpSearchWord(char[] text, char[] pattern, int[] lps) {
+        int n = text.length;
+        int m = pattern.length;
+        int i = 0, j = 0;
+
+        while (i < n) {
+            if (pattern[j] == text[i]) {
+                i++;
+                j++;
+            }
+
+            if (j == m) {
+                // Check if this is a complete word (bounded by whitespace or text boundaries)
+                boolean startOk = (i - m == 0) || isWhitespace(text[i - m - 1]);
+                boolean endOk = (i == n) || isWhitespace(text[i]);
+
+                if (startOk && endOk) {
                     return true;
                 }
-                wordStart = i + 1;
+                // Continue searching
+                j = lps[j - 1];
+            } else if (i < n && pattern[j] != text[i]) {
+                if (j != 0) {
+                    j = lps[j - 1];
+                } else {
+                    i++;
+                }
             }
         }
         return false;
     }
 
     /**
-     * Checks if a word in the text matches the pattern (case-insensitive).
+     * Computes the Longest Proper Prefix which is also Suffix (LPS) array
+     * for the KMP algorithm.
      *
-     * @param text      The text array.
-     * @param start     The start index of the word.
-     * @param pattern   The pattern to match.
-     * @return true if the word matches the pattern, false otherwise.
+     * @param pattern The pattern for which to compute the LPS array.
+     * @return The LPS array.
      */
-    private static boolean matchesWord(char[] text, int start, char[] pattern) {
-        for (int i = 0; i < pattern.length; i++) {
-            if (toLowerCase(text[start + i]) != toLowerCase(pattern[i])) {
-                return false;
+    private static int[] LPS(char[] pattern) {
+        int m = pattern.length;
+        int[] lps = new int[m];
+        int len = 0;
+        int i = 1;
+
+        lps[0] = 0;
+
+        while (i < m) {
+            if (pattern[i] == pattern[len]) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    len = lps[len - 1];
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
             }
         }
-        return true;
+        return lps;
     }
 
 
-    /**
-     * Removes leading and trailing whitespace from a character array.
-     */
-    private static char[] trimWhitespace(char[] chars) {
-        int start = 0;
-        while (start < chars.length && isWhitespace(chars[start])) {
-            start++;
-        }
-
-        int end = chars.length - 1;
-        while (end >= start && isWhitespace(chars[end])) {
-            end--;
-        }
-
-        int length = end - start + 1;
-        if (length <= 0) {
-            return new char[0];
-        }
-
-        char[] result = new char[length];
-        for (int i = 0; i < length; i++) {
-            result[i] = chars[start + i];
-        }
-
-        return result;
-    }
-
-    /**
-     * Converts a character to lowercase.
-     */
-    private static char toLowerCase(char c) {
-        if (c >= 'A' && c <= 'Z') {
-            return (char) (c + 32);
-        }
-        return c;
-    }
 
     /**
      * Checks if a character is whitespace.

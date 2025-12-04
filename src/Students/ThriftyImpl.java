@@ -128,6 +128,15 @@ public class ThriftyImpl extends StudentAbs implements Thrifty {
         return cheapestService;
     }
 
+    /**
+     * Changes the student's permanent home to a new {@link Lodging}.
+     * For Thrifty students, the move is only allowed if the new home is cheaper.
+     *
+     * @param newHome The new {@link Lodging} service to set as home.
+     * @throws AlreadyStudentHomeException if the student already lives there.
+     * @throws StudentIsThriftyException if the new home is not cheaper.
+     * @throws LodgingIsFullException if the new lodging is at capacity.
+     */
     @Override
     public void moveHome(Lodging newHome)
             throws AlreadyStudentHomeException, LodgingIsFullException, StudentIsThriftyException {
