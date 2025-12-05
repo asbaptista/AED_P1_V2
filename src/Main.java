@@ -5,23 +5,8 @@ import Students.*;
 import dataStructures.*;
 import SystemManager.*;
 
-/**
- * Main entry point for the "Home Away From Home" application.
- * This class is responsible for:
- * 1. The main application loop (REPL - Read-Eval-Print Loop).
- * 2. Parsing user input from the console (using {@link Scanner}).
- * 3. Delegating all business logic to a {@link SystemManager}.
- * 4. Handling all exceptions thrown by the manager and translating
- * them into user-friendly messages (via the {@link Message} enum).
- * 5. Printing all output (success messages and errors) to the console.
- */
 public class Main {
 
-    /**
-     * Main method. Initializes the system and starts the command loop.
-     *
-     * @param args Command-line arguments (not used).
-     */
     public static void main(String[] args) {
         SystemManager manager = new SystemManagerImpl();
         Scanner scanner = new Scanner(System.in);
@@ -77,12 +62,6 @@ public class Main {
 
     }
 
-
-
-    /**
-     * Enumerates all user-facing strings (messages, errors, prompts).
-     * This centralizes all application text for easy maintenance and localization.
-     */
     private enum Message {
         UNKNOWN_COMMAND("Unknown command. Type help to see available commands."),
         SYSTEM_BOUNDS_NOT_DEFINED("System bounds not defined."),
@@ -166,55 +145,28 @@ public class Main {
 
         private final String text;
 
-        /**
-         * Constructor for a message constant.
-         * @param text The user-facing string.
-         */
         Message(String text) {
             this.text = text;
         }
 
-        /**
-         * Returns the raw message text.
-         * @return The string.
-         */
         @Override
         public String toString() {
             return text;
         }
 
-        /**
-         * Returns a formatted string using the message text as a format pattern.
-         * @param args Arguments referenced by the format specifiers in the format string.
-         * @return A formatted string.
-         */
         public String format(Object... args) {
             return String.format(this.text, args);
         }
 
-        /**
-         * Prints the message text to the console.
-         */
         public void print() {
             System.out.println(this.text);
         }
 
-        /**
-         * Prints a formatted string to the console.
-         * @param args Arguments referenced by the format specifiers in the format string.
-         */
         public void printf(Object... args) {
             System.out.printf(this.text, args);
         }
     }
 
-
-    /**
-     * Handles the 'exit' command.
-     * Saves the current area (if loaded) and prints a goodbye message.
-     *
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleExit(SystemManager manager) {
         try {
             manager.saveArea();
@@ -222,21 +174,10 @@ public class Main {
         Message.EXIT.print();
     }
 
-    /**
-     * Handles the 'help' command.
-     * Prints the list of all available commands and their descriptions.
-     */
     private static void handleHelp() {
         Message.HELP_TEXT.print();
     }
 
-    /**
-     * Handles the 'bounds' command.
-     * Reads coordinates and a name to create a new area.
-     *
-     * @param sc      The {@link Scanner} to read input from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleBounds(Scanner sc, SystemManager manager) {
         long topLat = sc.nextLong();
         long leftLong = sc.nextLong();
@@ -254,12 +195,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'save' command.
-     * Saves the currently loaded area to a file.
-     *
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleSave(SystemManager manager) {
         try {
             manager.saveArea();
@@ -269,13 +204,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'load' command.
-     * Loads a previously saved area from a file.
-     *
-     * @param sc      The {@link Scanner} to read the area name from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleLoad(Scanner sc, SystemManager manager) {
         String name = sc.nextLine().trim();
 
@@ -289,13 +217,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'service' command.
-     * Reads service details and adds a new service to the area.
-     *
-     * @param sc      The {@link Scanner} to read input from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleService(Scanner sc, SystemManager manager) {
         String typeStr = sc.next();
         ServiceType type = ServiceType.fromString(typeStr);
@@ -331,12 +252,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'services' command.
-     * Lists all registered services in order of insertion.
-     *
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleServices(SystemManager manager) {
         Iterator<? extends ServiceReadOnly> iterator;
         try {
@@ -351,13 +266,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'student' command.
-     * Reads student details and adds a new student to the area.
-     *
-     * @param sc      The {@link Scanner} to read input from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleStudent(Scanner sc, SystemManager manager) {
         String typeStr = sc.nextLine().trim();
         StudentType type = StudentType.fromString(typeStr);
@@ -382,13 +290,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'students' command.
-     * Lists either all students (alphabetically) or students from a specific country (by insertion).
-     *
-     * @param sc      The {@link Scanner} to read the filter from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleStudents(Scanner sc, SystemManager manager) {
         String filter = sc.nextLine().trim();
         Iterator<? extends StudentReadOnly> iterator = manager.listStudents(filter);
@@ -404,13 +305,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'leave' command.
-     * Removes a student from the system.
-     *
-     * @param manager The {@link SystemManager} instance.
-     * @param sc      The {@link Scanner} to read the student name from.
-     */
     private static void handleLeave(SystemManager manager, Scanner sc) {
         String studentName = sc.nextLine().trim();
         StudentReadOnly student = manager.getStudentByName(studentName);
@@ -422,13 +316,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'go' command.
-     * Moves a student to an Eating or Leisure service.
-     *
-     * @param manager The {@link SystemManager} instance.
-     * @param sc      The {@link Scanner} to read student and service names from.
-     */
     private static void handleGo(SystemManager manager, Scanner sc) {
         String studentName = sc.nextLine().trim();
         String serviceName = sc.nextLine().trim();
@@ -454,13 +341,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'move' command.
-     * Changes a student's home to a new Lodging service.
-     *
-     * @param sc      The {@link Scanner} to read student and lodging names from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleMove(Scanner sc, SystemManager manager) {
         String studentName = sc.nextLine().trim();
         String lodgingName = sc.nextLine().trim();
@@ -483,13 +363,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'users' command.
-     * Lists students currently at an Eating or Lodging service, in a specified order.
-     *
-     * @param sc      The {@link Scanner} to read order and service name from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleUsers(Scanner sc, SystemManager manager) {
         String order = sc.next();
         String serviceName = sc.nextLine().trim();
@@ -525,13 +398,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'where' command.
-     * Locates a student and prints their current service location.
-     *
-     * @param sc      The {@link Scanner} to read the student name from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleWhere(Scanner sc, SystemManager manager) {
         String studentName = sc.nextLine().trim();
         try {
@@ -544,13 +410,6 @@ public class Main {
 
     }
 
-    /**
-     * Handles the 'visited' command.
-     * Lists all locations a specific student (Bookish or Outgoing) has stored.
-     *
-     * @param sc      The {@link Scanner} to read the student name from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleVisited(Scanner sc, SystemManager manager) {
         String studentName = sc.nextLine().trim();
         StudentReadOnly student = manager.getStudentByName(studentName);
@@ -570,14 +429,7 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'star' command.
-     * Adds a new review (rating and description) to a service.
-     *
-     * @param sc      The {@link Scanner} to read the rating, service name, and description from.
-     * @param manager The {@link SystemManager} instance.
-     */
-    private static void handleStar(Scanner sc, SystemManager manager) {
+    static void handleStar(Scanner sc, SystemManager manager) {
         int stars = sc.nextInt();
         String serviceName = sc.nextLine().trim();
         String description = sc.nextLine().trim();
@@ -591,12 +443,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'ranking' command.
-     * Lists all services in descending order of their star rating.
-     *
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleRanking(SystemManager manager) {
         Iterator<? extends ServiceReadOnly> it = manager.getRankedServices();
         if (!it.hasNext()) {
@@ -610,13 +456,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'ranked' command.
-     * Lists services of a specific type and rating, ordered by proximity to a student.
-     *
-     * @param sc      The {@link Scanner} to read type, stars, and student name from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleRanked(Scanner sc, SystemManager manager) {
         String typeStr = sc.next();
         ServiceType type = ServiceType.fromString(typeStr);
@@ -644,13 +483,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'tag' command.
-     * Lists all services that have a review containing a specific tag.
-     *
-     * @param sc      The {@link Scanner} to read the tag from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleTag(Scanner sc, SystemManager manager) {
         String tag = sc.nextLine().toLowerCase().trim();
         Iterator<? extends ServiceReadOnly> it = manager.listServicesWithTag(tag);
@@ -664,13 +496,6 @@ public class Main {
         }
     }
 
-    /**
-     * Handles the 'find' command.
-     * Finds the most relevant service of a specific type for a specific student.
-     *
-     * @param sc      The {@link Scanner} to read student name and service type from.
-     * @param manager The {@link SystemManager} instance.
-     */
     private static void handleFind(Scanner sc, SystemManager manager) {
         String studentName = sc.nextLine().trim();
         String typeStr = sc.nextLine().trim();
