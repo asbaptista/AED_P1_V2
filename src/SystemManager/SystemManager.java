@@ -61,7 +61,7 @@ public interface SystemManager {
      * @return The currently loaded {@link Area} object.
      * @throws NoAreaLoadedException if no area is currently loaded.
      */
-    Area getCurrentArea() throws NoAreaLoadedException;
+    AreaReadOnly getCurrentArea() throws NoAreaLoadedException;
 
     /**
      * Checks if the given bounds match the currently loaded area's bounds.
@@ -321,7 +321,7 @@ public interface SystemManager {
      * @param area The area.
      * @return The area's name.
      */
-    String getName(Area area);
+    String getName(AreaReadOnly area);
 
     /**
      * Gets the name of a service.

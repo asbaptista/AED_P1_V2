@@ -86,7 +86,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public Area getCurrentArea() throws NoAreaLoadedException {
+    public AreaReadOnly getCurrentArea() throws NoAreaLoadedException {
         if (currentArea == null) {
             throw new NoAreaLoadedException();
         }
@@ -365,7 +365,7 @@ public class SystemManagerImpl implements SystemManager {
      * {@inheritDoc}
      */
     @Override
-    public String getName(Area area) {
+    public String getName(AreaReadOnly area) {
         return area.getName();
     }
 
