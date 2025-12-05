@@ -17,13 +17,13 @@ public class LodgingImpl extends ServiceAbs implements Lodging {
     /**
      * The total number of rooms (capacity) in this lodging.
      */
-    int rooms;
+    private final int rooms;
 
 
     /**
      * A list of {@link Student}s currently residing (occupying) this lodging.
      */
-    TwoWayList<Student> occupants;
+    private final TwoWayList<Student> occupants;
 
     /**
      * Constructs a new Lodging service.

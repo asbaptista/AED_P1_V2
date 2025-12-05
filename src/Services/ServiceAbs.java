@@ -14,39 +14,39 @@ public abstract class ServiceAbs implements Service, Serializable {
     /**
      * The official name of the service.
      */
-    String name;
+    private final String name;
 
     /**
      * The geographic latitude of the service, stored as a long.
      */
-    long lat;
+    private final long lat;
 
     /**
      * The geographic longitude of the service, stored as a long.
      */
-    long lon;
+    private final long lon;
 
     /**
      * The base price of the service (e.g., menu price, room price, ticket price).
      */
-    int price;
+    private final int price;
 
     /**
      * The internal average star rating, stored as a double for precision.
      */
-    double avgStar;
+    private double avgStar;
 
     /**
      * A service-specific value.
      * Represents capacity for Eating/Lodging services and discount percentage for Leisure services.
      */
-    int value;
+    protected final int value;
 
 
     /**
      * The type of the service (e.g., EATING, LODGING, LEISURE).
      */
-    Services.ServiceType type;
+    private final Services.ServiceType type;
 
     /**
      * A list of all {@link Evaluation} objects submitted for this service.

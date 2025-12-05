@@ -22,12 +22,12 @@ public abstract class StudentAbs implements Student, Serializable {
     /**
      * The student's full name.
      */
-    protected String name;
+    private final String name;
 
     /**
      * The student's country of origin.
      */
-    protected String country;
+    private final String country;
 
     /**
      * The {@link Lodging} service designated as the student's permanent home.
@@ -43,17 +43,17 @@ public abstract class StudentAbs implements Student, Serializable {
      * A list of services this student has visited and stored,
      * as per their type-specific rules.
      */
-    protected TwoWayList<Service> visitedServices;
+    protected final TwoWayList<Service> visitedServices;
 
     /**
      * A set for quick lookup of visited services to avoid duplicates.
      */
-    protected Map<Service, Boolean> visitedServicesSet;
+    protected final Map<Service, Boolean> visitedServicesSet;
 
     /**
      * The type of the student (BOOKISH, OUTGOING, or THRIFTY).
      */
-    protected StudentType type;
+    private final StudentType type;
 
 
     /**

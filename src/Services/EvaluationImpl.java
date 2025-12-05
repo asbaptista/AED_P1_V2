@@ -82,7 +82,7 @@ public class EvaluationImpl implements Evaluation, Serializable {
      * @param lps     The LPS array for the pattern.
      * @return true if pattern is found as a complete word, false otherwise.
      */
-    private static boolean kmpSearchWord(char[] text, char[] pattern, int[] lps) {
+    private boolean kmpSearchWord(char[] text, char[] pattern, int[] lps) {
         int n = text.length;
         int m = pattern.length;
         int i = 0, j = 0;
@@ -121,7 +121,7 @@ public class EvaluationImpl implements Evaluation, Serializable {
      * @param pattern The pattern for which to compute the LPS array.
      * @return The LPS array.
      */
-    private static int[] LPS(char[] pattern) {
+    private int[] LPS(char[] pattern) {
         int m = pattern.length;
         int[] lps = new int[m];
         int len = 0;
@@ -151,7 +151,7 @@ public class EvaluationImpl implements Evaluation, Serializable {
     /**
      * Checks if a character is whitespace.
      */
-    private static boolean isWhitespace(char c) {
+    private boolean isWhitespace(char c) {
         return c == ' ' || c == '\t' || c == '\n' || c == '\r';
     }
 

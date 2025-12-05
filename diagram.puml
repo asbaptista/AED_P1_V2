@@ -1,0 +1,385 @@
+@startuml
+
+' Configuração para mostrar visibilidade (+, -, #, ~)
+skinparam classAttributeIconSize 0
+
+package "SystemManager" {
+
+    interface SystemManager {
+        +createArea(name: String, topLat: long, leftLong: long, bottomLat: long, rightLong: long): void
+        +loadArea(name: String): void
+        +saveArea(): void
+        +getCurrentArea(): AreaReadOnly
+        +equalBounds(topLat: long, leftLong: long, bottomLat: long, rightLong: long): boolean
+        +addService(type: ServiceType, name: String, lat: long, lon: long, price: int, value: int): void
+        +listServices(): Iterator<? extends ServiceReadOnly>
+        +addReviewToService(serviceName: String, rating: int, comment: String): void
+        +getRankedServices(): Iterator<? extends ServiceReadOnly>
+        +getServiceByName(name: String): ServiceReadOnly
+        +addStudent(type: StudentType, name: String, country: String, lodgingName: String): void
+        +listStudents(filter: String): Iterator<? extends StudentReadOnly>
+        +removeStudent(name: String): void
+        +getStudentByName(name: String): StudentReadOnly
+        +goToLocation(studentName: String, serviceName: String): void
+        +moveStudentHome(studentName: String, lodgingName: String): void
+        +whereIsStudent(studentName: String): ServiceReadOnly
+        +isStudentDistracted(studentName: String, serviceName: String): boolean
+        +listVisitedLocations(studentName: String): Iterator<? extends ServiceReadOnly>
+        +listUsersInService(order: String, serviceName: String): TwoWayIterator<? extends StudentReadOnly>
+        +listServicesWithTag(tag: String): Iterator<? extends ServiceReadOnly>
+        +getRankedServicesByTypeAndStars(type: ServiceType, stars: int, studentName: String): Iterator<? extends ServiceReadOnly>
+        +findRelevantServiceForStudent(studentName: String, serviceType: ServiceType): ServiceReadOnly
+        +getName(area: AreaReadOnly): String
+        +getServiceName(service: ServiceReadOnly): String
+        +getServiceType(service: ServiceReadOnly): ServiceType
+        +getServiceLatitude(service: ServiceReadOnly): long
+        +getServiceLongitude(service: ServiceReadOnly): long
+        +getStudentName(student: StudentReadOnly): String
+        +getStudentType(student: StudentReadOnly): StudentType
+        +getStudentCurrentLocation(student: StudentReadOnly): ServiceReadOnly
+        +manhattanDistance(lat1: long, lon1: long, lat2: long, lon2: long): long
+        +hasAreaLoaded(): boolean
+    }
+
+    class SystemManagerImpl implements SystemManager {
+        ~currentArea: Area
+        +SystemManagerImpl()
+        ' Métodos Privados
+        - saveCurrentAreaToFile(area: Area): void
+        - loadAreaFromFile(name: String): Area
+        - {static} getAreaFileName(name: String): String
+        - areBoundsValid(topLat: long, leftLong: long, bottomLat: long, rightLong: long): boolean
+        - validLocation(lat: long, lon: long): boolean
+        - isStudentTypeValid(type: StudentType): boolean
+        - createStudentByType(type: StudentType, name: String, country: String, lodging: Lodging): Student
+        - calculateManhattanDistance(lat1: long, lon1: long, lat2: long, lon2: long): long
+    }
+
+    interface AreaReadOnly {
+        +getName(): String
+        +getTopLat(): long
+        +getLeftLong(): long
+        +getBottomLat(): long
+        +getRightLong(): long
+        +isWithinBounds(lat: long, lon: long): boolean
+        +containsService(name: String): boolean
+        +getService(name: String): ServiceReadOnly
+        +getNumberOfServices(): int
+        +getServices(): Iterator<ServiceReadOnly>
+        +getRankedServices(): Iterator<ServiceReadOnly>
+        +getServicesByTypeAndStars(type: ServiceType, stars: int): Iterator<ServiceReadOnly>
+        +getServicesByTypeOrderedByStars(type: ServiceType): Iterator<ServiceReadOnly>
+        +hasServicesOfType(type: ServiceType): boolean
+        +getStudent(name: String): StudentReadOnly
+        +listAllStudents(): Iterator<StudentReadOnly>
+        +listStudentsByCountry(filter: String): Iterator<StudentReadOnly>
+        +containsStudent(name: String): boolean
+        +getServiceNameProperty(service: ServiceReadOnly): String
+        +getServiceTypeProperty(service: ServiceReadOnly): ServiceType
+        +getServiceLatitudeProperty(service: ServiceReadOnly): long
+        +getServiceLongitudeProperty(service: ServiceReadOnly): long
+        +getStudentNameProperty(student: StudentReadOnly): String
+        +getStudentTypeProperty(student: StudentReadOnly): StudentType
+    }
+
+    interface Area extends AreaReadOnly {
+        +getService(name: String): Service
+        +getServices(): Iterator<Service>
+        +getRankedServices(): Iterator<Service>
+        +getServicesByTypeAndStars(type: ServiceType, stars: int): Iterator<Service>
+        +getServicesByTypeOrderedByStars(type: ServiceType): Iterator<Service>
+        +getStudent(name: String): Student
+        +listAllStudents(): Iterator<Student>
+        +listStudentsByCountry(country: String): Iterator<Student>
+        +addService(service: Service): void
+        +createAndAddService(type: ServiceType, name: String, lat: long, lon: long, price: int, value: int): void
+        +updateRankingByStars(service: Service, oldStars: int): void
+        +getServicesCollection(): ServiceCollection
+        +addStudent(student: Student): void
+        +removeStudent(name: String): void
+        +addReviewToService(serviceName: String, rating: int, comment: String): void
+        +removeStudentWithCleanup(studentName: String): void
+        +moveStudentToService(studentName: String, serviceName: String): void
+        +moveStudentHome(studentName: String, lodgingName: String): void
+        +getStudentCurrentLocation(studentName: String): Service
+        +getStudentCurrentLocation(student: StudentReadOnly): Service
+        +isStudentDistracted(studentName: String, serviceName: String): boolean
+        +getStudentVisitedLocations(studentName: String): Iterator<Service>
+        +getServiceOccupants(serviceName: String): TwoWayIterator<Student>
+        +findRelevantServiceForStudent(studentName: String, serviceType: ServiceType): Service
+        +getClosestServicesByTypeAndStars(studentName: String, type: ServiceType, stars: int): Iterator<Service>
+        +isLodgingService(serviceName: String): boolean
+        +isServiceWithOccupancy(serviceName: String): boolean
+        +isStudentThrifty(studentName: String): boolean
+        +addStudentWithLodging(type: StudentType, name: String, country: String, lodgingName: String): void
+    }
+
+    class AreaImpl implements Area {
+        ~name: String
+        ~topLat: long
+        ~bottomLat: long
+        ~leftLong: long
+        ~rightLong: long
+        ~students: StudentsCollectionImpl
+        ~services: ServicesCollectionImpl
+        +AreaImpl(name: String, topLat: long, leftLong: long, bottomLat: long, rightLong: long)
+        ' Métodos Privados
+        - createService(name: String, lat: long, lon: long, price: int, type: ServiceType, value: int): Service
+        - calculateManhattanDistance(lat1: long, lon1: long, lat2: long, lon2: long): long
+    }
+
+    interface ServiceCollection {
+        +add(service: Service): void
+        +updateRankingByStars(service: Service, oldStars: int): void
+        +findByName(name: String): Service
+        +contains(name: String): boolean
+        +size(): int
+        +listServices(): Iterator<Service>
+        +getServicesByStars(): Iterator<Service>
+        +getServicesByTypeAndStars(type: ServiceType, stars: int): Iterator<Service>
+        +getServicesByTag(tag: String): Iterator<Service>
+        +getServicesByTypeOrderedByStars(type: ServiceType): Iterator<Service>
+        +hasServicesOfType(type: ServiceType): boolean
+    }
+
+    class ServicesCollectionImpl implements ServiceCollection {
+        -servicesByInsertion: List<Service>
+        -servicesByName: Map<String, Service>
+        -rankingByStars: List<Service>[]
+        -servicesByTypeAndStars: Map<ServiceType, List<Service>[]>
+        +ServicesCollectionImpl()
+        ' Métodos Privados
+        - createStarsArray(): List<Service>[]
+        - removeServiceFromList(list: List<Service>, service: Service): void
+        - addServiceToRankingByStars(service: Service): void
+        - addServiceToTypeStarsMap(service: Service): void
+    }
+
+    interface StudentCollection {
+        +addStudent(student: Student): void
+        +removeStudent(name: String): void
+        +findByName(name: String): Student
+        +listAllStudents(): Iterator<Student>
+        +listStudentsByCountry(country: String): Iterator<Student>
+    }
+
+    class StudentsCollectionImpl implements StudentCollection {
+        -studentsByName: SortedMap<String, Student>
+        -studentsByCountry: Map<String, List<Student>>
+        +StudentsCollectionImpl()
+        ' Métodos Privados
+        - addStudentToCountryMap(student: Student): void
+        - removeStudentFromCountryMap(student: Student): void
+    }
+}
+
+package Services {
+    enum ServiceType {
+        EATING
+        LODGING
+        LEISURE
+    }
+
+    interface ServiceReadOnly {
+        +getName(): String
+        +getLatitude(): long
+        +getLongitude(): long
+        +getPrice(): int
+        +getAvgStar(): int
+        +getType(): ServiceType
+        +hasEvaluationWithTag(tag: String): boolean
+    }
+
+    interface Service extends ServiceReadOnly {
+        +addReview(rating: int, comment: String): void
+        +updateStars(stars: int): void
+    }
+
+    abstract class ServiceAbs implements Service {
+        ~name: String
+        ~lat: long
+        ~lon: long
+        ~price: int
+        ~avgStar: double
+        ~value: int
+        ~type: ServiceType
+        -evaluations: TwoWayList<Evaluation>
+        +ServiceAbs(name: String, lat: long, lon: long, price: int, type: ServiceType, value: int)
+        +getName(): String
+        +getLatitude(): long
+        +getLongitude(): long
+        +getPrice(): int
+        +getAvgStar(): int
+        +getType(): ServiceType
+        +addReview(rating: int, comment: String): void
+        +updateStars(stars: int): void
+        +hasEvaluationWithTag(tag: String): boolean
+    }
+
+    interface EatingReadOnly {
+        +hasCapacity(): boolean
+        +getOccupantsIterator(): TwoWayIterator<Student>
+    }
+
+    interface Eating extends EatingReadOnly, Service {
+        +addOccupant(student: Student): void
+        +removeOccupant(student: Student): void
+        +getCapacity(): int
+    }
+
+    class EatingImpl extends ServiceAbs implements Eating {
+        ~seats: int
+        ~occupants: TwoWayList<Student>
+        +EatingImpl(name: String, lat: long, lon: long, price: int, seats: int)
+        +getCapacity(): int
+        +hasCapacity(): boolean
+        +addOccupant(student: Student): void
+        +removeOccupant(student: Student): void
+        +getOccupantsIterator(): TwoWayIterator<Student>
+    }
+
+    interface LodgingReadOnly {
+        +isFull(): boolean
+        +getOccupantsIterator(): TwoWayIterator<Student>
+    }
+
+    interface Lodging extends LodgingReadOnly, Service {
+        +addOccupant(student: Student): void
+        +removeOccupant(student: Student): void
+    }
+
+    class LodgingImpl extends ServiceAbs implements Lodging {
+        ~rooms: int
+        ~occupants: TwoWayList<Student>
+        +LodgingImpl(name: String, lat: long, lon: long, price: int, rooms: int)
+        +isFull(): boolean
+        +addOccupant(student: Student): void
+        +removeOccupant(student: Student): void
+        +getOccupantsIterator(): TwoWayIterator<Student>
+    }
+
+    interface Leisure extends Service {
+    }
+
+    class LeisureImpl extends ServiceAbs implements Leisure {
+        ~discount: int
+        +LeisureImpl(name: String, lat: long, lon: long, price: int, discount: int)
+    }
+
+    interface Evaluation {
+        +getStars(): int
+        +getDescription(): String
+        +containsTag(tag: String): boolean
+    }
+
+    class EvaluationImpl implements Evaluation {
+        ~stars: int
+        ~description: String
+        +EvaluationImpl(stars: int, description: String)
+        +getStars(): int
+        +getDescription(): String
+        +containsTag(tag: String): boolean
+        ' Métodos Privados
+        - {static} kmpSearchWord(text: char[], pattern: char[], lps: int[]): boolean
+        - {static} LPS(pattern: char[]): int[]
+        - {static} isWhitespace(c: char): boolean
+    }
+}
+
+package Students {
+    enum StudentType {
+        BOOKISH
+        OUTGOING
+        THRIFTY
+    }
+
+    interface StudentReadOnly {
+        +getName(): String
+        +getCountry(): String
+        +getHome(): Lodging
+        +getCurrent(): Service
+        +getType(): StudentType
+        +getVisitedIterator(): Iterator<Service>
+    }
+
+    interface Student extends StudentReadOnly {
+        +goToLocation(service: Service): void
+        +moveHome(newHome: Lodging): void
+        +findMostRelevant(services: Iterator<Service>): Service
+    }
+
+    abstract class StudentAbs implements Student {
+        #name: String
+        #country: String
+        #home: Lodging
+        #current: Service
+        #visitedServices: TwoWayList<Service>
+        #visitedServicesSet: Map<Service, Boolean>
+        #type: StudentType
+        +StudentAbs(name: String, country: String, home: Lodging, type: StudentType)
+        +getName(): String
+        +getCountry(): String
+        +getHome(): Lodging
+        +getCurrent(): Service
+        +getType(): StudentType
+        +getVisitedIterator(): Iterator<Service>
+        +goToLocation(service: Service): void
+        +moveHome(newHome: Lodging): void
+        +findMostRelevant(services: Iterator<Service>): Service
+        ' Métodos Privados e Protegidos
+        - updateOccupancy(service: Service, add: boolean): void
+        # {abstract} registerVisit(service: Service): void
+    }
+
+    interface Bookish extends Student {
+        +registerVisit(service: Service): void
+    }
+
+    class BookishImpl extends StudentAbs implements Bookish {
+        +BookishImpl(name: String, country: String, home: Lodging)
+        +registerVisit(service: Service): void
+    }
+
+    interface Outgoing extends Student {
+        +registerVisit(service: Service): void
+    }
+
+    class OutgoingImpl extends StudentAbs implements Outgoing {
+        +OutgoingImpl(name: String, country: String, home: Lodging)
+        +registerVisit(service: Service): void
+    }
+
+    interface Thrifty extends Student {
+        +canMoveTo(newHome: Lodging): boolean
+        +isDistracted(eating: Eating): boolean
+        +visitEating(eating: Eating): void
+        +updateCheapestLodging(lodging: Lodging): void
+    }
+
+    class ThriftyImpl extends StudentAbs implements Thrifty {
+        -cheapestEating: Eating
+        -cheapestLodging: Lodging
+        +ThriftyImpl(name: String, country: String, home: Lodging)
+        +canMoveTo(newHome: Lodging): boolean
+        +isDistracted(eating: Eating): boolean
+        +visitEating(eating: Eating): void
+        +updateCheapestLodging(lodging: Lodging): void
+        +findMostRelevant(services: Iterator<Service>): Service
+        # registerVisit(service: Service): void
+    }
+}
+
+' Relacionamentos
+SystemManagerImpl --> Area : manages
+AreaImpl --> ServicesCollectionImpl : services
+AreaImpl --> StudentsCollectionImpl : students
+ServicesCollectionImpl o--> Service : contains
+StudentsCollectionImpl o--> Student : contains
+ServiceAbs *-- Evaluation : evaluations
+EatingImpl --> Student : occupants
+LodgingImpl --> Student : occupants
+StudentAbs --> Lodging : home
+StudentAbs --> Service : current
+StudentAbs --> Service : visitedServices
+
+@enduml
