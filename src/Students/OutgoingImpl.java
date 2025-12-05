@@ -1,0 +1,46 @@
+package Students;
+
+import Exceptions.LodgingIsFullException;
+import Services.Lodging;
+import Services.Service;
+
+/**
+ * Implementation of the {@link Outgoing} student type.
+ * <p>
+ * An Outgoing student is primarily concerned with eating out and visiting the town
+ *. This class implements the specific behavior for
+ * registering visited locations, which stores **all** services visited,
+ * with no restrictions. This class is serializable.
+ */
+public class OutgoingImpl extends StudentAbs implements Outgoing {
+    /**
+     * Constructs a new Outgoing student.
+     * <p>
+     * As per the {@link StudentAbs} refactoring, the Outgoing student's
+     * home lodging is immediately added as their first "visited" location.
+     *
+     * @param name    The student's name.
+     * @param country The student's country of origin.
+     * @param home    The {@link Lodging} service where the student resides.
+     */
+    public OutgoingImpl(String name, String country, Lodging home) throws LodgingIsFullException {
+        super(name, country, home, StudentType.OUTGOING);
+        this.visitedServices.addLast(home);
+    }
+
+
+    /**
+     * Registers any service as visited.
+     * Outgoing students store every service they visit.
+     * The service is only added if it hasn't been visited before (no duplicates).
+     *
+     * @param service The service the student has just visited.
+     */
+    @Override
+    public void registerVisit(Service service) {
+        if (visitedServicesSet.get(service) == null) {
+            visitedServices.addLast(service);
+            visitedServicesSet.put(service, true);
+        }
+    }
+}

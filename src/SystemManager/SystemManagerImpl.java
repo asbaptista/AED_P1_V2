@@ -1,0 +1,540 @@
+package SystemManager;
+
+import Exceptions.*;
+import Services.*;
+import Students.*;
+import dataStructures.*;
+import java.io.*;
+import static Students.StudentType.*;
+
+/**
+ * Implements the {@link SystemManager} interface.
+ * <p>
+ * This class is the core engine of the application, acting as a Facade to
+ * manage the currently active {@link Area}, and orchestrate all operations
+ * related to students, services, and their interactions. It handles all
+ * business logic, validation, and persistence (saving/loading) of area data.
+ */
+public class SystemManagerImpl implements SystemManager {
+
+
+    /**
+     * The currently active {@link Area} being managed by the system.
+     * All operations are performed on this area.
+     */
+    Area currentArea;
+
+    // --- Constructor ---
+
+    /**
+     * Constructs a new SystemManager.SystemManager.
+     * Initializes the system with no area loaded.
+     */
+    public SystemManagerImpl() {
+        this.currentArea = null;
+    }
+
+    // --- SystemManager.SystemManager.Area Lifecycle Management ---
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void createArea(String name, long topLat, long leftLong, long bottomLat, long rightLong)
+            throws InvalidBoundsException, BoundsAlreadyExistsException {
+        if (!areBoundsValid(topLat, leftLong, bottomLat, rightLong)) {
+            throw new InvalidBoundsException();
+        }
+        if ((currentArea != null && (currentArea.getName().equalsIgnoreCase(name)) || equalBounds(topLat, leftLong, bottomLat, rightLong))) {
+            throw new BoundsAlreadyExistsException();
+        }
+        if (currentArea != null) {
+            saveCurrentAreaToFile(currentArea);
+        }
+        currentArea = new AreaImpl(name, topLat, leftLong, bottomLat, rightLong);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void loadArea(String name) throws BoundsNotFoundException {
+        if (currentArea != null) {
+            saveCurrentAreaToFile(currentArea);
+        }
+
+        currentArea = loadAreaFromFile(name);
+        if (currentArea == null) {
+            throw new BoundsNotFoundException();
+        }
+    }
+
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void saveArea() throws NoAreaLoadedException {
+        if (currentArea == null) {
+            throw new NoAreaLoadedException();
+        }
+        saveCurrentAreaToFile(currentArea);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Area getCurrentArea() throws NoAreaLoadedException {
+        if (currentArea == null) {
+            throw new NoAreaLoadedException();
+        }
+        return currentArea;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equalBounds(long topLat, long leftLong, long bottomLat, long rightLong) {
+        return currentArea != null &&
+                currentArea.getTopLat() == topLat &&
+                currentArea.getLeftLong() == leftLong &&
+                currentArea.getBottomLat() == bottomLat &&
+                currentArea.getRightLong() == rightLong;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addService(ServiceType type, String name, long lat, long lon, int price, int value) throws InvalidServiceTypeException, InvalidLocationException, InvalidMenuPriceException, InvalidRoomPriceException, InvalidTicketPriceException, InvalidDiscountPriceException, InvalidCapacityException, ServiceAlreadyExistsException {
+
+        if (type==null) {
+            throw new InvalidServiceTypeException();
+        }
+        if (!validLocation(lat, lon)) {
+            throw new InvalidLocationException();
+        }
+
+        currentArea.createAndAddService(type, name, lat, lon, price, value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addReviewToService(String serviceName, int rating, String comment)
+            throws ServiceNotFoundException, InvalidStarsException {
+        if (rating < 1 || rating > 5) {
+            throw new InvalidStarsException();
+        }
+        if (!currentArea.containsService(serviceName)) {
+            throw new ServiceNotFoundException();
+        }
+        currentArea.addReviewToService(serviceName, rating, comment);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterator<? extends ServiceReadOnly> listServices() throws NoServicesException {
+        if (currentArea.getNumberOfServices() == 0) {
+            throw new NoServicesException();
+        }
+        return currentArea.getServices();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterator<? extends ServiceReadOnly> getRankedServices() {
+        return currentArea.getRankedServices();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addStudent(StudentType type, String name, String country, String lodgingName) throws SystemBoundsNotDefinedException, InvalidStudentTypeException, LodgingNotFoundException, StudentAlreadyExistsException, LodgingIsFullException {
+
+        if (currentArea == null) {
+            throw new SystemBoundsNotDefinedException();
+        }
+        if (!currentArea.isLodgingService(lodgingName)) {
+            throw new LodgingNotFoundException();
+        }
+
+        if (!isStudentTypeValid(type)) {
+            throw new InvalidStudentTypeException();
+        }
+
+        currentArea.addStudentWithLodging(type, name, country, lodgingName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterator<? extends StudentReadOnly> listStudents(String filter) {
+        if (filter.equalsIgnoreCase("all")) {
+            return currentArea.listAllStudents();
+        } else {
+            return currentArea.listStudentsByCountry(filter);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeStudent(String name) throws StudentNotFoundException {
+        if (!currentArea.containsStudent(name)) {
+            throw new StudentNotFoundException();
+        }
+        currentArea.removeStudentWithCleanup(name);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void goToLocation(String studentName, String serviceName) throws StudentNotFoundException, ServiceNotFoundException, AlreadyThereException, EatingIsFullException, NotValidServiceException {
+
+        if (!currentArea.containsService(serviceName)) {
+            throw new ServiceNotFoundException();
+        }
+        if (!currentArea.containsStudent(studentName)) {
+            throw new StudentNotFoundException();
+        }
+
+        currentArea.moveStudentToService(studentName, serviceName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void moveStudentHome(String studentName, String lodgingName) throws StudentNotFoundException, LodgingNotFoundException, LodgingIsFullException, StudentIsThriftyException, AlreadyStudentHomeException {
+
+        if (!currentArea.isLodgingService(lodgingName)) {
+            throw new LodgingNotFoundException();
+        }
+        if (!currentArea.containsStudent(studentName)) {
+            throw new StudentNotFoundException();
+        }
+
+        currentArea.moveStudentHome(studentName, lodgingName);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ServiceReadOnly whereIsStudent(String studentName) throws StudentNotFoundException {
+        if (!currentArea.containsStudent(studentName)) {
+            throw new StudentNotFoundException();
+        }
+        return currentArea.getStudentCurrentLocation(studentName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isStudentDistracted(String studentName, String serviceName) {
+        return currentArea.isStudentDistracted(studentName, serviceName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterator<? extends ServiceReadOnly> listVisitedLocations(String studentName)
+            throws StudentNotFoundException, StudentIsThriftyException, NoVisitedLocationsException {
+
+        if (!currentArea.containsStudent(studentName)) {
+            throw new StudentNotFoundException();
+        }
+        if (currentArea.isStudentThrifty(studentName)) {
+            throw new StudentIsThriftyException();
+        }
+        Iterator<Service> visitedIterator = currentArea.getStudentVisitedLocations(studentName);
+        if (visitedIterator == null || !visitedIterator.hasNext()) {
+            throw new NoVisitedLocationsException();
+        }
+        return visitedIterator;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public TwoWayIterator< ? extends StudentReadOnly> listUsersInService(String order, String serviceName)
+            throws InvalidOrderException, ServiceNotFoundException, ServiceDoesNotControlEntryExitException {
+
+        if (!">".equals(order) && !"<".equals(order)) {
+            throw new InvalidOrderException();
+        }
+        if (!currentArea.containsService(serviceName)) {
+            throw new ServiceNotFoundException();
+        }
+        if (!currentArea.isServiceWithOccupancy(serviceName)) {
+            throw new ServiceDoesNotControlEntryExitException();
+        }
+
+        TwoWayIterator<Student> it = currentArea.getServiceOccupants(serviceName);
+
+        if ("<".equals(order)) {
+            while (it.hasNext()) it.next();
+        }
+        return it;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterator<? extends ServiceReadOnly> listServicesWithTag(String tag) {
+        return currentArea.getServicesCollection().getServicesByTag(tag);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterator<? extends ServiceReadOnly> getRankedServicesByTypeAndStars(ServiceType type, int stars, String studentName)
+            throws InvalidStarsException, StudentNotFoundException, NoTypeServicesWithStarsException,
+            InvalidServiceTypeException, NoServicesOfThisTypeException {
+
+        if (stars < 1 || stars > 5) {
+            throw new InvalidStarsException();
+        }
+        if (!currentArea.containsStudent(studentName)) {
+            throw new StudentNotFoundException();
+        }
+        if (type==null) {
+            throw new InvalidServiceTypeException();
+        }
+
+        if (!currentArea.hasServicesOfType(type)) {
+            throw new NoServicesOfThisTypeException();
+        }
+
+        Iterator<Service> filteredByTypeStars = currentArea.getServicesByTypeAndStars(type, stars);
+        if (!filteredByTypeStars.hasNext()) {
+            throw new NoTypeServicesWithStarsException();
+        }
+
+        return currentArea.getClosestServicesByTypeAndStars(studentName, type, stars);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ServiceReadOnly findRelevantServiceForStudent(String studentName, ServiceType serviceType)
+            throws StudentNotFoundException, InvalidServiceTypeException, NoServicesOfThisTypeException {
+
+        if (serviceType==null) {
+            throw new InvalidServiceTypeException();
+        }
+
+        if (!currentArea.containsStudent(studentName)) {
+            throw new StudentNotFoundException();
+        }
+
+        Iterator<Service> typeServicesIterator = currentArea.getServicesByTypeOrderedByStars(serviceType);
+
+        if (!typeServicesIterator.hasNext()) {
+            throw new NoServicesOfThisTypeException();
+        }
+
+        return currentArea.findRelevantServiceForStudent(studentName, serviceType);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName(Area area) {
+        return area.getName();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getServiceName(ServiceReadOnly service) {
+        return currentArea.getServiceNameProperty(service);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ServiceType getServiceType(ServiceReadOnly service) {
+        return currentArea.getServiceTypeProperty(service);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getServiceLatitude(ServiceReadOnly service) {
+        return currentArea.getServiceLatitudeProperty(service);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getServiceLongitude(ServiceReadOnly service) {
+        return currentArea.getServiceLongitudeProperty(service);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getStudentName(StudentReadOnly student) {
+        return currentArea.getStudentNameProperty(student);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public StudentType getStudentType(StudentReadOnly student) {
+        return currentArea.getStudentTypeProperty(student);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ServiceReadOnly getStudentCurrentLocation(StudentReadOnly student) {
+        return currentArea.getStudentCurrentLocation(student);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ServiceReadOnly getServiceByName(String name) {
+        return currentArea.getService(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public StudentReadOnly getStudentByName(String name) {
+        return currentArea.getStudent(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long manhattanDistance(long lat1, long lon1, long lat2, long lon2) {
+        return Math.abs(lat1 - lat2) + Math.abs(lon1 - lon2);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hasAreaLoaded() {
+        return currentArea != null;
+    }
+
+    // --- Private Helper Methods ---
+
+    /**
+     * Saves the given area to a serialized file.
+     * The filename is generated based on the area's name.
+     *
+     * @param area The area to save.
+     */
+    private void saveCurrentAreaToFile(Area area) {
+        String filename = getAreaFileName(area.getName());
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(area);
+        } catch (Exception ignored) {
+        }
+    }
+
+    /**
+     * Loads an area from a serialized file.
+     *
+     * @param name The name of the area to load.
+     * @return The loaded {@link Area} object, or {@code null} if the file doesn't exist or an error occurs.
+     */
+    private Area loadAreaFromFile(String name) {
+        String filename = getAreaFileName(name);
+        try (ObjectInputStream ois = new ObjectInputStream((new FileInputStream(filename)))) {
+            return (Area) ois.readObject();
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    /**
+     * Generates a file-safe name for an area.
+     * Converts to lowercase and replaces spaces with underscores.
+     *
+     * @param name The original area name.
+     * @return The formatted file name (e.g., "lisbon_area.ser").
+     */
+    private static String getAreaFileName(String name) {
+        return name.toLowerCase().replace(" ", "_") + ".ser";
+    }
+
+
+    /**
+     * Checks if the given coordinates form a valid bounding box.
+     *
+     * @param topLat    The top latitude.
+     * @param leftLong  The left longitude.
+     * @param bottomLat The bottom latitude.
+     * @param rightLong The right longitude.
+     * @return true if top > bottom and left < right, false otherwise.
+     */
+    private boolean areBoundsValid(long topLat, long leftLong, long bottomLat, long rightLong) {
+        return topLat > bottomLat && leftLong < rightLong;
+    }
+
+    /**
+     * Checks if a given coordinate is within the `currentArea` bounds.
+     * Assumes `currentArea` is not null.
+     *
+     * @param lat The latitude to check.
+     * @param lon The longitude to check.
+     * @return true if the location is valid, false otherwise.
+     */
+    private boolean validLocation(long lat, long lon) {
+        return currentArea.isWithinBounds(lat, lon);
+    }
+
+
+
+
+    /**
+     * Checks if the {@link StudentType} is valid.
+     *
+     * @param type The StudentType enum.
+     * @return true if the type is THRIFTY, OUTGOING, or BOOKISH.
+     */
+    private boolean isStudentTypeValid(StudentType type) {
+        return type == THRIFTY || type == StudentType.OUTGOING || type == StudentType.BOOKISH;
+    }
+}
