@@ -85,7 +85,8 @@ public class EvaluationImpl implements Evaluation, Serializable {
     private static boolean kmpSearchWord(char[] text, char[] pattern, int[] lps) {
         int n = text.length;
         int m = pattern.length;
-        int i = 0, j = 0;
+        int i = 0;
+        int j = 0;
 
         while (i < n) {
             if (pattern[j] == text[i]) {

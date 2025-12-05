@@ -33,12 +33,11 @@ public class BookishImpl extends StudentAbs implements Bookish {
      */
     @Override
     public void registerVisit(Service service) {
-        if (service instanceof Leisure) {
-            if (visitedServicesSet.get(service) == null) {
+        if (service instanceof Leisure && visitedServicesSet.get(service) == null) {
                 visitedServices.addLast(service);
                 visitedServicesSet. put(service, true);
             }
-        }
+
     }
 
 }

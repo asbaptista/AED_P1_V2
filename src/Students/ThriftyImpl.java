@@ -128,7 +128,8 @@ public class ThriftyImpl extends StudentAbs implements Thrifty {
             if (cheapestService == null) {
                 cheapestService = current;
             } else if (current.getPrice() < cheapestService.getPrice()) {
-                // Found a cheaper service
+                // Found a chea
+                // per service
                 cheapestService = current;
             }
         }

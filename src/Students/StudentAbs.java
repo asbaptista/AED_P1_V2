@@ -164,8 +164,8 @@ public abstract class StudentAbs implements Student, Serializable {
         current = service;
         updateOccupancy(service, true);
 
-        if (current instanceof Eating && this instanceof Thrifty) {
-            ((Thrifty) this).visitEating((Eating) current);
+        if (current instanceof Eating eating && this instanceof Thrifty thrifty) {
+            thrifty.visitEating(eating);
         }
 
         registerVisit(service);
@@ -191,26 +191,25 @@ public abstract class StudentAbs implements Student, Serializable {
             throw new LodgingIsFullException();
         }
 
-        if (this instanceof Thrifty) {
-            if (!((Thrifty) this).canMoveTo(newHome)) {
+        if (this instanceof Thrifty thrifty && !thrifty.canMoveTo(newHome)) {
                 throw new StudentIsThriftyException();
             }
-        }
+
 
         home.removeOccupant(this);
         home = newHome;
 
         if (current != home) {
-            if (current instanceof Eating) {
-                ((Eating) current).removeOccupant(this);
+            if (current instanceof Eating eating) {
+                eating.removeOccupant(this);
             }
             current = home;
         }
 
         newHome.addOccupant(this);
 
-        if (this instanceof Thrifty) {
-            ((Thrifty) this).updateCheapestLodging(newHome);
+        if (this instanceof Thrifty thrifty) {
+            thrifty.updateCheapestLodging(newHome);
         } else {
             registerVisit(newHome);
         }
@@ -255,11 +254,11 @@ public abstract class StudentAbs implements Student, Serializable {
      * @throws EatingIsFullException if adding to a full Eating service.
      */
     private void updateOccupancy(Service service, boolean add) throws EatingIsFullException {
-        if (service instanceof Eating) {
+        if (service instanceof Eating eating) {
             if (add) {
-                ((Eating) service).addOccupant(this);
+                eating.addOccupant(this);
             } else {
-                ((Eating) service).removeOccupant(this);
+                eating.removeOccupant(this);
             }
         }
     }
