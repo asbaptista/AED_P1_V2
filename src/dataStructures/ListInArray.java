@@ -13,15 +13,7 @@ import java.io.Serializable;
  * @version 1.0
  * @param <E> Generic Element
  */
-public class ListInArray<E> implements List<E>, Serializable {
-
-    // --- Fields ---
-
-    /**
-     * Standard serial version UID for serialization.
-     */
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class ListInArray<E> implements List<E> {
 
     /**
      * The growth factor for resizing the internal array.
