@@ -16,12 +16,12 @@ public class EatingImpl extends ServiceAbs implements Eating {
     /**
      * The total number of seats (capacity) in this eating service.
      */
-    int seats;
+    private final int seats;
 
     /**
      * A list of {@link Student}s currently present (occupying) this service.
      */
-    TwoWayList<Student> occupants;
+    private final TwoWayList<Student> occupants;
 
     /**
      * Constructs a new Eating service.
