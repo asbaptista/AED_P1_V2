@@ -1,0 +1,47 @@
+package dataStructures;
+/**
+ * Binary Tree
+ * @author AED  Team
+ * @version 1.0
+ * @param <E> Generic Element
+ */
+abstract class BTree<E> extends Tree<E> {
+
+    /**
+     * Returns the height of the tree.
+     * @apiNote Time Complexity: O(1) (height is cached in nodes)
+     * @return height of the tree
+     */
+    public int getHeight() {
+        if(isEmpty())
+            return 0;
+        return ((BTNode<E>)root).getHeight();
+    }
+
+    /**
+     * Return the further left node of the tree
+     * @apiNote Time Complexity: O(h) where h is the height
+     * @return the leftmost node
+     */
+    BTNode<E> furtherLeftElement() {
+        if (isEmpty()){
+            return null;
+        }
+        return ((BTNode<E>)root).furtherLeftElement();
+
+    }
+
+    /**
+     * Return the further right node of the tree
+     * @apiNote Time Complexity: O(h) where h is the height
+     * @return the rightmost node
+     */
+    BTNode<E> furtherRightElement() {
+        if (isEmpty()){
+            return null;
+        }
+        return ((BTNode<E>)root).furtherRightElement();
+
+    }
+
+}
